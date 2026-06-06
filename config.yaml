@@ -25,3 +25,65 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: MPPI
+      description: 请帮我查找基于采样的MPC（MPPI）的相关文章和约束的处理
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: sampling-based model predictive control
+          keyword_cn: 基于采样的模型预测控制
+          query: sampling-based techniques for model predictive control
+        - keyword: constraint handling
+          keyword_cn: 约束处理
+          query: handling constraints in model predictive control
+        - keyword: trajectory optimization
+          keyword_cn: 轨迹优化
+          query: scenario-based optimization for robust control
+        - keyword: MPPI algorithm
+          keyword_cn: MPPI算法
+          query: MPPI algorithm for real-time control
+        - keyword: robotic motion planning
+          keyword_cn: 机器人运动规划
+          query: motion planning with sampling-based MPC
+        - keyword: path integral control
+          keyword_cn: 路径积分控制
+          query: path integral control for stochastic systems
+      intent_queries:
+        - query: How to incorporate constraint handling in sampling based model predictive control?
+          query_cn: 如何在基于采样的模型预测控制中处理约束？
+          enabled: true
+          source: manual
+          note: ''
+        - query: Sampling based approaches for robust model predictive control with constraints
+          query_cn: 具有约束的鲁棒模型预测控制的基于采样的方法
+          enabled: true
+          source: manual
+          note: ''
+        - query: sampling based model predictive control with safety constraints
+          query_cn: 具有安全约束的基于采样的模型预测控制
+          enabled: true
+          source: manual
+          note: ''
+        - query: trajectory optimization under constraints using MPPI for robotic navigation
+          query_cn: 使用MPPI在机器人导航中以约束进行轨迹优化
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-06-06T02:39:43.593Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
