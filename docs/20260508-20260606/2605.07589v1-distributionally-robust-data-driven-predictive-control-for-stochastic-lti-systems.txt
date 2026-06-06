@@ -1,0 +1,1068 @@
+Title: Distributionally Robust Data-Driven Predictive Control for Stochastic LTI Systems
+
+URL Source: https://arxiv.org/pdf/2605.07589v1
+
+Published Time: Mon, 11 May 2026 01:04:09 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Distributionally Robust Data-Driven Predictive Control for Stochastic LTI Systems 
+
+# Mirhan Urkmez a, Shahab Heshmati-Alamdari a, 
+
+> a
+
+Section of Automation & Control, Department of Electronic Systems, Aalborg University 
+
+Abstract 
+
+We propose a distributionally robust data-driven predictive control framework for stochastic linear time-invariant systems with unknown dynamics and disturbance distributions. We use an offline trajectory to fit the subspace predictive control (SPC) predictor via least squares and construct an empirical distribution of the prediction residuals as a proxy for the unknown disturbance distribution. We then center a Wasserstein ambiguity set around this estimate and minimize the worst-case expected cost while enforcing probabilistic output constraint satisfaction over all distributions in the set. The resulting problem admits a tractable reformulation with an equivalent direct data-driven form, eliminating the need for explicit predictor identification. Using finite-sample concentration results, we provide a data-driven Wasserstein radius such that, with high probability, the true expected cost is bounded above by the tractable objective and output constraints are satisfied with respect to the true disturbance distribution. Numerical simulations validate the framework against existing methods under various disturbance conditions and cost functions. 
+
+Key words: Data-driven control, distributionally robust optimization, predictive control. 
+
+1 Introduction 
+
+The increasing availability of data from dynamical sys-tems has driven growing interest in Data-Driven Pre-dictive Control (DDPC) methods. Historically, data has been used to identify a system model, which is then used to design a predictive control law. These approaches are called indirect DDPC methods [5], and despite their suc-cess across a wide range of industrial applications, they require an accurate mathematical model of the system, which can be difficult and costly to obtain in practice. Recently, direct DDPC methods have attracted signifi-cant interest [5], where model identification is bypassed entirely and data is used directly to predict future tra-jectories and compute control actions. A large body of direct DDPC methods has been de-veloped building on Willems’ fundamental lemma [17], which establishes that under a persistence of excitation condition, the entire behavior of a deterministic LTI sys-tem can be parametrized via a Hankel matrix of offline data through a coefficient vector. Following this,a direct DDPC framework known as Data-Enabled Predictive 
+
+⋆ Corresponding author: Mirhan Urkmez. 
+
+Email addresses: mu@es.aau.dk (Mirhan Urkmez), 
+
+shhe@es.aau.dk (Shahab Heshmati-Alamdari). 
+
+Control (DeePC) was proposed in [4] with an equiva-lence to Model Predictive Control (MPC) for determinis-tic LTI systems. However, when the system is subject to stochastic disturbances, the Hankel-based parametriza-tion is no longer exact and predictions can deviate sig-nificantly from the true system behavior. To address this, regularization techniques have been pro-posed. In [4], ℓ1 regularization is proposed to enforce consistency with the underlying system. Several equiv-alence results between direct DDPC and Subspace Pre-dictive Control (SPC) [7] have guided the design of regu-larization terms. SPC constructs a multi-step predictor by fitting a parametric model to offline trajectory data via least squares. Since the identification process reduces the effect of noise compared to using raw data , direct DDPC methods that establish an equivalence with SPC become less sensitive to noise. In [5], a connection with the SPC predictor is established and a corresponding regularization is introduced, and [15] derives an analo-gous equivalence with the causal SPC predictor. Another line of work provides formal guarantees for di-rect DDPC under explicit disturbance assumptions, in-cluding bounded noise [1,11] and stochastic formulations [14,16], the latter requiring exact knowledge of the dis-turbance distribution. A distributionally robust formu-lation for nonlinear systems is proposed in [3], which 
+
+Preprint submitted to Automatica 11 May 2026 
+
+> arXiv:2605.07589v1 [eess.SY] 8 May 2026
+
+does not require this knowledge though it requires mul-tiple offline trajectories with identical initial conditions and inputs. In this work, we propose a distributionally robust direct DDPC formulation for LTI systems subject to stochas-tic disturbances with unknown probability distributions, obtained via an equivalent SPC formulation. The main contributions are as follows. (i) We propose a distribu-tionally robust SPC formulation with a Wasserstein am-biguity set over future disturbance distributions, con-structed around an empirical distribution derived from the prediction residuals of an SPC predictor estimated via least squares from an offline trajectory. The formula-tion minimizes the worst-case expected value of a func-tion of the actual system output while enforcing proba-bilistic output constraint satisfaction for all distributions in the ambiguity set. (ii) We derive a tractable reformula-tion and show that it admits an equivalent direct DDPC form. (iii) Using finite-sample concentration results, we provide a data-driven choice of the ambiguity set radius that guarantees the true disturbance distribution is con-tained within the ambiguity set with high probability. This in turn yields a probabilistic upper bound on the expected cost and a constraint satisfaction guarantee, both holding with high probability. 
+
+1.1 Notation 
+
+For a sequence {zk}Tk=1 with zk ∈ Rη , we write 
+
+z[k,j ] =
+
+h
+
+z⊤ 
+
+> k
+
+· · · z⊤
+
+> j
+
+i⊤
+
+and z := z[1 ,T ]. The Hankel ma-trix of depth L is HL(z) = 
+
+h
+
+z[1 ,L ] · · · z[T −L+1 ,T ]
+
+i
+
+∈
+
+RηL ×(T −L+1) . We write ( ·)+ := max {· , 0} and ∥ · ∥ r for the ℓr -norm. 
+
+2 Problem Formulation 
+
+We consider the stochastic discrete-time LTI system 
+
+xk+1 = Ax k + Bu k + wk,yk = Cx k + Du k + vk, (1) where xk ∈ Rn, uk ∈ Rm, yk ∈ Rp are states, inputs, and outputs of the system, respectively. The terms wk ∈ Rn
+
+and vk ∈ Rp represent process and measurement noise, drawn from unknown probability distributions Pw and 
+
+Pv over support sets W ⊆ Rn and V ⊆ Rp. We assume that {wk} and {vk} are i.i.d. sequences over time. The system matrices A ∈ Rn×n, B ∈ Rn×m, C ∈ Rp×n,
+
+D ∈ Rp×m are unknown. We aim to develop a receding horizon predictive con-troller for (1), where at each time step k, given the most recent input-output measurements 
+
+up := u[k−Tp, k −1] , yp := y[k−Tp, k −1] , (2) of length Tp, an optimization problem is solved over the future input sequence uf := u[k, k +Tf −1] with prediction horizon Tf minimizing a cost function in terms of the inputs uf and future outputs yf := y[k, k +Tf −1] . The first element of the optimal input sequence is applied to the system, and the past window is updated at the next step. To express yf in terms of up, yp, uf , and the disturbances, we make the following assumption. 
+
+Assumption 1 The pair (A, C ) is observable and Tp ≥ n.
+
+Under Assumption 1, the future output yf admits the multi-step predictor representation 
+
+yf = Km f + ξf , (3) where mf =
+
+h
+
+u⊤ 
+
+> p
+
+y⊤ 
+
+> p
+
+u⊤
+
+> f
+
+i⊤
+
+. The exact expressions for K
+
+and ξf are obtained by eliminating the initial state via the observability of ( A, C ) and are omitted for brevity. The matrix K is the unknown multi-step predictor, which is a function of the system matrices ( A, B, C, D ). The term ξf ∈ RpT f is the multi-step disturbance, which is a function of the past disturbances ( wp, v p) and future disturbances ( wf , v f ), where these vectors are defined analogously to (2). The distribution of ξf is denoted by 
+
+Pξf and supported on Ξ ⊆ RpT f . We also define Pyf |mf
+
+as the probability distribution of yf given a fixed mf ,supported on Y ⊆ RpT f .Since the system matrices are unknown, we assume the availability of an offline input-output trajectory 
+
+{udk, y dk }Tk=1 of length T , collected prior to the operation of the controller. Setting L := Tp + Tf , the Hankel ma-trices HL(ud) and HL(yd) are partitioned into past and future blocks as 
+
+HL(ud) = 
+
+"Up
+
+Uf
+
+#
+
+, HL(yd) = 
+
+"Yp
+
+Yf
+
+#
+
+, (4) where Up ∈ RmT p×N , Uf ∈ RmT f ×N correspond to the first and last Tp, Tf block rows of HL(ud), Yp, Yf are defined analogously, and N = T − L + 1. 
+
+2.1 Distributionally Robust Formulation 
+
+Since yf is uncertain under stochastic disturbances, we consider the expected cost EPyf |mf [f1(uf ) + f2(yf )] as our objective where f1 and f2 are the input and out-put cost functions, respectively. However, since both K
+
+and Pyf |mf are unknown, Pyf |mf is inaccessible and this objective cannot be minimized directly. Moreover, any finite-sample estimate of Pyf |mf constructed from offline data will inevitably carry estimation error. To robustify against this uncertainty, we adopt a distributionally ro-bust formulation in which we construct an ambiguity 2set P of candidate distributions centered around a data-driven empirical estimate of Pyf |mf , and minimize the worst-case expected cost over P.We consider output constraints of the form h(yf ) ≤ 0. Since yf is stochastic, this constraint cannot be en-forced deterministically. Instead, we require it to hold in a probabilistic sense via the Conditional Value-at-Risk (CVaR), defined below, which serves as an upper bound on the Value-at-Risk and therefore guarantees satisfac-tion of the corresponding chance constraint [13]. We re-quire CVaR Q 
+
+> 1−β
+
+(h(yf )) ≤ 0 to hold for all Q ∈ P .
+
+Definition 1 (Conditional Value-at-Risk) Let ω ∈
+
+Ω ⊆ Rr be a random variable with distribution Pω . For a function ϕ : Rr → R, the Conditional Value-at-Risk (CVaR) at confidence level 1 − β ∈ (0 , 1) is defined as 
+
+CVaR 1−β
+
+> Pω
+
+ ϕ(ω) := inf 
+
+> t∈R
+
+ 1
+
+β EPω
+
+(ϕ(ω)− t)+
+
++t
+
+
+
+, (5) 
+
+where (·)+ := max {· , 0}.
+
+The resulting distributionally robust optimization prob-lem is formulated as min 
+
+> uf
+
+f1(uf ) + sup 
+
+> Q∈P
+
+EQ[f2(yf )] (6a) s.t. uf ∈ U , (6b) sup 
+
+> Q∈P
+
+CVaR 1−βQ (h(yf )) ≤ 0, (6c) where U ⊆ RmT f is the input constraint set. 
+
+2.2 Ambiguity Set Construction 
+
+The construction of P proceeds in two stages. First, we use offline data to compute an empirical estimate of the distribution Pyf |mf . Second, we define a neighborhood of distributions around this estimate to account for es-timation errors. Define the offline regressor matrix 
+
+M := 
+
+
+
+Up
+
+Yp
+
+Uf
+
+ ∈ R(m(Tp+Tf )+ pT p)×N , (7) where N = T −L+1 and L = Tp+Tf . The SPC predictor is estimated by least squares: ˆK := arg min 
+
+> ˜K
+
+Yf − ˜KM 2
+
+> F
+
+= Yf M †, (8) where M † is the Moore-Penrose pseudoinverse of M .Using this estimate, we generate a set of approximate residuals ˆξ(i) 
+
+> f
+
+using offline data as ˆξ(i) 
+
+> f
+
+:= 
+
+
+
+Yf − ˆKM 
+
+
+
+ei, i = 1 , . . . , N, (9) where ei ∈ RN is the i-th standard basis vector. For a given mf , we form predictions of yf by shifting the SPC prediction ˆKm f with the approximate residual samples ˆy(i) 
+
+> f
+
+(mf ) := ˆKm f + ˆξ(i) 
+
+> f
+
+, i = 1 , . . . , N. (10) The resulting empirical distribution ˆPyf |mf := 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+δˆy(i)   
+
+> f(mf)
+
+(11) serves as our prediction distribution for yf given mf ,around which we construct the ambiguity set P. For the finite-sample analysis in Section 3.2, we define ¯Pyf |mf := 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+δ¯y(i)  
+
+> f(mf)
+
+, ¯y(i) 
+
+> f
+
+(mf ) := Km f + ¯ξ(i) 
+
+> f
+
+,
+
+(12) where ¯ξ(i) 
+
+> f
+
+= ( Yf − KM ) ei. This is unknown since K
+
+is unknown, but serves as an intermediate reference in the finite-sample analysis. We construct P as a Wasser-stein ball centered at ˆPyf | mf , as the Wasserstein met-ric enables a tractable reformulation of the optimization problem (6). 
+
+Definition 2 Let r ∈ [1 , ∞] and M(Y) be the set of all probability measures Q supported on Y ⊆ RpT f with 
+
+EQ[∥y∥r ] < ∞. The r-Wasserstein metric dWr : M(Y)×M(Y) → R≥0 is defined as 
+
+dWr (Q1, Q 2) := 
+
+
+
+inf 
+
+> Π
+
+Z 
+
+> Y2
+
+∥y1 − y2∥rr Π(d y1, dy2)
+
+  1/r 
+
+,
+
+(13) 
+
+where Π ranges over all joint measures on Y × Y with marginals Q1 and Q2.
+
+The ambiguity set is defined as the Wasserstein ball of radius ε > 0 centered at ˆPyf |mf for some r ∈ [1 , ∞]
+
+P := Bε
+
+ˆPyf |mf
+
+
+
+:= 
+
+n
+
+Q ∈ M (Y) dWr
+
+
+
+Q, ˆPyf |mf
+
+
+
+≤ ε
+
+o
+
+.
+
+(14) Substituting into (6) gives the distributionally robust SPC problem min 
+
+> uf
+
+f1(uf ) + sup   
+
+> Q∈B ε(ˆPyf|mf)
+
+EQ[f2(yf )] (15a) s.t. uf ∈ U , (15b) sup   
+
+> Q∈B ε(ˆPyf|mf)
+
+CVaR 1−βQ (h(yf )) ≤ 0. (15c) 33 Main Results 
+
+3.1 Tractable Reformulation 
+
+We now provide a tractable reformulation of (15). 
+
+Theorem 1 Assume that f2 and h are convex and Lip-schitz continuous with constants Lobj > 0 and Lcon > 0
+
+with respect to the r-norm, respectively. Then, the opti-mal value of the distributionally robust SPC problem (15) 
+
+is upper bounded by the optimal value of 
+
+min  
+
+> uf, τ, s i
+
+f1(uf ) + 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+f2
+
+ ˆKm f + ˆξ(i)
+
+> f
+
+
+
++ Lobj ε
+
+(16a) 
+
+s.t. uf ∈ U , (16b) 
+
+− τ β + Lcon ε + 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+si ≤ 0, (16c) 
+
+τ + h
+
+ ˆKm f + ˆξ(i)
+
+> f
+
+
+
+≤ si, ∀i = 1 , . . . , N, (16d) 
+
+si ≥ 0, ∀i = 1 , . . . , N. (16e) 
+
+where ˆK is given by (8) . Furthermore, any feasible solu-tion uf to (16) satisfies 
+
+CVaR 1−βQ (h(yf )) ≤ 0, ∀Q ∈ B ε
+
+ˆPyf |mf
+
+
+
+. (17) 
+
+Proof. Proof is given in the Appendix A. □
+
+We now show that the tractable SPC problem (16), which requires knowledge of ˆK, admits an equivalent re-formulation solely in terms of the offline Hankel matri-ces, without explicit identification of ˆK.
+
+Theorem 2 Problem (16) is equivalent to 
+
+min 
+
+> g, τ, s i
+
+f1(Uf g)+ 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+f2(Yf g + Yf (I − P )ei) + Lobj ε
+
+(18a) 
+
+s.t. Upg = up, (18b) 
+
+Ypg = yp, (18c) (I − P )g = 0 , (18d) 
+
+Uf g ∈ U , (18e) 
+
+− τ β + Lcon ε + 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+si ≤ 0, (18f) 
+
+τ + h(Yf g + Yf (I − P )ei) ≤ si, ∀i = 1 , . . . , N, 
+
+(18g) 
+
+si ≥ 0, ∀i = 1 , . . . , N, (18h) 
+
+where P := M †M is the orthogonal projector onto the row space of M .Proof. It was shown in [5] that ˆKm f can equivalently be written as Yf g if and only if g satisfies 
+
+Upg = up, Ypg = yp, Uf g = uf , (I − P )g = 0 .
+
+Furthermore, using ˆK = Yf M † and P = M †M , the empirical residuals (9) satisfy ˆξ(i) 
+
+> f
+
+=
+
+
+
+Yf − ˆKM 
+
+
+
+ei = Yf
+
+ I − M †M  ei = Yf (I−P )ei.
+
+Consequently, the empirical output samples (10) become ˆy(i) 
+
+> f
+
+= ˆKm f + ˆξ(i) 
+
+> f
+
+= Yf g + Yf (I − P )ei, i = 1 , . . . , N, 
+
+where the second equality holds whenever g satisfies the above constraints. Substituting these into (16) and set-ting uf = Uf g yields (18). □
+
+Remark 1 The equivalence in Theorem 2 relies on [5]. The causal SPC predictor equivalence of [15] can also be used, where the empirical distribution is constructed from the causal predictor residuals and an equivalent direct DDPC form is obtained through that equivalence result. 3.2 Finite-Sample Guarantee 
+
+We now establish finite-sample probabilistic guarantees for the proposed formulation by characterizing a ra-dius ε(α, m f ) such that Pyf |mf ∈ B ε(α,m f )(ˆPyf |mf ) with probability at least 1 − α, which guarantees the cost bound and CVaR constraint satisfaction of Theorem 1 with the same probability. To this end, Let P denote the joint measure of the initial state and noise sequences governing the offline data-generating process. We rely on the following assumption bounding the mismatch be-tween estimated predictor ˆK and the true predictor K.
+
+Assumption 2 For a given confidence level α ∈ (0 , 1) ,let γ(α) > 0 be such that 
+
+P
+
+
+
+∥K − ˆK∥r ≤ γ(α)
+
+
+
+≥ 1 − α, (19) We refer to [12] and references therein for conditions under which this holds. We will use the triangular inequality to find a bound on the Wasserstein distance between the true probabil-ity distribution Pyf |mf and our empirical distribution ˆPyf |mf as 
+
+dWr
+
+ ˆPyf |mf , Pyf |mf
+
+ ≤ dWr
+
+ ˆPyf |mf , ¯Pyf |mf
+
+
+
++ dWr
+
+ ¯Pyf |mf , Pyf |mf
+
+.
+
+The following two lemmas bound each term respectively. 4Lemma 1 Under Assumptions 1 and 2, let α ∈ (0 , 1) 
+
+specify a risk level. Then, 
+
+P
+
+n
+
+dWr
+
+ ˆPyf |mf , ¯Pyf |mf
+
+ ≥ γ   α
+
+> 2
+
+ Ψ1/r N
+
+o
+
+≤ α
+
+2 (20) 
+
+where ΨN = 1
+
+> N
+
+PNi=1 ∥M e i − mf ∥rr .Proof. The proof follows from Lemma 5 in [12], adapted to the r-Wasserstein distance instead of the 1-Wasserstein. □
+
+We rely on the following result to bound 
+
+dWr
+
+ ¯Pyf |mf , Pyf |mf
+
+.
+
+Lemma 2 Assume that EPyf |mf [∥yf ∥qr ] < ∞ for some 
+
+q > r . Then, under Assumption 1, there exists a constant 
+
+C > 0 such that 
+
+EP
+
+drWr
+
+ ¯Pyf |mf , Pyf |mf
+
+ ≤ γ(N ), (21) 
+
+where 
+
+γ(N ) = C
+
+
+
+N −1/2 + N −(q−r)/q , r > d/ 2,N −1/2 log(1 + N ) + N −(q−r)/q , r = d/ 2,N −r/d + N −(q−r)/q , r ∈ (0 , d/ 2) ,
+
+(22) 
+
+with d = pT f . Consequently, for all κ > 0,
+
+P
+
+
+
+dWr
+
+ ¯Pyf |mf , Pyf |mf
+
+ ≥ κ
+
+
+
+≤ γ(N )
+
+κr . (23) 
+
+Proof. Proof is given in the Appendix B. □
+
+Theorem 3 Under Assumptions 1 and 2, and the mo-ment condition of Lemma 2, let α ∈ (0 , 1) be a risk level and define the ambiguity set radius 
+
+ε(α, m f ) := ε1(α)
+
+ 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+∥M e i − mf ∥rr
+
+1/r 
+
++ ε2(α),
+
+(24) 
+
+where ε1(α) := γ  α
+
+> 2
+
+ and ε2(α) := 
+
+ 2 γ(N )
+
+> α
+
+1/r 
+
+where 
+
+γ(N ) is defined in Lemma 2. Let g⋆ be a feasible solution of problem (18) with radius ε = ε(α, m f ), and let ˆJ(g⋆)
+
+denote the objective value of (18) at g⋆, and define the true expected cost 
+
+J(g) := EPyf |mf [f1(Uf g) + f2(yf )] . (25) 
+
+Then the following probabilistic guarantees hold with re-spect to P:
+
+P
+
+n
+
+J(g⋆) ≤ ˆJ(g⋆)
+
+o
+
+≥ 1 − α, 
+
+P
+
+n
+
+CVaR 1−β 
+
+> Pyf|mf
+
+(h(yf )) ≤ 0
+
+o
+
+≥ 1 − α. 
+
+(26) 
+
+Proof. From Lemmas 1 and 2 and the union bound, it follows that 
+
+PdWr (ˆPyf |mf , Pyf |mf ) ≥ ε(α)
+
+≤ PdWr (ˆPyf |mf , ¯Pyf |mf ) ≥ ε1(α)Ψ 1/r N
+
++ PdWr (¯Pyf |mf , Pyf |mf ) ≥ ε2(α) ≤ α 
+
+> 2
+
++ α 
+
+> 2
+
+= α, 
+
+where Ψ N = 1
+
+> N
+
+PNi=1 ∥M e i − mf ∥rr . This means that with probability at least 1 − α, the true distribution 
+
+Pyf |mf lies inside the Wasserstein ball Bε(α)
+
+ ˆPyf |mf
+
+.The result then follows from Theorem 1. □
+
+Remark 2 The radius ε(α, m f ) in (24) may be overly conservative in practice [6]. We therefore assign separate tuning parameters εobj = ε1Ψ1/r N + ε2 and a fixed scalar 
+
+εcon to the cost and constraint terms, respectively, and treat both as offline tuning parameters in Section 4. 
+
+4 Numerical Example 
+
+We illustrate the proposed method through simulation on an example system taken from [2], which takes the form x(t + 1) = Ax (t) + Bu (t) + Ke (t),y(t) = Cx (t) + e(t), (27) with matrices 
+
+A =
+
+"0.7326 −0.0861 0.1722 0.9909 
+
+#
+
+, B =
+
+"0.0609 0.0064 
+
+#
+
+,K =
+
+"−0.50.5
+
+#
+
+, C =
+
+h
+
+0 1 .4142 
+
+i
+
+.
+
+The distribution of the innovation term e(t) varies across experiments and is specified for each simulation scenario. The system is subject to box constraints on both inputs and outputs y(t) ∈ [−2, 2], u(t) ∈ [−2, 2]. We compare the proposed formulation against two ex-isting methods implemented in a receding horizon fash-ion. The first is SPC, in which the output is predicted using ˆKm f with ˆK estimated as in (8). The second is Reg-DeePC (Eq. 23 in [5]), which augments DeePC with an ℓ1 regularization term λg ∥g∥1, with weight selected via grid search and fixed across all experiments. We im-plement the proposed method in its direct DDPC form 5(18), referred to as DR-DDPC 1 . For all methods, output constraints, including the CVaR constraints in (18), are enforced softly by augmenting the cost with a weighted sum of squared violations. The offline data {udk, y dk }Tk=1 is generated from a single trajectory of length T = 200, where the system is excited by a random control law u(t) ∼ N (0 , I m). The Hankel matrices are constructed with a past horizon Tp = 5 and a prediction horizon Tf = 10, yielding N = T − Tp −
+
+Tf + 1 = 186 residual samples. Results are reported over 50 Monte Carlo simulations, regenerating offline data, disturbance realizations, and initial conditions in each iteration, with the same 50 realizations shared across all methods. For the distributionally robust formulations, we use Wasserstein ambiguity sets with an ℓ2-norm ( r =2) and, following Remark 2, set ε1 = ε2 = 10 −3 for the objective term. For computational efficiency, the full set of N residuals is used in the cost term, while only 20 residuals are used in the constraint term. Both εcon 
+
+and β are swept in the first experiment and fixed to 
+
+εcon = 10 −4 and β = 0 .2 in the remaining experiments. The control objective is to track a reference output over the prediction horizon Tf . We initially consider a stan-dard quadratic cost 
+
+f1(uf ) = ∥uf ∥2
+
+> R
+
+, (28) 
+
+f2(yf ) = ∥yf − yr ∥2
+
+> Q
+
+, (29) where yr is the stacked reference output over the pre-diction horizon, and R = ITf ⊗ R, Q = ITf ⊗ Q, with 
+
+R = 0 .05 Im and Q = Ip.To evaluate closed-loop performance, we use the cumu-lative average cost over the total simulation duration 
+
+Trun = 50 
+
+Jtest = 1
+
+Trun 
+
+> Trun −1
+
+X
+
+> k=0
+
+ ∥uk∥2 
+
+> R
+
++ ∥yk − yr,k ∥2
+
+> Q
+
+ . (30) We first test the constraint satisfaction performance with respect to changing εcon and β values. To obtain an informative evaluation of constraint handling, we set 
+
+yr,k = 0 and impose the output constraint yk ∈ [0 , 2], while keeping the input constraint uk ∈ [−2, 2]. The in-novation terms e(t) are sampled from a zero-mean Gaus-sian distribution with covariance Σ e = 0 .012 Ip which corresponds to offline output data {ydk }Tk=1 with Signal to Noise Ratio (SNR) of around 10dB. We consider εcon val-ues in {10 −5, 10 −4, 10 −3, 10 −2, 10 −1, 1} and β values in 
+
+{0.1, 0.2, 0.5, 0.7, 0.9}. The corresponding average con-straint violations and the cost performances (30) of the DR-DDPC method over 50 Monte Carlo simulations are  
+
+> 1
+
+Code available at https://github.com/mirhanu/DR-DDPC 
+
+given in Figure 1. The results show that the empirical vi-olation rate remains within the prescribed risk level β for all scenarios. A clear trade-off is observed regarding the ambiguity radius εcon , where larger values yield stricter constraint satisfaction but result in higher performance costs. Conversely, increasing β allows for lower costs at the expense of more frequent violations. For comparison, the average violation rates for SPC and Reg-DeePC are 20 .96% and 17 .80% with average performance costs of 0.2615 and 0 .3276, respectively. 0.1 0.2 0.5 0.7 0.9                          
+
+> 1e-05 0.0001 0.001 0.01 0.1 1.0
+> con
+> 4.16 5.84 11.44 15.48 19.28
+> 4.08 5.84 11.40 15.44 19.24
+> 3.80 5.56 11.08 15.40 19.16
+> 0.80 3.16 9.20 13.84 18.56
+> 0.04 0.00 0.32 3.36 8.16
+> 0.04 0.04 0.04 0.00 0.00 0
+> 5
+> 10
+> 15
+
+(a) Mean Violation Rate (%) 0.1 0.2 0.5 0.7 0.9                         
+
+> 1e-05 0.0001 0.001 0.01 0.1 1.0
+> con
+> 0.33 0.31 0.28 0.27 0.26
+> 0.33 0.31 0.28 0.27 0.26
+> 0.33 0.31 0.28 0.27 0.26
+> 0.41 0.34 0.29 0.27 0.26
+> 1.18 1.09 0.43 0.34 0.30
+> 1.18 1.22 1.26 1.27 1.27
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+
+(b) Mean Performance Cost Fig. 1. Parameter sweep results for εcon vs β using the DR-D-DPC controller (18). 
+
+Next, we compare tracking performance across varying noise levels using a sinusoidal reference yr,k = sin 
+
+ 2πk Trun 
+
+
+
+.Under zero-mean Gaussian innovations (Table 1), Reg-DeePC is outperformed by the others, while SPC and DR-DDPC perform nearly identically. This is expected as, for quadratic costs, the DR-DDPC objective reduces to the cost of the mean scenario, which coincides with the nominal SPC prediction in expectation when residuals have zero mean. When the innovation mean is shifted to 0.05 (Table 1), a performance gap emerges between SPC and DR-DDPC, with DR-DDPC outperforming SPC, as it can account for the bias in the predictor residuals. Finally, we repeat the zero-mean Gaussian experiments while varying the tracking cost function f2(yf ) to eval-uate performance in cases where the scenario spread, 6Table 1 Mean ± Std of Jtest for three covariance levels of Gaussian innovation terms: zero-mean (top) and mean μ = 0 .05 (bot-tom). Σe                                                             
+
+> Method 0.012 0.0012 1.2×10 −5
+> (a) Zero mean
+> Cost  SPC 0.3062 ±0.2382 0.2674 ±0.2287 0.2613 ±0.2270 DR-DDPC 0.3065 ±0.2381 0.2674 ±0.2287 0.2612 ±0.2270 Reg-DeePC 0.4740 ±0.3026 0.3093 ±0.2287 0.2877 ±0.2250
+> (b) Mean μ= 0 .05 Cost  SPC 0.2627 ±0.1901 0.2246 ±0.1799 0.2124 ±0.1772 DR-DDPC 0.2558 ±0.1889 0.2196 ±0.1795 0.2119 ±0.1771 Reg-DeePC 0.5141 ±0.2378 0.3211 ±0.1811 0.2530 ±0.1771
+
+rather than just the mean, influences the cost in (18). We test an ℓ1 cost f2(yf ) = ∥yf − yr ∥1, and an asymmetric linear cost f2(yf ) = 2 ∥(yf −yr )+∥1+∥(yf −yr )−∥1 where (·)+ and ( ·)− denote the positive and negative parts to penalize overshooting more heavily. In each case Jtest is modified by replacing the quadratic output term in (30) with the respective cost. As shown in Figure 2, a per-formance gap between DR-DDPC and SPC emerges in both cases, confirming that the advantage of DR-DDPC grows when the cost is sensitive to the full scenario dis-tribution rather than just its mean. 10 20 40 
+
+> SNR (dB)
+> 0.25
+> 0.50
+> 0.75
+> Jtest
+
+(a) ℓ1 cost 10 20 40  
+
+> SNR (dB)
+> 0.5
+> 1.0
+> Jtest
+
+(b) Asymmetric cost SPC DR-DDPC Reg-DeePC 
+
+Fig. 2. Cost performance Jtest across covariance levels for different cost functions under zero-mean Gaussian innova-tion terms. 
+
+5 Conclusion 
+
+In this work, we proposed a distributionally robust data-driven predictive control framework for stochastic LTI systems with unknown dynamics and disturbance dis-tributions. We presented two equivalent formulations, one based on the SPC predictor and one in direct data-driven form, and established finite-sample guarantees on the expected cost and output constraint satisfaction un-der the true disturbance distribution. Numerical simula-tions validated the framework against existing methods, showing that DR-DDPC and SPC perform similarly un-der zero-mean Gaussian innovation terms with quadratic cost, while DR-DDPC outperforms SPC under nonzero-mean innovations and non-quadratic cost functions. Fu-ture work includes establishing stability and recursive feasibility guarantees for the closed-loop system. 
+
+A Proof of Theorem 1 
+
+Proof. Applying Th. 1 of [9] and Lemma A.2 of [3] to the convex Lipschitz function f2 with constant Lobj directly gives 
+
+f1(uf ) + sup   
+
+> Q∈B ε(ˆPyf|mf)
+
+EQ[f2(yf )] 
+
+≤ f1(uf ) + Lobj ε + 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+f2( ˆKm f + ˆξ(i) 
+
+> f
+
+), (A.1) with equality when Y = RpT f . For the CVaR constraint, expanding the definition of CVaR and applying the max-min inequality gives sup   
+
+> Q∈B ε(ˆPyf|mf)
+
+CVaR 1−βQ (h(yf )) 
+
+≤ inf  
+
+> τ∈R
+
+τ + sup   
+
+> Q∈B ε(ˆPyf|mf)
+
+1
+
+β EQ [( h(yf ) − τ )+]
+
+ .
+
+(A.2) Since ( h(yf ) − τ )+ is convex and Lipschitz continuous in yf with constant Lcon , applying Th. 1 of [9] and Lemma A.2 of [3] to the inner supremum yields sup   
+
+> Q∈B ε(ˆPyf|mf)
+
+CVaR 1−βQ (h(yf )) 
+
+≤ inf  
+
+> τ∈R
+
+(
+
+τ + Lcon εβ + 1
+
+βN 
+
+> N
+
+X
+
+> i=1
+
+
+
+h( ˆKm f + ˆξ(i) 
+
+> f
+
+) − τ
+
+
+
+> +
+
+)
+
+.
+
+(A.3) Introducing slack variables si ≥ (h( ˆKm f + ˆξ(i) 
+
+> f
+
+) − τ )+ ≥
+
+0, the infimum is at most zero whenever (16c)–(16e) are satisfied, completing the proof. □
+
+B Proof of Lemma 2 
+
+We first introduce the dependence concepts used in the proof. 
+
+Definition 3 ( m-dependence [10]) A sequence 
+
+{Zi}i≥1 is m-dependent if for every n and j ≥ m + 1 ,the block (Zn+m+1 , . . . , Z n+j ) is independent of 
+
+(Z1, . . . , Z n).
+
+Definition 4 ( ρ-mixing [8]) A stationary sequence 
+
+(Xn)n≥1 with distribution μ is ρ-mixing if there ex-ists ρ : N → R+ with ρn → 0 such that for all 
+
+7f, g ∈ L2(μ) and i, j ≥ 1, Cov( f (Xi), g (Xj )) ≤
+
+ρ|i−j|
+
+pVar( f (Xi)) Var( g(Xj )) .
+
+Proof. [Proof of Lemma 2] We verify the conditions of Theorem 14 in [8], namely stationarity and ρ-mixing with P 
+
+> n≥0
+
+ρn < ∞, for the sequence {¯y(i) 
+
+> f
+
+(mf )}i≥1 ob-tained by hypothetically extending the offline trajectory. 
+
+Stationarity. Since ¯ y(i) 
+
+> f
+
+(mf ) = Km f + ¯ξ(i) 
+
+> f
+
+and Km f is constant, stationarity of {¯y(i) 
+
+> f
+
+(mf )}i≥1 is equivalent to stationarity of { ¯ξ(i) 
+
+> f
+
+}i≥1. Each ¯ξ(i) 
+
+> f
+
+is a measurable func-tion of the noise window {wk, v k}i+L−1 
+
+> k=i
+
+with L = Tp+Tf .Since {wk} and {vk} are i.i.d., shifted windows have identical joint distributions, hence { ¯ξ(i) 
+
+> f
+
+}i≥1 is station-ary. 
+
+L-dependence and ρ-mixing. For |i − j| ≥ L, the noise windows of ¯ξ(i) 
+
+> f
+
+and ¯ξ(j) 
+
+> f
+
+do not overlap and are therefore independent by the i.i.d. assumption. Hence 
+
+{¯y(i) 
+
+> f
+
+(mf )}i≥1 is L-dependent, which implies ρ-mixing with ρn = 0 for all n ≥ L, so P 
+
+> n≥0
+
+ρn < ∞.All conditions of Theorem 14 in [8] are now satisfied, and together with the moment condition EPyf |mf [∥yf ∥qr ] <
+
+∞ for some q > r , applying that theorem gives 
+
+EP
+
+drWr
+
+ ¯Pyf |mf , Pyf |mf
+
+ ≤ γ(N ).
+
+Applying Markov’s inequality then yields 
+
+P dWr
+
+ ¯Pyf |mf , Pyf |mf
+
+ ≥ κ ≤ γ(N )
+
+κr . 2
+
+□
+
+References 
+
+[1] Julian Berberich, Johannes K¨ ohler, Matthias A. M¨ uller, and Frank Allg¨ ower. Data-driven model predictive control with stability and robustness guarantees. IEEE Transactions on Automatic Control , 66(4):1702–1717, 2021. [2] Valentina Breschi, Alessandro Chiuso, and Simone Formentin. Data-driven predictive control in a stochastic setting: a unified framework. Automatica , 152:110961, 2023. [3] Jeremy Coulson, John Lygeros, and Florian D¨ orfler. Distributionally robust chance constrained data-enabled predictive control. IEEE Transactions on Automatic Control ,67(7):3289–3304, 2022. [4] Jeremy Coulson, John Lygeros, and Florian D¨ orfler. Data-enabled predictive control: In the shallows of the deepc. In 
+
+2019 18th European Control Conference (ECC) , pages 307– 312, 2019. [5] Florian D¨ orfler, Jeremy Coulson, and Ivan Markovsky. Bridging direct and indirect data-driven control formulations via regularizations and relaxations. IEEE Transactions on Automatic Control , 68(2):883–897, 2023. [6] Peyman Mohajerin Esfahani and Daniel Kuhn. Data-driven distributionally robust optimization using the wasserstein metric: performance guarantees and tractable reformulations. 
+
+Mathematical Programming , 171:115 – 166, 2015. [7] Wouter Favoreel, Bart De Moor, and Michel Gevers. Spc: Subspace predictive control. IFAC Proceedings Volumes ,32(2):4004–4009, 1999. 14th IFAC World Congress 1999, Beijing, Chia, 5-9 July. [8] Nicolas Fournier and Arnaud Guillin. On the rate of convergence in wasserstein distance of the empirical measure. 
+
+Probability Theory and Related Fields , 162:707 – 738, 2013. [9] Rui Gao and Anton J. Kleywegt. Distributionally robust stochastic optimization with wasserstein distance. Math. Oper. Res. , 48:603–655, 2016. [10] Wangyun Gu and Lixu Zhang. Central limit theorem for m-dependent random variables under sub-linear expectations. 2023. [11] Christian Kl¨ oppelt, Julian Berberich, Frank Allg¨ ower, and Matthias A. M¨ uller. A novel constraint-tightening approach for robust data-driven predictive control. International Journal of Robust and Nonlinear Control , 35(7):2566–2587, 2025. [12] Francesco Micheli, Tyler Summers, and John Lygeros. Data-driven distributionally robust mpc for systems with uncertain dynamics. In 2022 IEEE 61st Conference on Decision and Control (CDC) , pages 4788–4793, 2022. [13] Arkadi Nemirovski and Alexander Shapiro. Convex approximations of chance constrained programs. SIAM Journal on Optimization , 17(4):969–996, 2007. [14] Guanru Pan, Ruchuan Ou, and Timm Faulwasser. On a stochastic fundamental lemma and its use for data-driven optimal control. IEEE Transactions on Automatic Control ,68(10):5922–5937, 2023. [15] Malika Sader, Yibo Wang, Dexian Huang, Chao Shang, and Biao Huang. Causality-informed data-driven predictive control. IEEE Transactions on Control Systems Technology ,33(5):1921–1928, 2025. [16] Johannes Teutsch, Sebastian Kerz, Dirk Wollherr, and Marion Leibold. Sampling-based stochastic data-driven predictive control under data uncertainty. IEEE Transactions on Automatic Control , 71(3):1924–1931, 2026. [17] Jan C Willems, Paolo Rapisarda, Ivan Markovsky, and Bart LM De Moor. A note on persistency of excitation. 
+
+Systems & Control Letters , 54(4):325–329, 2005. 
+
+8
