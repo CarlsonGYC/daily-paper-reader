@@ -1,0 +1,882 @@
+Title: Relaxed Control with Entropy Regularization for Itô Stochastic Systems with Input Delay
+
+URL Source: https://arxiv.org/pdf/2606.01058v1
+
+Published Time: Tue, 02 Jun 2026 01:15:52 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+> 1
+
+# Relaxed Control with Entropy Regularization for Itˆ oStochastic Systems with Input Delay 
+
+Ruixue Li 1, Xun Li 2, Zhaorong Zhang 3, and Juanjuan Xu 1
+
+Abstract —This paper investigates the infinite-horizon classical stochastic optimal control problem with input delay under an entropy-regularized relaxed control framework. In particular, by constructing a relaxed system and introducing an entropy regularization term, we reformulate the classical optimal control problem into an entropy-regularized formulation, and derive the optimal controller that follows a Gaussian distribution. Further-more, we show that the optimal Gaussian control distribution converges to the optimal Dirac measure as the exploration weight tends to zero. Numerical simulation is provided to validate the effectiveness of the proposed method. 
+
+Index Terms —Entropy regularization, Stochastic system, Input delay, Optimal control. 
+
+I. I NTRODUCTION 
+
+Delay is ubiquitous in control systems including finance [1], communication networks [2] and power systems [3]. It is well known that input delay can destabilize a system and degrade control performance [4], [5], making delay compensation a central topic in control theory for decades. [6] presented a reduction method to transform linear systems with delayed control into equivalent delay-free systems for performance analysis. [7] proposed a smooth adaptive state feedback con-troller based on a Lyapunov function to solve the tracking control problem for a class of nonlinear systems with unknown nonsymmetric dead-zone input and time delays. [8] addressed prescribed-time stabilization of linear time-invariant systems with constant input delay by modeling the delay as a transport partial differential equation (PDE). [9] presented a model reduction method for discrete-time coupled systems with input delays using bivariate fundamental matrices. The difficulty is further amplified when the system with input delay is subject to stochastic disturbances, especially multiplicative noise in the Itˆ o stochastic systems [1], [10], [11]. [12] established the dynamic programming principle for optimal control problems governed by stochastic differen-tial equations with delay, derived the corresponding Hamil-ton–Jacobi–Bellman (HJB) equation, and analyzed the weak 
+
+*This work was supported by the National Natural Science Foundation of China under Grants 62573262, 62503289, and the Natural Science Foundation of Shandong Province under Grant ZR2021JQ24. (Corresponding author: Juanjuan Xu.) 
+
+> 1
+
+Ruixue Li and Juanjuan Xu are with the School of Control Science and Engineering, Shandong University, Jinan 250061, China 
+
+ruixueli777@163.com; juanjuanxu@sdu.edu.cn. 
+
+> 2
+
+Xun Li is with the Department of Applied Mathematics, The Hong Kong Polytechnic University, Hong Kong SAR, China 
+
+li.xun@polyu.edu.hk. 
+
+> 3
+
+Zhaorong Zhang is with the School of Computer Science and Technology, Shandong University, Qingdao 266237, China zhangzr@sdu.edu.cn. 
+
+uniqueness of such delay systems. [13] investigated mean-field-type stochastic optimal control problems with delay by establishing two sufficient and one necessary maximum princi-ples for mean-field jump–diffusion stochastic delay differential equations, and applied the results to solve a delayed bicriteria mean–variance portfolio selection problem with explicit solu-tions. [14] studied linear quadratic regulation and stabilization problems for Itˆ o stochastic systems with input delay via modified Riccati equations. [15] addressed the stabilization of first-order hyperbolic PDE systems with input delay and mul-tiplicative noise by developing predictor-feedback controllers. All the aforementioned achievements are established within the framework of classical stochastic optimal control theory. In recent years, with the rapid advancement of intelligent optimization and data-driven control, reinforcement learning (RL) has attracted extensive attention. Among various RL framework, entropy-regularized methods explicitly incorporate exploration as a regularization term into the optimization objective and introduce a trade-off weight to adjust the policy entropy, thereby achieving a principled balance between explo-ration and exploitation [16], [17]. [18] addressed the collapse of the conventional Q-function in continuous-time entropy-regularized exploratory diffusion Q-learning by introducing a first-order approximated q-function and characterizing the associated value function through martingale conditions. [19] studied the exploration-exploitation trade-off and policy bias problem in continuous-time linear-quadratic RL using entropy-regularized relaxed stochastic control. [20] investigated the optimal control problem for entropy-regularized backward stochastic systems by establishing a stochastic maximum prin-ciple via convex variation. However, these existing results fail to hold for Itˆ o stochastic systems with input delay. In this paper, we present the entropy-regularized relaxed control framework for Itˆ o stochastic systems with input delay. The main contributions are summarized as follows. We first formulate the entropy-regularized stochastic optimal control problem for delayed systems, and prove that the resulting optimal policy obeys a Gaussian distribution. Moreover, we prove that the optimal Gaussian control distribution converges to the optimal Dirac measure as the exploration weight tends to zero. Numerical simulation is carried out to verify the effectiveness of the proposed approach. The remainder of this paper is organized as follows. Section II formulates the infinite-horizon classical stochastic optimal control problem with input delay. Section III develops the entropy-regularized relaxed control framework and derives the optimal Gaussian control distribution. Section IV provides a numerical simulation to demonstrate the effectiveness of the 
+
+> arXiv:2606.01058v1 [math.OC] 31 May 2026 2
+
+proposed method. The notations adopted throughout this paper are defined as follows. Rn stands for the set of all n-dimensional real vectors, and Rn×m represents the set of n × m-dimensional real matrices. Matrix M > 0 ( ≥ 0) is strictly positive-definite (positive semi-definite). H′ denotes the trans-pose of matrix H. ¯C[−h, 0) denotes the space of con-tinuous bounded functions mapping [−h, 0) to Rm, which is formally defined as ¯C[−h, 0) = {α(t) : [−h, 0) →
+
+Rm is continuous and sup −h≤t< 0 ∥α(t)∥ < ∞} . Let 
+
+{Θ, F, P, {F s}s≥0} be a complete stochastic basis, where F0
+
+contains all P-null sets in F, and the filtration {F s}s≥0 is generated by the standard Brownian motion {ω(s)}s≥0. The conditional expectation of x(t) with respect to Fs is defined as ˆx(t | s) .
+
+= E[x(t) | F s] .II. P ROBLEM FORMULATION 
+
+In this section, we formulate the infinite-horizon classical stochastic optimal control problem with input delay. The considered system is governed by the following Itˆ o stochastic differential equation involving multiplicative noise and delayed control input: 
+
+(
+
+dx (t)=[ Ax (t)+ Bu (t − h)] dt +[ ¯Ax (t)+ ¯Bu (t − h)] dω (t),x(0) = x, u (τ ) = α(τ ), τ ∈ [−h, 0) ,
+
+(1) where x(t) ∈ R is the state, u(t) ∈ Rm is the control input, and ω(t) is the standard Brownian motion. The constant h > 0
+
+denotes the input delay. x and α(τ ) ∈ ¯C[−h, 0) are initial val-ues and deterministic for notational simplicity. A, ¯A, B, ¯B are constant matrices with appropriately compatible dimensions. The discounted infinite-horizon cost function is 
+
+J = 12 E{
+
+Z ∞
+
+> 0
+
+e−ρt [x′(t)Qx (t) + u′(t − h)Ru (t − h)] dt },
+
+(2) where ρ > 0 is the discount rate, Q and R are symmetric matrices with compatible dimensions. The following standard assumption is made for analyzing the system stabilization. 
+
+Assumption 1. Matrices Q = C′C and R are both positive definite. 
+
+Definition 1. Denote by U(x) the set of all admissible controls, U .
+
+= {u(t), t ∈ [−h, ∞)} ∈ U (x) if 
+
+1) u(t) is Ft-adapted; 
+
+2) For each t ≥ 0, E{R t 
+
+> 0
+
+u′(s)u(s)ds } < ∞;
+
+3) With x(t) solving (1) , lim t→∞ e−ρt E [x′(t)x(t)] = 0; 
+
+4) J < ∞.
+
+Problem 1. Find an admissible control U ∈ U(x) with constant matrix gain that minimizes the cost function (2) 
+
+subject to the system (1) .
+
+Remark 1. When ρ = 0 , the solution to Problem 1 has been derived in [14], which is within the classical stochastic control framework. As entropy regularization and relaxed control theory advances, it is necessary to further investigate this problem via an entropy-regularized relaxed control framework, which will be presented in the next section. 
+
+III. E NTROPY -REGULARIZED STOCHASTIC CONTROL PROBLEM 
+
+In this section, we introduce an entropy-regularized relaxed control framework for continuous-time Itˆ o stochastic systems with input delay. Motivated by [16], we reformulate the original system dynamics (1) into an exploratory formulation, which is modelled by a distribution π .
+
+= {πt, t ∈ [−h, ∞)}.The resulting relaxed system is described as: 
+
+(
+
+dX πt = [ AX πt + Bμ t−h]dt + D(Xπt , π t−h)dω (t),Xπ 
+
+> 0
+
+= x, π τ (u) = δα(t), τ ∈ [−h, 0) , (3) where δα(t) is a Dirac distribution, and the diffusion term 
+
+D(Xπt , π t−h) satisfies 
+
+D(Xπt , π t−h)D′(Xπt , π t−h) = 
+
+Z
+
+> Rm
+
+[ ¯AX πt + ¯Bu ]
+
+× [ ¯AX πt + ¯Bu ]′πt−h(u)du, (4) while the mean and variance are defined as 
+
+μt−h =
+
+Z
+
+> Rm
+
+uπ t−h(u)du, (5) 
+
+Σt−h =
+
+Z
+
+> Rm
+
+uu ′πt−h(u)du − μt−hμ′
+
+> t−h
+
+. (6) To quantify the overall exploration level, we adopt the Shanon’s differential entropy 
+
+−
+
+Z
+
+> Rm
+
+πt−h(u) ln πt−h(u)du (7) as the exploration metric and introduce the exploration weight 
+
+λ ≥ 0 to balance exploration and exploitation. Combining with the classical cost function of infinite-horizon cost function (2), we construct the entropy-regularized exploratory cost function as: 
+
+Jπ =E{
+
+Z ∞
+
+> 0
+
+e−ρt 
+
+Z
+
+> Rm
+
+[ 12 (Xπt )′QX πt + 12 u′Ru 
+
++ λ ln πt−h(u)] πt−h(u)dudt }. (8) We now define the admissible control set Π( x) and formu-late the entropy-regularized stochastic optimal control problem with input delay. 
+
+Definition 2. Let P(Rm) and B(Rm) represent the set of all density functions and Borel algebra on Rm. A relaxed control policy π ∈ Π( x) if it satisfies the following conditions: 
+
+1) For each t, πt ∈ P (Rm) almost surely; 
+
+2) For each G ∈ B(Rm), R  
+
+> G
+
+πt(u)du is Ft-progressively measurable; 
+
+3) For each t, E{R t 
+
+> 0
+
+(μsμ′ 
+
+> s
+
++ tr (Σ s)) ds } < ∞;
+
+4) With Xπt solving (3) , lim t→∞ e−ρt E [( Xπt )′Xπt ] = 0; 
+
+5) Jπ < ∞.
+
+Problem 2. Find an optimal control π ∈ Π( x) that minimizes the entropy-regularized cost function (8) subject to system (3) .
+
+We next present the value function and the controller of the entropy-regularized stochastic optimal control problem (Problem 2) and those of the classical problem (Problem 1). To this end, we first define the value function of Problem 2 as 
+
+V π (x) = min  
+
+> π∈P (Rm)
+
+Jπ , (9) 3
+
+and that of Problem 1 as 
+
+V (x) = min  
+
+> u
+
+J. (10) Then, we introduce the modified algebraic Riccati equation (ARE): 
+
+0 = Q + P A + A′P + ¯A′P ¯A − Λ( h) − ρP, (11) where 
+
+Λ( s) = e(A− 12 ρ)′sΛ(0) e(A− 12 ρ)s, (12) 
+
+Λ(0) = K′ΩK, (13) 
+
+K = −Ω−1[B′P + ¯B′P ¯A − B′
+
+Z h
+
+> 0
+
+Λ( s)ds ], (14) 
+
+Ω = R + ¯B′P ¯B > 0. (15) 
+
+Theorem 1. Under Assumption 1, suppose that the ARE 
+
+(11) –(15) admits a unique positive definite solution P −R h 
+
+> 0
+
+Λ( s)ds > 0, the following statements hold. 
+
+(a) 
+
+V π (x) = 12 {x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds }− λ
+
+2ρ [ln((2 πe )m λΩ−1 ) − 1] , (16) 
+
+is the value function of Problem 2, and the corresponding optimal Gaussian control distribution is given by 
+
+π∗ 
+
+> t−h
+
+= N  u μ∗
+
+> t−h
+
+, Σ∗
+
+> t−h
+
+ , (17) 
+
+where 
+
+μ∗ 
+
+> t−h
+
+= K ˆXπt|t−h, (18) 
+
+Σ∗ 
+
+> t−h
+
+= λ(R + ¯B′P ¯B)−1, (19) 
+
+ˆXπt|t−h = eAh Xπt−h +
+
+Z tt−h
+
+eA(t−s)Bμ s−hds. (20) 
+
+(b) 
+
+V (x) = 12 {x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds }. (21) 
+
+is the value function of Problem 1, and the corresponding optimal control is 
+
+u∗(t − h) = K ˆxt|t−h, (22) 
+
+where 
+
+ˆxt|t−h =eAh x(t − h) + 
+
+Z tt−h
+
+eA(t−s)Bu (s − h)ds. (23) 
+
+Proof: The detailed proof is given in Appendix A. ■
+
+From Theorem 1, the optimal control of Problem 2 obeys a Gaussian distribution with mean μ∗ 
+
+> t−h
+
+= K ˆXπt|t−h, and variance Σ∗ 
+
+> t−h
+
+= λΩ−1 related to the regularization parameter 
+
+λ. As λ decreases, the variance of the Gaussian policy grad-ually decays. Naturally, as the regularization effect gradually diminishes, the entropy-regularized problem converges to its classical counterpart, which is formally characterized in the following theorem. 
+
+Theorem 2. As the exploration weight λ vanishes, the optimal Gaussian control distribution (17) converges to the optimal Dirac measure, i.e., 
+
+lim  
+
+> λ→0
+
+π∗ 
+
+> t−h
+
+= δu∗(t−h), weakly, (24) 
+
+where δu∗(t−h) denotes the optimal Dirac measure associated with u∗(t − h) given in (22) .
+
+Proof: The proof is referred to [16] and omitted herein. ■
+
+Remark 2. Theorem 1 establishes an entropy-regularized relaxed control framework for infinite-horizon Itˆ o stochastic systems with input delay. The resulting optimal relaxed control 
+
+(17) follows a Gaussian distribution. Moreover, the optimal Gaussian control distribution converges to the optimal Dirac measure as the regularization weight decays to zero as shown in Theorem 2. 
+
+IV. S IMULATION 
+
+In this section, we present a numerical example to validate the theoretical results and examine the effectiveness of the developed entropy-regularized relaxed control framework for stochastic systems with input delay. In particular, the system parameters in (1) are chosen as 
+
+A = 1 .2, ¯A = 0 .6, B = 2 and ¯B = 0 .2. For the cost function (2), the state weighting matrix and control weighting matrix are set to be Q = 1 and R = 0 .1, respectively. The initial state is assigned as x = 30 , the input delay is selected as 
+
+h = 1 , and the control input satisfies α(t) = 0 for t ∈ [−h, 0) .Furthermore, the discount factor is set to be ρ = 30 and the total simulation time is T = 20 .We now verify the theoretical results in Theorem 1. By solv-ing the modified algebraic Riccati equation (11)–(15), we ob-tain the solutions P = 0 .036232 and K = −0.709606 . Within the proposed entropy-regularized relaxed control framework, the relaxed controller derived from (17) follows a Gaussian distribution are shown in Fig. 1 and Fig. 2. Specifically, Fig. 1 shows the Gaussian distribution at t = 4 , and Fig. 2 illustrates the time-varying Gaussian distribution over [0 , T − h]. Within the classical stochastic control framework, the classical opti-mal controller is further obtained via (22), which is depicted in Fig. 3. To further verify the convergence property of the relaxed control stated in Theorem 2, we compute the optimal controller for different λ ∈ {3, 2, 1, 0.1, 0.01 , 0.001 , 0} via (17), as illustrated in Fig. 4, which shows the resulting Gaussian distri-butions at t = 4 under different λ. The marked points in Fig. 3–4 show that as λ decays to zero, the mean μ∗ 
+
+> t−h
+
+= −30 .6285 
+
+of the optimal Gaussian distribution π∗ 
+
+> t−h
+
+equals to the optimal classical control u∗(t − h) = −30 .6285 , and the distribution converges to the Dirac measure, which verifies Theorem 2. 4
+
+Fig. 1: Gaussian distribution at t=4, λ = 3.000. 
+
+Fig. 2: All-time Gaussian distribution λ = 3.000. 
+
+Fig. 3: The trajectory of control input. 
+
+Fig. 4: Gaussian distributions at t=4 under different λ.APPENDIX A In this appendix, we derive the admissible optimal con-trollers and value functions of Problem 1 and 2 respectively. 
+
+(i) We first focus on Problem 1 and begin its derivation by constructing the following function: 
+
+y(t, x ) = e−ρt {x′(t)P x (t) − x′(t)
+
+Z t+ht
+
+Λ( s − t)ˆ xt|s−hds },
+
+(25) where P , Λ( ·) are shown in (11) and (12). By applying Itˆ o’s formula to y(t, x ), it yields that 
+
+dy (t, x ) = e−ρt {x′(t)[ A′P + P A + ¯A′P ¯A − ρP − Λ( h)] x(t)+ u′(t − h)[ B′P + ¯B′P ¯A]x(t) + x′(t)[ P B + ¯A′
+
+× P ¯B]u(t − h) − u′(t − h)B′
+
+Z t+ht
+
+Λ( s − t)
+
+× ˆxt|s−hds − x′(t)
+
+Z t+ht
+
+Λ( s − t)dsBu (t − h)+ u′(t − h) ¯B′P ¯Bu (t − h) + x′(t)Λ(0)ˆ xt|t−h}dt 
+
++ ⋆dw (t), (26) where ⋆dw (t) denotes the diffusion term, whose explicit form is irrelevant to the subsequent solution. Note that all admissible controllers of Problem 1 are such that lim t→∞ e−ρt Ex′(t)x(t) = 0 . With initial state x(0) = 
+
+x, we have 
+
+E
+
+Z ∞
+
+> 0
+
+dy (s, x ) = − E{x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds }.
+
+Taking integral from 0 to ∞ on both sides of (26) and simplifying the resulting terms via (11)–(15) yields 
+
+−E{x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds }
+
+=E{
+
+Z ∞
+
+> 0
+
+e−ρτ {x′(τ )[ A′P + P A + ¯A′P ¯A − ρP − Λ( h)] x(τ )+ u′(τ − h)[ B′P + ¯B′P ¯A]x(τ ) + x′(τ )[ P B + ¯A′P ¯B]5
+
+× u(τ − h)−u′(τ − h)B′
+
+Z h
+
+> 0
+
+Λ( s)ˆ xτ |τ +s−hds − x′(τ )
+
+×
+
+Z h
+
+> 0
+
+Λ( s)dsBu (τ − h) + u′(τ − h) ¯B′P ¯Bu (τ − h)+ x′(τ )Λ(0)ˆ xτ |τ −h}dτ }
+
+=E{
+
+Z ∞
+
+> 0
+
+e−ρτ {− x′(τ )Qx (τ ) − u′(τ − h)Ω Kx (τ ) − x′(τ )
+
+× K′Ωu(τ − h)+ u′(τ − h) ¯B′P ¯Bu (τ − h)+ x′(τ )Λ(0) 
+
+× ˆxτ |τ −h}dτ }
+
+=E{
+
+Z ∞
+
+> 0
+
+e−ρτ {− x′(τ )Qx (τ ) − u′(τ − h)Ω Kx (τ ) − x′(τ )
+
+× K′Ωu(τ − h) + u′(τ − h)Ω u(τ − h) + x′(τ )Λ(0) 
+
+× ˆxτ |τ −h − u′(τ − h)Ru (τ − h)}dτ }. (27) In view of the definition of V (t) given in (10), we can rewrite the value function as 
+
+V (x) = min 
+
+> u
+
+12 E{
+
+Z ∞
+
+> 0
+
+e−ρτ {− u′(τ − h)Ω Kx (τ ) + x′(τ )Λ(0) 
+
+× ˆxτ |τ −h − x′(τ )K′Ωu(τ − h) + u′(τ − h)Ω 
+
+× u(τ − h)}dτ + [ x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds ]}
+
+= min 
+
+> u
+
+12 E{
+
+Z ∞
+
+> 0
+
+e−ρτ {− u′(τ − h)Ω Kx (τ ) − x′(τ )K′
+
+× Ωu(τ − h) + u′(τ − h)Ω u(τ − h) + x′(τ )K′ΩK
+
+× ˆxτ |τ −h}dτ + [ x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds ]}
+
+= min 
+
+> u
+
+12 E{
+
+Z ∞
+
+> 0
+
+e−ρτ [( u(τ − h)−K ˆxτ |τ −h)′Ω( u(τ − h)
+
+− K ˆxτ |τ −h)] dτ + [ x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds ]}
+
+= 12 {x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds }. (28) Then, we define the Lyapunov function as V (x) in (28). For any x(t)̸ = 0 , it yields that 
+
+V (x) = 12 {x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds }≥ 12 {x′[P −
+
+Z h
+
+> 0
+
+Λ( s)ds ]x}
+
+> 0, (29) and 
+
+˙V (t) = − 12 {x′(t)Qx (t) + u′(t − h)Ru (t − h)}
+
+< 0, (30) by virtue of P − R h 
+
+> 0
+
+Λ( s)d s > 0, Q > 0 and R > 0.According to the Lyapunov stability theorem [24], it follows that lim t→∞ e−ρt E [x′(t)x(t)] = 0 . Therefore, (22) is the ad-missible optimal control of Problem 1, and the corresponding value function is given by (21). 
+
+(ii) Similarly, we proceed to solve the optimal controller and value function of Problem 2. To this end, we introduce the function 
+
+yπ (t, X πt ) = e−ρt {(Xπt )′P X πt − (Xπt )′
+
+Z t+ht
+
+Λ( s − t)
+
+× ˆXπt|s−hds }, (31) where the matrices P , Λ( ·) and Ω satisfy (11)– (15). Applying Itˆ o’s formula to yπ (t, X πt ) in (31), it yields that 
+
+dy π (t, X πt ) = − ρe −ρt {(Xπt )′P X πt − (Xπt )′
+
+Z t+ht
+
+Λ( s − t)
+
+× ˆXπt|s−hds } + e−ρt {(AX πt + Bμ t−h)′P X πt
+
++ ( Xπt )′P (AX πt + Bμ t−h) + D′(Xπt , π t−h)P
+
+× D(Xπt , π t−h) − (Xπt )′Λ( h)Xπt + ( Xπt )′Λ(0) 
+
+× ˆXπt|t−h − (AX πt + Bμ t−h)′
+
+Z t+ht
+
+Λ( s − t)
+
+× ˆXπt|s−hds −(Xπt )′
+
+Z t+ht
+
+Λ( s − t)( A ˆXπt|s−h
+
++ Bμ t−h)ds − (Xπt )′
+
+Z t+ht
+
+∂Λ( s − t)
+
+∂t 
+
+× ˆXπt|s−hds }dt + ∗dw (t)=e−ρt {
+
+Z
+
+> Rm
+
+{(Xπt )′[A′P + P A + ¯A′P ¯A − ρP 
+
+− Λ( h)] Xπt +u′[B′P + ¯B′P ¯A]Xπt +( Xπt )′[P B 
+
++ ¯A′P ¯B]u−u′B′
+
+Z t+ht
+
+Λ( s − t) ˆXπt|s−hds 
+
+−(Xπt )′
+
+Z t+ht
+
+Λ( s − t)dsBu + u′ ¯B′P ¯Bu 
+
++ ( Xπt )′Λ(0) ˆXπt|t−h}πτ −h(u)du }dt 
+
++ ∗dw (t), (32) where ∗dw (t) denotes the diffusion term, which is omitted since it plays no role in the following derivation. Integrating both sides of (32) from 0 to ∞ and simplifying the resulting expression by virtue of (11)–(15), we arrive at 
+
+E{
+
+Z ∞
+
+> 0
+
+dy π (t, X πt )} =E{
+
+Z ∞
+
+> 0
+
+e−ρt 
+
+Z
+
+> Rm
+
+{− (Xπt )′QX πt − u′R
+
+× u + ( u − K ˆXπt|t−h)′Ω( u − K
+
+× ˆXπt|t−h)}πτ −h(u)dudt }. (33) For all admissible controllers of Problem 2, we have 
+
+lim t→∞ e−ρt E(Xπt )′Xπt
+
+ = 0 . With the initial state Xπ 
+
+> 0
+
+= x,we thus conclude that 
+
+E{
+
+Z ∞
+
+> 0
+
+dy π (t, X πt )} = − E{x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds }.
+
+(34) Combining the above results (33)–(34) with the value func-tion definition (9), we rearrange the value function of Problem 6
+
+2 into the following form: 
+
+V π (x)= min  
+
+> π∈P (Rm)
+
+E{
+
+Z ∞
+
+> 0
+
+e−ρt 
+
+Z
+
+> Rm
+
+[ 12 (Xπt )′QX πt + 12 u′Ru 
+
++ λ ln πt−h(u)] πt−h(u)dudt }
+
+= min  
+
+> π∈P (Rm)
+
+E{
+
+Z ∞
+
+> 0
+
+e−ρt 
+
+Z
+
+> Rm
+
+[ 12 (Xπt )′QX πt + 12 u′Ru ]
+
+× πt−h(u)dudt } + E{
+
+Z ∞
+
+> 0
+
+e−ρt 
+
+Z
+
+> Rm
+
+λ ln πt−h(u)
+
+× πt−h(u)dudt }
+
+= min 
+
+> π∈P (Rm)
+
+12 E{
+
+Z ∞
+
+> 0
+
+e−ρt 
+
+Z
+
+> Rm
+
+[( u − K ˆXπt|t−h)′Ω
+
+× (u − K ˆXπt|t−h)] πt−h(u)dudt } + E{
+
+Z ∞
+
+> 0
+
+e−ρt 
+
+×
+
+Z
+
+> Rm
+
+λ ln πt−h(u)πt−h(u)dudt } + 12 E{x′P x 
+
+− x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds }. (35) Note that π ∈ P (Rm), if and only if 
+
+Z
+
+> Rm
+
+πt−h(u)du = 1 and π t−h(u) ≥ 0 a.e. on Rm.
+
+Solving the constrained minimization problem (35), we obtain that 
+
+π∗ 
+
+> t−h
+
+= 1
+
+Nπ
+
+exp {− 12 [u − K ˆXπt|t−h]′ 1
+
+λ (R + ¯B′P ¯B)
+
+× [u − K ˆXπt|t−h]}, (36) with the normalization constant 
+
+Nπ =
+
+Z
+
+> U
+
+exp {− 12 [u − K ˆXπt|t−h]′ 1
+
+λ (R + ¯B′P ¯B)
+
+× [u − K ˆXπt|t−h]}πt−hdu, 
+
+which indicates that the optimal control follows a Gaussian distribution, where the mean and variance of the optimal policy 
+
+π∗ 
+
+> t−h
+
+are presented in (18)–(19). Submitting (36) into (35) yields 
+
+V π (x)= min 
+
+> π∈P (Rm)
+
+12 E{
+
+Z ∞
+
+> 0
+
+e−ρt 
+
+Z
+
+> Rm
+
+[( u − K ˆXπt|t−h)′Ω( u − K
+
+× ˆXπt|t−h)] N (u | μ∗
+
+> t−h
+
+, Σ∗
+
+> t−h
+
+)duds } − λ
+
+2ρ ln((2 πe )m
+
+× λΩ−1 ) + 12 E{[x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ x0|s−hds ]}
+
+= 12 {x′P x − x′
+
+Z h
+
+> 0
+
+Λ( s)ˆ xπ
+
+> 0|s−h
+
+ds } − λ
+
+2ρ [ln((2 πe )m
+
+× λΩ−1 ) − 1] .
+
+By Theorem 6 in [16] and the admissibility of u∗(t − h)
+
+presented in part (i) , we conclude that π∗ 
+
+> t−h
+
+given by (17) is admissible. Accordingly, the admissible optimal control and value function of Problem 2 are shown in (17) and (16). The proof is now completed. ■
+
+REFERENCES [1] L. Chen, Z. Wu, Maximum principle for the stochastic optimal control problem with delay and application, Automatica, Vol. 46, no. 6, pp. 1074-1080, June 2010. [2] J. Baillieul and P. J. Antsaklis, Control and Communication Challenges in Networked Real-Time Systems, Proceedings of the IEEE, vol. 95, no. 1, pp. 9-28, Jan. 2007. [3] Z. Wang, J. Dai, H. Zhang and J. Zhang, Observer-Based Finite-Time Fuzzy Load Frequency Control for Multiarea Nonlinear Power Systems Under Input Delays and Cyber Attacks, IEEE Transactions on Smart Grid, vol. 16, no. 4, pp. 3336-3345, July 2025. [4] S. I. Niculescu, Delay effects on stability: a robust control approach, Springer London, 2002. [5] N. Bekiaris-Liberis and M. Krstic, Nonlinear control under nonconstant delays, Society for Industrial and Applied Mathematics, 2013. [6] Z. Artstein, Linear systems with delayed controls: A reduction, IEEE Transactions on Automatic Control, vol. 27, no. 4, pp. 869-879, August 1982. [7] C. Hua, Q. Wang and X. Guan, Adaptive Tracking Controller Design of Nonlinear Systems With Time Delays and Unknown Dead-Zone Input, IEEE Transactions on Automatic Control, vol. 53, no. 7, pp. 1753-1759, Aug. 2008. [8] N. Espitia and W. Perruquetti, Predictor-Feedback Prescribed-Time Stabilization of LTI Systems With Input Delay, IEEE Transactions on Automatic Control, vol. 67, no. 6, pp. 2784-2799, June 2022. [9] A. Wu, S. Shen, J. Zhang and J. Mei, A Model Reduction Approach for Discrete-Time Coupled Systems With Input Delays via Bivariate Fundamental Matrices, IEEE Transactions on Automatic Control, vol. 71, no. 5, pp. 2950-2965, May 2026. [10] X. Chen and X. Xie, SARF Copilot: A Holistic Safety-Aware Resilient Fuzzy Control Synthesis for Human–Machine Shared Steering System, IEEE Transactions on Industrial Electronics, vol. 73, no. 6, pp. 9354-9366, June 2026. [11] W. Wang, J. Xu, H. Zhang, M. Fu, Exact controllability of rational expectations model with multiplicative noise and input delay, Journal of Automation and Intelligence, Vol. 3, no. 1, pp. 19-25, January 2024. [12] B. Larssen, Dynamic programming in stochastic control of systems with delay. Stochastics and Stochastic Reports, vol. 74, pp. 651–673, 2002. [13] Y. Shen, Q. Meng, P. Shi, Maximum principle for mean-field jump–diffusion stochastic delay differential equations and its application to finance, Automatica, vol. 50, no. 6, pp. 1565-1579, June 2014. [14] H. Zhang and J. Xu, Control for Itˆ o Stochastic Systems With Input Delay, IEEE Transactions on Automatic Control, vol. 62, no. 1, pp. 350-365, Jan. 2017. [15] X. Xue, J. Xu and H. Zhang, Stabilization of First-Order Hyperbolic PDE Systems With Input Delay and Multiplicative Noise, IEEE Trans-actions on Automatic Control, vol. 71, no. 5, pp. 3372-3379, May 2026. [16] H. Wang, T. Zariphopoulou and X. Zhou, Exploration versus Exploita-tion in Reinforcement Learning: A Stochastic Control Approach, 2019, arXiv preprint arXiv:1812.01552. [17] H. Wang and X. Zhou, Continuous-time mean–variance portfolio selec-tion: A reinforcement learning framework, Mathematical Finance, vol. 30, no. 4, pp. 1273-1308, June 2020. [18] Y. Jia and X. Y. Zhou, Q-learning in continuous time, Journal of Machine Learning Research, vol. 24, no. 1, pp. 1-61, Jan. 2023. [19] L. Szpruch, T. Treetanthiploet and Y. Zhang, Optimal Scheduling of En-tropy Regularizer for Continuous-Time Linear-Quadratic Reinforcement Learning, SIAM Journal on Control and Optimization, vol. 62, no. 1, pp. 135-166, Jan. 2024. [20] Z. Chen, Q. Zhang, Backward Stochastic Control System with Entropy Regularization, SIAM Journal on Control and Optimization, vol. 63, no. 3, pp. 1981-2006, June 2025. [21] J. Xu and H. Zhang, Exponential Mean Square Stabilization for Itˆ oStochastic Systems with Input Delay, 2019 Chinese Control Conference (CCC), Guangzhou, China, 2019, pp. 1405-1410. [22] F. De Feo, S. Federico and A. ´ Swiech, Optimal Control of Stochastic Delay Differential Equations and Applications to Path-Dependent Finan-cial and Economic Models, SIAM Journal on Control and Optimization, vol. 62, no. 3, pp. 1490-1520, May 2024. [23] W. Fleming and H. Soner, Controlled Markov Processes and Viscosity Solutions, New York, NY, USA: Springer, 2006. [24] R. Kalman and J. Bertram, Control system analysis and design via the second method of lyapunov: (I) continuous-time systems (II) discrete time systems, IRE Transactions on Automatic Control, vol. 4, no. 3, pp. 112-112, December 1959.

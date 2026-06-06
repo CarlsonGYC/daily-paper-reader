@@ -1,161 +1,25 @@
 {
-  "generated_at": "2026-06-06T03:18:10.517338+00:00",
-  "updated_date": "20260508-20260606",
+  "generated_at": "2026-06-06T21:30:01.098985+00:00",
+  "updated_date": "20260606",
   "carryover_days": 9,
   "tag_states": {
     "MPPI": {
-      "updated_date": "20260508-20260606",
+      "updated_date": "20260606",
       "carryover_days": 9,
       "items": []
     },
     "marl-robot": {
-      "updated_date": "20260508-20260606",
+      "updated_date": "20260606",
       "carryover_days": 9,
-      "items": [
-        {
-          "id": "2605.23027v1",
-          "source": "arxiv",
-          "title": "PIMbot: A Self-Adaptive Attack Framework for Adversarial Manipulation of Multi-Robot Reinforcement Learning",
-          "abstract": "Recent research has demonstrated the potential of reinforcement learning in effective multi-robot collaboration, particularly in social dilemmas where robots face a trade-off between self-interest and collective benefits. However, environmental factors such as miscommunication and adversarial robots can impact cooperation, making it crucial to explore how multi-robot communication can be manipulated to achieve different outcomes. This paper presents PIMbot, a framework that manipulates outcomes via two complementary levers: (i) incentive manipulation of the reward channel and (ii) policy manipulation of an agent's own actions. An adaptive multi-objective controller balances these levers in an online manner. Our work introduces a novel approach to manipulation in recent multi-agent RL social dilemmas that utilize a unique reward function for incentivization. By utilizing our proposed PIMbot mechanisms, a robot is able to manipulate the social dilemma environment effectively. Comprehensive experimental results demonstrate the effectiveness of our proposed methods in the Gazebo-simulated multi-robot environment. Moreover, a real embedded device case study on NVIDIA Jetson Orin Nano quantifies system cost and validates PIMbot's effectiveness on realistic autonomous embedded systems scenarios beyond simulation. Together, these results position PIMbot as a rigorous stress-test tool exposing critical vulnerabilities in multi-robot cooperative tasks.",
-          "authors": [
-            "Zexin Li",
-            "Ziliang Zhang",
-            "Hyoseung Kim",
-            "Cong Liu"
-          ],
-          "primary_category": "cs.RO",
-          "categories": [
-            "cs.RO"
-          ],
-          "published": "2026-05-21T20:50:47+00:00",
-          "link": "https://arxiv.org/pdf/2605.23027v1",
-          "tags": [
-            "keyword:MPPI",
-            "keyword:MRT",
-            "keyword:legged-MARL",
-            "keyword:marl-robot",
-            "query:MPPI",
-            "query:MRT",
-            "query:legged-MARL",
-            "query:marl-robot"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "multi-robot RL collaboration under adversarial reward and policy manipulation",
-          "llm_evidence_cn": "在对抗性奖励和策略操纵下的多机器人强化学习协作",
-          "llm_evidence": "在对抗性奖励和策略操纵下的多机器人强化学习协作",
-          "canonical_evidence": "在对抗性奖励和策略操纵下的多机器人强化学习协作",
-          "llm_tldr_en": "Presents PIMbot, a framework that manipulates multi-robot cooperation outcomes via reward and policy manipulation, using an adaptive multi-objective controller to balance levers.",
-          "llm_tldr_cn": "多机器人协作易受错误通信和对抗机器人影响，现有研究未充分探究如何操纵协作结果。本文提出PIMbot框架，通过奖励通道激励操纵和智能体自身策略操纵两个杠杆，并利用自适应多目标控制器在线平衡两者，以改变社会困境中的协作结果。实验展示了该框架操纵协作的有效性，揭示了多机器人系统的脆弱性，为提升鲁棒协作提供了反面视角。",
-          "llm_tldr": "多机器人协作易受错误通信和对抗机器人影响，现有研究未充分探究如何操纵协作结果。本文提出PIMbot框架，通过奖励通道激励操纵和智能体自身策略操纵两个杠杆，并利用自适应多目标控制器在线平衡两者，以改变社会困境中的协作结果。实验展示了该框架操纵协作的有效性，揭示了多机器人系统的脆弱性，为提升鲁棒协作提供了反面视角。",
-          "llm_tags": [
-            "query:marl-robot"
-          ],
-          "matched_query_tag": "query:marl-robot",
-          "matched_query_text": "multi agent reinforcement learning for robot collaboration",
-          "matched_requirement_id": "req-17",
-          "selection_source": "carryover_cache",
-          "paper_id": "2605.23027v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.01526v1",
-          "source": "arxiv",
-          "title": "Spatio-Temporal Reconnection for Multi-Robot Networks using Adaptive Prescribed-Time CBFs",
-          "abstract": "In multi-robot systems, maintaining persistent communication graph connectivity is often overly restrictive, especially when robots have limited communication ranges but operate in large environments. Instead, allowing robots to temporarily disconnect and later reconnect is often more desirable for efficient task execution while still ensuring timely information sharing across the team. In this paper, we propose an adaptive prescribed-time control barrier function (adaptive PT-CBF) framework that enables robots to temporarily disconnect and re-enter the communication range within an adjustable and feasible prescribed time. Moreover, we introduce a reconnection triggering mechanism that jointly considers task execution and reconnection urgency, thereby providing a principled way to decide when reconnection should occur. Theoretical analysis justifies convergence to the satisfying reconnection within a prescribed finite time. Experimental results validate the performance of our proposed adaptive PT-CBF with improved task efficiency and satisfying reconnections.",
-          "authors": [
-            "Hao Liu",
-            "Yupeng Yang",
-            "Yanze Zhang",
-            "Wenhao Luo"
-          ],
-          "primary_category": "cs.RO",
-          "categories": [
-            "cs.RO"
-          ],
-          "published": "2026-06-01T01:18:10+00:00",
-          "link": "https://arxiv.org/pdf/2606.01526v1",
-          "tags": [
-            "keyword:MPPI",
-            "keyword:MRT",
-            "keyword:legged-MARL",
-            "keyword:marl-robot",
-            "query:MPPI",
-            "query:MRT",
-            "query:legged-MARL",
-            "query:marl-robot"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "adaptive prescribed-time CBFs for multi-robot network reconnection",
-          "llm_evidence_cn": "自适应预定时间控制屏障函数实现多机器人网络重连",
-          "llm_evidence": "自适应预定时间控制屏障函数实现多机器人网络重连",
-          "canonical_evidence": "自适应预定时间控制屏障函数实现多机器人网络重连",
-          "llm_tldr_en": "Proposes adaptive prescribed-time CBFs to allow temporary disconnections and scheduled reconnections in multi-robot networks, balancing task execution and communication.",
-          "llm_tldr_cn": "该论文针对多机器人系统中维持持久通信连接限制任务灵活性的问题，提出一种自适应预定时间控制屏障函数（PT-CBF）框架，允许机器人在预设时间内断开连接并重新进入通信范围，同时设计综合考虑任务执行和重连时机的触发机制，在保证信息共享的同时提升任务效率。",
-          "llm_tldr": "该论文针对多机器人系统中维持持久通信连接限制任务灵活性的问题，提出一种自适应预定时间控制屏障函数（PT-CBF）框架，允许机器人在预设时间内断开连接并重新进入通信范围，同时设计综合考虑任务执行和重连时机的触发机制，在保证信息共享的同时提升任务效率。",
-          "llm_tags": [
-            "query:marl-robot"
-          ],
-          "matched_query_tag": "query:marl-robot",
-          "matched_query_text": "distributed multi-agent systems in robotics",
-          "matched_requirement_id": "req-12",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.01526v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.04492v1",
-          "source": "arxiv",
-          "title": "Episodic Memory Temporal Consistency for Cooperative Multi-Agent Reinforcement Learning",
-          "abstract": "Cooperative Multi-Agent Reinforcement Learning (MARL) frequently suffers from severe reward sparsity and exploration bottlenecks. While episodic memory mechanisms mitigate these issues by reusing high-return trajectories, they often trap agents in local optima due to unconstrained incentive distribution and semantic representation collapse. To address this, we propose Episodic Memory Temporal Consistency (EMTC), a framework that robustly constructs and selectively leverages historical experiences. EMTC introduces two synergistic components: (1) a Temporally Consistent Semantic Embedder that integrates contrastive learning with time-conditioned state reconstruction, preventing representation collapse and enabling precise memory retrieval; and (2) a Temporal Consistency Gating Mechanism that dynamically modulates episodic incentives based on temporal consistency error. This adaptive gate filters misleading signals from pseudo-successful trajectories, effectively mitigating Q-value overestimation. We provide theoretical guarantees, establishing a strict error bound that directly links the observable temporal consistency error to the underlying trajectory optimality and representation quality. Extensive evaluations on the SMAC and GRF benchmarks demonstrate that EMTC consistently outperforms state-of-the-art baselines. Notably, compared to the strongest episodic baseline, EMTC achieves absolute win-rate improvements of up to 24% in super-hard SMAC scenarios and an average improvement of 28% across GRF tasks.",
-          "authors": [
-            "Zicheng Zhao",
-            "Yu Lan",
-            "Chengzhengxu Li",
-            "Zhaohan Zhang",
-            "Xiaoming Liu"
-          ],
-          "primary_category": "cs.LG",
-          "categories": [
-            "cs.LG",
-            "cs.GT"
-          ],
-          "published": "2026-06-03T06:15:39+00:00",
-          "link": "https://arxiv.org/pdf/2606.04492v1",
-          "tags": [
-            "keyword:MPPI",
-            "keyword:MRT",
-            "keyword:legged-MARL",
-            "keyword:marl-robot",
-            "query:legged-MARL",
-            "query:marl-robot"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "cooperative multi-agent reinforcement learning with episodic memory for exploration",
-          "llm_evidence_cn": "合作多智能体强化学习中用于探索的情节记忆机制",
-          "llm_evidence": "合作多智能体强化学习中用于探索的情节记忆机制",
-          "canonical_evidence": "合作多智能体强化学习中用于探索的情节记忆机制",
-          "llm_tldr_en": "Addresses convergence to local optima in cooperative MARL by proposing EMTC, which uses temporally consistent embedding and selective memory retrieval to improve exploration.",
-          "llm_tldr_cn": "针对合作多智能体强化学习中奖励稀疏和探索瓶颈导致局部最优问题，提出EMTC框架，结合时间一致性语义嵌入和选择性检索机制，防止表征崩溃并精准复用高回报经验。实验表明在多个基准任务上优于现有方法，有效提升收敛速度和最终性能。",
-          "llm_tldr": "针对合作多智能体强化学习中奖励稀疏和探索瓶颈导致局部最优问题，提出EMTC框架，结合时间一致性语义嵌入和选择性检索机制，防止表征崩溃并精准复用高回报经验。实验表明在多个基准任务上优于现有方法，有效提升收敛速度和最终性能。",
-          "llm_tags": [
-            "query:marl-robot"
-          ],
-          "matched_query_tag": "query:marl-robot",
-          "matched_query_text": "cooperative multi-agent learning in robotic tasks",
-          "matched_requirement_id": "req-14",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.04492v1",
-          "carry_days": 1
-        }
-      ]
+      "items": []
     },
     "legged-MARL": {
-      "updated_date": "20260508-20260606",
+      "updated_date": "20260606",
       "carryover_days": 9,
       "items": []
     },
     "MRT": {
-      "updated_date": "20260508-20260606",
+      "updated_date": "20260606",
       "carryover_days": 9,
       "items": []
     }

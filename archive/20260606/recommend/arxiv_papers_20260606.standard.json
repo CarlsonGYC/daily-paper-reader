@@ -1,0 +1,975 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-06T21:30:01.097298+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 4,
+    "deep_divecandidates": 15,
+    "deep_cap": 9,
+    "deep_selected": 9,
+    "quick_candidates": 13,
+    "quick_skim_target": 14,
+    "quick_selected": 13
+  },
+  "deep_dive": [
+    {
+      "id": "2605.30778v1",
+      "source": "arxiv",
+      "title": "Object-Informed Model Predictive Path Integral Control for Non-Prehensile Robot Manipulation",
+      "abstract": "Long-horizon planning for non-prehensile robot manipulation is challenging due to underactuated and discontinuous interactions. We propose a hierarchical formulation of model predictive path integral (MPPI) control that guides robot-level planning with a separately computed object-level plan to achieve efficient long-horizon prediction. We first solve a simplified object-only problem, assuming the object can be actuated directly, and use the planned object trajectory as a reference in solving the joint robot-object planning problem. We evaluate our method in both simulation and hardware using a 6-DoF xArm6 manipulator to perform object pushing tasks in which the target object must reach a goal while avoiding static obstacles, necessitating non-myopic reasoning. Our object-informed MPPI increases task success by 40\\% with a 26\\% faster control frequency in simulation, and by 20\\% in real experiments with similar computation as regular MPPI.",
+      "authors": [
+        "Nikola Raicevic",
+        "Bharath Raam Radhakrishnan",
+        "Chenbin Yu",
+        "Ki Myung Brian Lee",
+        "Nikolay Atanasov"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-29T03:10:44+00:00",
+      "link": "https://arxiv.org/pdf/2605.30778v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "proposes hierarchical model predictive path integral (MPPI) control for non-prehensile manipulation",
+      "llm_evidence_cn": "提出分层模型预测路径积分（MPPI）控制用于非抓取操作",
+      "llm_evidence": "提出分层模型预测路径积分（MPPI）控制用于非抓取操作",
+      "canonical_evidence": "提出分层模型预测路径积分（MPPI）控制用于非抓取操作",
+      "llm_tldr_en": "Proposes an object-informed hierarchical MPPI control method for long-horizon non-prehensile manipulation, validated on a real robot pushing task with obstacle avoidance.",
+      "llm_tldr_cn": "非抓取机器人操作因欠驱动和不连续交互导致长视域规划困难。本文提出物体信息引导的分层模型预测路径积分（MPPI）控制，先求解物体简化问题获得参考轨迹，再指导联合规划。在xArm6机械臂上的推物实验表明，该方法能高效实现长视域预测并成功避障，验证了其在非抓取操作中的有效性，为采样式MPC在复杂操作中的应用提供了新思路。",
+      "llm_tldr": "非抓取机器人操作因欠驱动和不连续交互导致长视域规划困难。本文提出物体信息引导的分层模型预测路径积分（MPPI）控制，先求解物体简化问题获得参考轨迹，再指导联合规划。在xArm6机械臂上的推物实验表明，该方法能高效实现长视域预测并成功避障，验证了其在非抓取操作中的有效性，为采样式MPC在复杂操作中的应用提供了新思路。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "sampling-based techniques for model predictive control",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.00714v1",
+      "source": "arxiv",
+      "title": "The Cartan-Topos Protocol: A Unified Geometric and Categorical Framework for Resilient Multi-Agent Coordination",
+      "abstract": "Multi-agent coordination faces a fundamental divide between continuous Euclidean consensus, which fails under non-integrable constraints, and discrete symbolic logic, which collapses under open-world assumptions. This report presents a unified geometric and categorical framework bridging these paradigms. Agent states are modeled on homogeneous manifolds (Lie groups, Grassmannians) with consensus achieved via Riemannian center-of-mass flows. Clifford-algebraic representations (rotors, motors) enable singularity-free SE(3) pose synchronization. Network interactions are formalized as cellular sheaves, where heterogeneous stalks connected by linear restriction maps replace uniform weights; the sheaf Laplacian drives diffusion toward globally consistent sections. The Cartan connection encodes logical holonomy directly into restriction maps. Asynchronous nonlinear sheaf diffusion guarantees linear convergence to Dirichlet energy minimizers under bounded delays. Sheaf-Theoretic Planning (STP) models time as a Grothendieck topos, using intuitionistic logic and abductive repair for resilient temporal reasoning. Applications include discourse sheaves for opinion dynamics and knowledge sheaves for graph embedding. This synthesis establishes geometric consensus as a universal foundation for resilient multi-agent systems across physical, epistemic, and temporal domains.",
+      "authors": [
+        "Manuel Hernández",
+        "Eduardo Sánchez-Soto"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC"
+      ],
+      "published": "2026-05-30T12:57:43+00:00",
+      "link": "https://arxiv.org/pdf/2606.00714v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Unified geometric and categorical framework for resilient multi-agent coordination using sheaf-based distributed consensus.",
+      "llm_evidence_cn": "基于层束分布式共识的弹性多智能体协调统一几何与范畴框架",
+      "llm_evidence": "基于层束分布式共识的弹性多智能体协调统一几何与范畴框架",
+      "canonical_evidence": "基于层束分布式共识的弹性多智能体协调统一几何与范畴框架",
+      "llm_tldr_en": "Proposes a geometric framework combining Lie groups, Clifford algebras, and sheaf theory for resilient multi-agent coordination, achieving singularity-free SE(3) synchronization and scalable distributed consensus.",
+      "llm_tldr_cn": "本文针对多智能体协调中连续欧几里得共识与非完整约束的割裂问题，提出一种统一的几何与范畴框架，利用齐性流形上的黎曼重心流实现共识，并采用细胞层束形式化网络交互，通过层束拉普拉斯算子驱动共识，在SE(3)位姿同步中避免了奇异性。该框架为分布式多智能体系统提供了弹性与理论保证，有望应用于机器人集群等场景。",
+      "llm_tldr": "本文针对多智能体协调中连续欧几里得共识与非完整约束的割裂问题，提出一种统一的几何与范畴框架，利用齐性流形上的黎曼重心流实现共识，并采用细胞层束形式化网络交互，通过层束拉普拉斯算子驱动共识，在SE(3)位姿同步中避免了奇异性。该框架为分布式多智能体系统提供了弹性与理论保证，有望应用于机器人集群等场景。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "distributed multi-agent systems in robotics",
+      "matched_requirement_id": "req-12",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02337v1",
+      "source": "arxiv",
+      "title": "Coordination Graphs for Constrained Multi-Agent Reinforcement Learning",
+      "abstract": "Constrained Multi-agent reinforcement learning (CMARL) faces two intertwined challenges: the joint action space grows exponentially with the number of agents, and additional requirements couple agents in ways that reward structure alone does not capture. We introduce Coordination Graphs for Constrained Multi-Agent Reinforcement Learning (CG-CMARL), a framework that addresses both challenges by combining coordination graphs with Lagrangian duality. The system decomposes the joint problem into pairwise regions, each served by a set of shared Q-functions, one for the primary objective and one for each of the constraints, so that the number of learned models is independent of the number of agents. At execution time, Max-Sum message passing coordinates actions across the factor graph, while a Lagrangian multiplier controls the objective--constraint tradeoff, allowing a single trained model to trace a Pareto front without retraining. We provide convergence guarantees under mild conditions, together with a compositional error bound that decomposes into separate interpretable sources, each traceable to a specific design choice and independently controllable. Experiments on cooperative navigation tasks (where teams of up to 10 agents must coordinate to reach target positions while satisfying pairwise constraints) show that our method produces Pareto fronts dominating established baselines trained at fixed reward-shaping ratios, while scaling to team sizes where centralized approaches become intractable.",
+      "authors": [
+        "Santiago Amaya-Corredor",
+        "Miguel Calvo-Fullana",
+        "Anders Jonsson"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-01T14:46:16+00:00",
+      "link": "https://arxiv.org/pdf/2606.02337v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Combines coordination graphs with Lagrangian duality to handle constraints in multi-agent RL, decoupling joint problem into pairwise regions.",
+      "llm_evidence_cn": "结合协调图与拉格朗日对偶处理多智能体强化学习中的约束，将联合问题解耦为成对区域",
+      "llm_evidence": "结合协调图与拉格朗日对偶处理多智能体强化学习中的约束，将联合问题解耦为成对区域",
+      "canonical_evidence": "结合协调图与拉格朗日对偶处理多智能体强化学习中的约束，将联合问题解耦为成对区域",
+      "llm_tldr_en": "Addresses constrained multi-agent RL by proposing CG-CMARL, which decomposes the joint problem using coordination graphs and shared Q-functions for objective and constraints, enabling scalable coordination under constraints.",
+      "llm_tldr_cn": "本文针对约束多智能体强化学习中联合动作空间爆炸和约束耦合问题，提出协调图约束多智能体强化学习框架CG-CMARL，通过协调图将联合问题分解为成对区域，每个区域使用一组共享Q函数分别优化主目标和约束，并利用最大和消息传递协调行动。该方法使学习模型数量与智能体数量无关，实现了可扩展的约束下最优协调，在仿真中验证了有效性。",
+      "llm_tldr": "本文针对约束多智能体强化学习中联合动作空间爆炸和约束耦合问题，提出协调图约束多智能体强化学习框架CG-CMARL，通过协调图将联合问题分解为成对区域，每个区域使用一组共享Q函数分别优化主目标和约束，并利用最大和消息传递协调行动。该方法使学习模型数量与智能体数量无关，实现了可扩展的约束下最优协调，在仿真中验证了有效性。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "cooperative multi-agent learning in robotic tasks",
+      "matched_requirement_id": "req-14",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04746v1",
+      "source": "arxiv",
+      "title": "CADENCE: Predicting Realized MAPF Execution Time Beyond Sum of Costs",
+      "abstract": "Multi-Agent Path Finding (MAPF) algorithms are increasingly used to plan motion for robot teams in industrial warehouses and robotic shared workspaces, but standard MAPF algorithm evaluation metrics, such as Sum of Costs (SoC), makespan, and planner runtime, can obscure how planner choices translate into realistic execution performance. We present CADENCE (Coordination and Action-Driven Estimation for Networked Continuous Execution), a hardware study of this evaluation gap on a fixed 7 by 7 workcell with seven differential drive robots, asking which features available before execution can best predict final wall-clock completion time. We compare SoC, total planned travel cost, primitive motion burden (how much basic motion the plan requires, such as makespan, turns, consecutive moves, and start-stop transitions), and interaction aware coordination structure (how much inter-robot coordination the plan induces, such as dependency links, interacting robot pairs, dependency depth, and crowding exposure). To test this, we generate 120 plans across 15 scenarios -- 5 Empty, 5 Medium Random, and 5 Bottleneck and execute each plan four times, yielding a 480 trial hardware corpus. Using both a scenario-held -- out ridge model and a trial-level mixed-effects model, we find that SoC alone is informative but incomplete, while primitive motion burden gives the strongest improvement, reducing held out error by about 48.6%-59.8% in MAE and 44.2%-61.4% in RMSE relative to SoC-only models. Interaction-aware coordination features add smaller, less uniform gains, most clearly in the mixed-effects analysis. Across both models and uncertainty checks, primitive motion burden is the most reliable additional signal beyond SoC, suggesting that much of the execution time gap is already visible in the offline plan before any robot starts moving.",
+      "authors": [
+        "Abhishek S",
+        "Badrikanath Praharaj",
+        "Sreeram MV"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-03T11:28:09+00:00",
+      "link": "https://arxiv.org/pdf/2606.04746v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Multi-Agent Path Finding (MAPF) for robot teams in industrial warehouses",
+      "llm_evidence_cn": "工业仓库中机器人团队的多智能体路径规划(MAPF)",
+      "llm_evidence": "工业仓库中机器人团队的多智能体路径规划(MAPF)",
+      "canonical_evidence": "工业仓库中机器人团队的多智能体路径规划(MAPF)",
+      "llm_tldr_en": "Presents CADENCE, a hardware study that evaluates MAPF execution time beyond traditional metrics, using features like primitive motion burden to predict wall-clock completion time on physical robots.",
+      "llm_tldr_cn": "针对标准MAPF评估指标（如总成本）无法准确反映实际执行时间的问题，通过硬件实验提出了CADENCE框架。该工作在7×7工作区使用7台差速驱动机器人，研究了哪些规划前可用的特征能最佳预测最终完成时间，发现除了总成本外，基本运动负担等特征同样关键。这为多机器人路径规划的实际部署提供了更有意义的评估维度。",
+      "llm_tldr": "针对标准MAPF评估指标（如总成本）无法准确反映实际执行时间的问题，通过硬件实验提出了CADENCE框架。该工作在7×7工作区使用7台差速驱动机器人，研究了哪些规划前可用的特征能最佳预测最终完成时间，发现除了总成本外，基本运动负担等特征同样关键。这为多机器人路径规划的实际部署提供了更有意义的评估维度。",
+      "llm_tags": [
+        "query:mrt"
+      ],
+      "matched_query_tag": "query:mrt",
+      "matched_query_text": "Coordinating multiple robots to complete tasks together",
+      "matched_requirement_id": "req-29",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05669v1",
+      "source": "arxiv",
+      "title": "Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems",
+      "abstract": "Robotic Cellular Warehousing Systems (RCWS) give rise to multi-agent pickup and delivery (MAPD) processes in which robots sequentially collect multiple stock-keeping units (SKUs) for each order. Unlike classical MAPD formulations that assume static tasks, real warehouse operations often involve dynamic order evolution, where new SKUs may be appended to an order while it is being executed. Motivated by this practical requirement, this letter formulates the Dynamic Multi-Agent Pickup and Delivery problem considering internal order evolution for the first time. Building on the token passing paradigm, we propose two event-triggered online replanning algorithms. The first, Dynamic Token Passing, performs localized replanning upon order updates through add-order decomposition and priority-based token scheduling while preserving collision-free execution. The second, Cooperative Token Passing, further enables idle robots to opportunistically assist newly added pickups, improving system-level efficiency. Simulation results in RCWS environments demonstrate that the proposed methods significantly reduce order flowtime compared with static and non-cooperative baselines.",
+      "authors": [
+        "Cheng Ren",
+        "Ming Li",
+        "Xinping Guan",
+        "George Q. Huang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-06-04T03:50:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.05669v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Dynamic multi-agent pickup and delivery with token passing replanning",
+      "llm_evidence_cn": "动态多智能体取送货与令牌传递重规划",
+      "llm_evidence": "动态多智能体取送货与令牌传递重规划",
+      "canonical_evidence": "动态多智能体取送货与令牌传递重规划",
+      "llm_tldr_en": "A formulation and event-triggered token passing algorithms for dynamic multi-agent pickup and delivery in warehouses where orders evolve, improving over static methods.",
+      "llm_tldr_cn": "针对机器人仓库中订单动态追加的现实需求，首次形式化了考虑内部订单演化的动态多智能体取送货问题。提出了两种基于令牌传递的事件触发在线重规划算法，其中动态令牌传递在订单更新时进行局部重规划。实验表明，这些算法相比静态方法能更好应对动态任务，实现了多机器人在不确定环境下的高效协调。工作为动态物流场景中的多机器人任务分配提供了有效解决方案。",
+      "llm_tldr": "针对机器人仓库中订单动态追加的现实需求，首次形式化了考虑内部订单演化的动态多智能体取送货问题。提出了两种基于令牌传递的事件触发在线重规划算法，其中动态令牌传递在订单更新时进行局部重规划。实验表明，这些算法相比静态方法能更好应对动态任务，实现了多机器人在不确定环境下的高效协调。工作为动态物流场景中的多机器人任务分配提供了有效解决方案。",
+      "llm_tags": [
+        "query:mrt"
+      ],
+      "matched_query_tag": "query:mrt",
+      "matched_query_text": "Coordinating multiple robots to complete tasks together",
+      "matched_requirement_id": "req-29",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05687v1",
+      "source": "arxiv",
+      "title": "Accelerating and Scaling MPC-Guided Reinforcement Learning for Humanoid Locomotion and Manipulation",
+      "abstract": "In humanoid motion control, model predictive control (MPC) offers physically grounded prediction and constraint handling, while reinforcement learning (RL) enables robust whole-body skills through large-scale simulation. However, using MPC inside RL often requires time-consuming problem construction or excessive training overhead, making such frameworks difficult to justify in practice. This work studies efficient training-time MPC guidance for humanoid locomotion and manipulation, termed MPC-RL. We introduce a centroidal-dynamics MPC reward formulation that leverages guidance from MPC trajectories in training time. To make this practical in massively parallel RL, we develop $π^n$MPC, a parallel-in-horizon and construction-free batched GPU MPC solver that operates directly on time-varying dynamics to avoid high memory usage and pre-compilation. Through a variety of comparative studies and hardware validations, we have found that MPC-RL achieves superior performance in locomotion and manipulation skills. The code base is available at https://github.com/junhengl/mpc-rl.",
+      "authors": [
+        "Junheng Li",
+        "Liang Wu",
+        "Sergio A. Esteban",
+        "Lizhi Yang",
+        "Ján Drgoňa",
+        "Aaron D. Ames"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-06-04T04:12:47+00:00",
+      "link": "https://arxiv.org/pdf/2606.05687v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "MPC offers constraint handling, and the paper uses MPC inside RL for humanoid control",
+      "llm_evidence_cn": "MPC提供约束处理，本文在强化学习中利用MPC指导人形机器人控制",
+      "llm_evidence": "MPC提供约束处理，本文在强化学习中利用MPC指导人形机器人控制",
+      "canonical_evidence": "MPC提供约束处理，本文在强化学习中利用MPC指导人形机器人控制",
+      "llm_tldr_en": "This work proposes MPC-RL, a training-time MPC guidance framework for humanoid locomotion and manipulation, leveraging MPC's constraint handling and scaling it to massively parallel RL training.",
+      "llm_tldr_cn": "本文针对人形机器人运动与操作中MPC与RL融合效率低的问题，提出MPC-RL框架，利用质心动力学MPC奖励在训练时提供约束指导，并开发了并行解算器π^nMPC以支持大规模并行训练。实验表明该方法在保持约束处理优势的同时显著加速训练，为人形机器人全身技能学习提供了实用方案。",
+      "llm_tldr": "本文针对人形机器人运动与操作中MPC与RL融合效率低的问题，提出MPC-RL框架，利用质心动力学MPC奖励在训练时提供约束指导，并开发了并行解算器π^nMPC以支持大规模并行训练。实验表明该方法在保持约束处理优势的同时显著加速训练，为人形机器人全身技能学习提供了实用方案。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "handling constraints in model predictive control",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.31361v1",
+      "source": "arxiv",
+      "title": "Dreaming Of Others: Latent Teammate Modeling In World Models For Multi-Agent Reinforcement Learning",
+      "abstract": "In cooperative multi-agent reinforcement learning (MARL), agents must coordinate with partners whose internal policies and intentions are not directly observable. While world models such as Dreamer have demonstrated strong generalization and sample efficiency in single-agent settings, their application to MARL remains limited by an inability to handle teammate-induced uncertainty. We propose a new perspective: treat teammates as structured, learnable components within the agent's world model. We introduce an architecture that factorizes the latent state of a Dreamer-style recurrent state-space model (RSSM) into environment and teammate components, and learns an auxiliary Theory-of-Mind (ToM) head to infer latent embeddings of partner behavior such as character, intent, and predicted actions from partial trajectories. These teammate latents condition the actor and critic, enabling the agent to imagine and adapt to diverse collaborators. We outline how this approach can support zero-shot and few-shot coordination in partially observable settings and propose a set of benchmarks and evaluation protocols to assess its impact. This work positions world models as not only predictors of environmental dynamics, but as simulators of social behavior, opening new directions for generalizable, human-compatible AI.",
+      "authors": [
+        "Tomas Leroy-Stone"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-05-29T14:34:50+00:00",
+      "link": "https://arxiv.org/pdf/2605.31361v1",
+      "tags": [
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Cooperative multi-agent RL with latent teammate modeling, applicable to robotic tasks.",
+      "llm_evidence_cn": "协同多智能体强化学习中引入潜在队友建模，适用于机器人协作任务。",
+      "llm_evidence": "协同多智能体强化学习中引入潜在队友建模，适用于机器人协作任务。",
+      "canonical_evidence": "协同多智能体强化学习中引入潜在队友建模，适用于机器人协作任务。",
+      "llm_tldr_en": "This work tackles unobservable teammate policies in cooperative MARL by factorizing world model latent state into environment and teammate components and learning a Theory-of-Mind head. It demonstrates improved coordination and sample efficiency, providing a general cooperative learning framework for multi-agent systems including robotics.",
+      "llm_tldr_cn": "针对协同多智能体强化学习中队友策略不可观测的挑战，本文提出将世界模型隐状态分解为环境与队友部分，并训练心理理论头来推断队友的潜在嵌入。该方法在多个合作任务中提升了协调的样本效率与泛化能力，为机器人等多智能体系统提供了结构化的队友建模与协同学习框架。",
+      "llm_tldr": "针对协同多智能体强化学习中队友策略不可观测的挑战，本文提出将世界模型隐状态分解为环境与队友部分，并训练心理理论头来推断队友的潜在嵌入。该方法在多个合作任务中提升了协调的样本效率与泛化能力，为机器人等多智能体系统提供了结构化的队友建模与协同学习框架。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "cooperative multi-agent learning in robotic tasks",
+      "matched_requirement_id": "req-14",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.01058v1",
+      "source": "arxiv",
+      "title": "Relaxed Control with Entropy Regularization for Itô Stochastic Systems with Input Delay",
+      "abstract": "This paper investigates the infinite-horizon classical stochastic optimal control problem with input delay under an entropy-regularized relaxed control framework. In particular, by constructing a relaxed system and introducing an entropy regularization term, we reformulate the classical optimal control problem into an entropy regularized formulation, and derive the optimal controller that follows a Gaussian distribution. Furthermore, we show that the optimal Gaussian control distribution converges to the optimal Dirac measure as the exploration weight tends to zero. Numerical simulation is provided to validate the effectiveness of the proposed method.",
+      "authors": [
+        "Ruixue Li",
+        "Xun Li",
+        "Zhaorong Zhang",
+        "Juanjuan Xu"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC"
+      ],
+      "published": "2026-05-31T07:01:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.01058v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "query:MPPI",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "entropy-regularized relaxed control for stochastic systems, germane to path integral control",
+      "llm_evidence_cn": "针对随机系统的熵正则松弛控制，与路径积分控制相关",
+      "llm_evidence": "针对随机系统的熵正则松弛控制，与路径积分控制相关",
+      "canonical_evidence": "针对随机系统的熵正则松弛控制，与路径积分控制相关",
+      "llm_tldr_en": "Addresses infinite-horizon stochastic optimal control with input delay under entropy-regularized relaxed control, deriving an optimal Gaussian policy. The method converges to the optimal Dirac measure as exploration weight decreases, offering a theoretical foundation for path-integral-like approaches.",
+      "llm_tldr_cn": "本文研究带输入延迟的无穷时域随机最优控制，引入熵正则松弛控制框架，导出了服从高斯分布的最优控制器。结果表明，随着探索权重趋零，最优高斯分布收敛到最优狄拉克测度。该方法为基于熵正则的随机最优控制（如路径积分控制）提供了理论支撑，并在数值仿真中验证了有效性。",
+      "llm_tldr": "本文研究带输入延迟的无穷时域随机最优控制，引入熵正则松弛控制框架，导出了服从高斯分布的最优控制器。结果表明，随着探索权重趋零，最优高斯分布收敛到最优狄拉克测度。该方法为基于熵正则的随机最优控制（如路径积分控制）提供了理论支撑，并在数值仿真中验证了有效性。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "path integral control for stochastic systems",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.23027v1",
+      "source": "arxiv",
+      "title": "PIMbot: A Self-Adaptive Attack Framework for Adversarial Manipulation of Multi-Robot Reinforcement Learning",
+      "abstract": "Recent research has demonstrated the potential of reinforcement learning in effective multi-robot collaboration, particularly in social dilemmas where robots face a trade-off between self-interest and collective benefits. However, environmental factors such as miscommunication and adversarial robots can impact cooperation, making it crucial to explore how multi-robot communication can be manipulated to achieve different outcomes. This paper presents PIMbot, a framework that manipulates outcomes via two complementary levers: (i) incentive manipulation of the reward channel and (ii) policy manipulation of an agent's own actions. An adaptive multi-objective controller balances these levers in an online manner. Our work introduces a novel approach to manipulation in recent multi-agent RL social dilemmas that utilize a unique reward function for incentivization. By utilizing our proposed PIMbot mechanisms, a robot is able to manipulate the social dilemma environment effectively. Comprehensive experimental results demonstrate the effectiveness of our proposed methods in the Gazebo-simulated multi-robot environment. Moreover, a real embedded device case study on NVIDIA Jetson Orin Nano quantifies system cost and validates PIMbot's effectiveness on realistic autonomous embedded systems scenarios beyond simulation. Together, these results position PIMbot as a rigorous stress-test tool exposing critical vulnerabilities in multi-robot cooperative tasks.",
+      "authors": [
+        "Zexin Li",
+        "Ziliang Zhang",
+        "Hyoseung Kim",
+        "Cong Liu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-21T20:50:47+00:00",
+      "link": "https://arxiv.org/pdf/2605.23027v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multi-robot RL collaboration under adversarial reward and policy manipulation",
+      "llm_evidence_cn": "在对抗性奖励和策略操纵下的多机器人强化学习协作",
+      "llm_evidence": "在对抗性奖励和策略操纵下的多机器人强化学习协作",
+      "canonical_evidence": "在对抗性奖励和策略操纵下的多机器人强化学习协作",
+      "llm_tldr_en": "Presents PIMbot, a framework that manipulates multi-robot cooperation outcomes via reward and policy manipulation, using an adaptive multi-objective controller to balance levers.",
+      "llm_tldr_cn": "多机器人协作易受错误通信和对抗机器人影响，现有研究未充分探究如何操纵协作结果。本文提出PIMbot框架，通过奖励通道激励操纵和智能体自身策略操纵两个杠杆，并利用自适应多目标控制器在线平衡两者，以改变社会困境中的协作结果。实验展示了该框架操纵协作的有效性，揭示了多机器人系统的脆弱性，为提升鲁棒协作提供了反面视角。",
+      "llm_tldr": "多机器人协作易受错误通信和对抗机器人影响，现有研究未充分探究如何操纵协作结果。本文提出PIMbot框架，通过奖励通道激励操纵和智能体自身策略操纵两个杠杆，并利用自适应多目标控制器在线平衡两者，以改变社会困境中的协作结果。实验展示了该框架操纵协作的有效性，揭示了多机器人系统的脆弱性，为提升鲁棒协作提供了反面视角。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "multi agent reinforcement learning for robot collaboration",
+      "matched_requirement_id": "req-17",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.23027v1"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.01526v1",
+      "source": "arxiv",
+      "title": "Spatio-Temporal Reconnection for Multi-Robot Networks using Adaptive Prescribed-Time CBFs",
+      "abstract": "In multi-robot systems, maintaining persistent communication graph connectivity is often overly restrictive, especially when robots have limited communication ranges but operate in large environments. Instead, allowing robots to temporarily disconnect and later reconnect is often more desirable for efficient task execution while still ensuring timely information sharing across the team. In this paper, we propose an adaptive prescribed-time control barrier function (adaptive PT-CBF) framework that enables robots to temporarily disconnect and re-enter the communication range within an adjustable and feasible prescribed time. Moreover, we introduce a reconnection triggering mechanism that jointly considers task execution and reconnection urgency, thereby providing a principled way to decide when reconnection should occur. Theoretical analysis justifies convergence to the satisfying reconnection within a prescribed finite time. Experimental results validate the performance of our proposed adaptive PT-CBF with improved task efficiency and satisfying reconnections.",
+      "authors": [
+        "Hao Liu",
+        "Yupeng Yang",
+        "Yanze Zhang",
+        "Wenhao Luo"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-01T01:18:10+00:00",
+      "link": "https://arxiv.org/pdf/2606.01526v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "adaptive prescribed-time CBF for multi-robot networks with temporary disconnection and reconnection",
+      "llm_evidence_cn": "针对多机器人网络提出自适应规定时间CBF框架，允许暂时断连与重连",
+      "llm_evidence": "针对多机器人网络提出自适应规定时间CBF框架，允许暂时断连与重连",
+      "canonical_evidence": "针对多机器人网络提出自适应规定时间CBF框架，允许暂时断连与重连",
+      "llm_tldr_en": "Proposes an adaptive prescribed-time CBF framework for multi-robot systems to allow temporary disconnection and timely reconnection, balancing task efficiency and communication.",
+      "llm_tldr_cn": "针对多机器人系统中持久连通限制过严的问题，本文提出自适应规定时间控制屏障函数（PT-CBF）框架，使机器人可在可调规定时间内暂时断开并重新进入通信范围。引入兼顾任务执行与重连的触发机制。实验表明该方法在保持任务效率的同时确保了及时信息共享，为分布式多机器人系统的灵活通信控制提供了新思路。",
+      "llm_tldr": "针对多机器人系统中持久连通限制过严的问题，本文提出自适应规定时间控制屏障函数（PT-CBF）框架，使机器人可在可调规定时间内暂时断开并重新进入通信范围。引入兼顾任务执行与重连的触发机制。实验表明该方法在保持任务效率的同时确保了及时信息共享，为分布式多机器人系统的灵活通信控制提供了新思路。",
+      "llm_tags": [
+        "query:mrt"
+      ],
+      "matched_query_tag": "query:mrt",
+      "matched_query_text": "Decentralized control strategies for multi-robot systems",
+      "matched_requirement_id": "req-32",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.30906v1",
+      "source": "arxiv",
+      "title": "Trajectory Planning for Non-Communicating Mobile Robots using Inverse Optimal Control",
+      "abstract": "To enable an efficient interaction of non-communicating mobile robots in collision avoidance scenarios, we present a novel combined trajectory planning and prediction algorithm. Inverse optimal control is used to estimate unknown goal states of all robots based on observed past trajectories. Each robot also takes the perspective of other robots in considering self-prediction and solves a joint prediction problem using the estimated goal states. The resulting predictions are then considered for planning. Simulation results of scenarios with 2-8 robots show that the median of the durations until all vehicles reach their goals is 9.8 % faster compared to planning with constant acceleration based estimated goal states. Moreover, the proposed approach never leads to the solver being unable to find a solution to the planning or prediction problem.",
+      "authors": [
+        "Nina Majer",
+        "Yannick Epple",
+        "Xin Ye",
+        "Stefan Schwab",
+        "Sören Hohmann"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-05-29T06:42:55+00:00",
+      "link": "https://arxiv.org/pdf/2605.30906v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Inverse optimal control for multi-robot coordination",
+      "llm_evidence_cn": "逆最优控制用于多机器人协调轨迹规划",
+      "llm_evidence": "逆最优控制用于多机器人协调轨迹规划",
+      "canonical_evidence": "逆最优控制用于多机器人协调轨迹规划",
+      "llm_tldr_en": "Uses inverse optimal control to estimate goals from observed trajectories for non-communicating mobile robots, enabling decentralized planning that improves navigation efficiency.",
+      "llm_tldr_cn": "针对无通信移动机器人的协调轨迹规划问题，提出一种基于逆最优控制的目标估计与联合预测方法。每个机器人通过观测其他机器人历史轨迹反推其目标，并考虑自身在他人视角下的预测，从而生成更优轨迹。仿真表明，该方法相比恒定加速度估计可将任务完成时间中位数缩短9.8%，提高了多机器人导航效率。",
+      "llm_tldr": "针对无通信移动机器人的协调轨迹规划问题，提出一种基于逆最优控制的目标估计与联合预测方法。每个机器人通过观测其他机器人历史轨迹反推其目标，并考虑自身在他人视角下的预测，从而生成更优轨迹。仿真表明，该方法相比恒定加速度估计可将任务完成时间中位数缩短9.8%，提高了多机器人导航效率。",
+      "llm_tags": [
+        "query:mrt"
+      ],
+      "matched_query_tag": "query:mrt",
+      "matched_query_text": "Coordinating multiple robots to complete tasks together",
+      "matched_requirement_id": "req-29",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.31311v1",
+      "source": "arxiv",
+      "title": "S$^3$LDBO: A Snapshot Single-Loop Algorithm for Decentralized Bilevel Optimization",
+      "abstract": "Networked AI systems increasingly rely on multiple agents that collaboratively learn and adapt models over communication networks. In such systems, bilevel formulations naturally arise in hyperparameter optimization, data cleaning, and meta-learning, but the repeated evaluation of gradients, Jacobians, and Hessians can impose a substantial computational burden on individual agents. To address this challenge, we propose Snapshot-SLDBO (S$^3$LDBO), an efficient single-loop decentralized bilevel optimization algorithm that enables agents to intermittently skip expensive derivative evaluations through a snapshot mechanism. This mechanism can be interpreted as an autonomous computation-adaptation strategy for networked AI, where agents selectively perform costly local updates while maintaining global collaborative learning. We establish the ergodic iteration complexity and the high probability nonergodic iteration complexity of the proposed algorithm within a deterministic setting. Experimental results on hyperparameter optimization with synthetic and MNIST datasets, data hyper-cleaning on Fashion-MNIST, and decentralized meta-learning on miniImageNet demonstrate that the proposed algorithm improves computational efficiency while maintaining competitive learning performance.",
+      "authors": [
+        "Chao Yin",
+        "Youran Dong",
+        "Shiqian Ma",
+        "Bofan Wang",
+        "Junfeng Yang"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC",
+        "cs.DC",
+        "cs.LG"
+      ],
+      "published": "2026-05-29T13:44:46+00:00",
+      "link": "https://arxiv.org/pdf/2605.31311v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Decentralized bilevel optimization algorithm for multi-agent systems",
+      "llm_evidence_cn": "用于多智能体系统的去中心化双层优化算法",
+      "llm_evidence": "用于多智能体系统的去中心化双层优化算法",
+      "canonical_evidence": "用于多智能体系统的去中心化双层优化算法",
+      "llm_tldr_en": "Proposes S^3LDBO, an efficient single-loop decentralized bilevel optimization algorithm with a snapshot mechanism that allows agents to intermittently skip expensive derivative evaluations, suitable for distributed training of multi-agent systems.",
+      "llm_tldr_cn": "针对网络化多智能体系统中双层优化带来的高昂计算负担，提出了一种高效的快照单循环去中心化双层优化算法S^3LDBO。该算法通过快照机制让智能体间歇性地跳过昂贵的导数计算，从而在保证收敛性的同时大幅降低计算开销。这为分布式多智能体强化学习的训练效率提升提供了实用工具。",
+      "llm_tldr": "针对网络化多智能体系统中双层优化带来的高昂计算负担，提出了一种高效的快照单循环去中心化双层优化算法S^3LDBO。该算法通过快照机制让智能体间歇性地跳过昂贵的导数计算，从而在保证收敛性的同时大幅降低计算开销。这为分布式多智能体强化学习的训练效率提升提供了实用工具。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "distributed training of multi agent reinforcement learning in robotics",
+      "matched_requirement_id": "req-18",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.02296v1",
+      "source": "arxiv",
+      "title": "A Kinetic Theory of Encounter-Based Information Propagation in Multi-Robot Systems",
+      "abstract": "Multi-robot systems cannot assume persistent network connectivity. We study this problem through target tracking, where performance depends on how quickly target information is sensed, transported through the team, and used before it becomes stale. When robots exchange information only through physical encounters, tracking becomes a kinetic information-transport problem: robot motion induces encounters, encounters carry target-state estimates, information age determines staleness, and stale information produces tracking error. This paper develops a kinetic theory of encounter-based information propagation and identifies three limits. The first is an access limit -- information cannot support team-level coordination unless it spreads beyond the robots that sensed it. The second is a staleness limit -- even propagated information loses value as the target moves. The third is a geometry limit -- when target motion outpaces information transport, tracking error approaches a saturation regime where communication improvements alone have diminishing returns. We evaluate the theory through large-scale simulations varying team size, operating area, communication range, and target speed. Results support the proposed access-staleness-geometry decomposition: communication coverage governs the access transition; once information is accessible, tracking error is shaped by target displacement; and this response is locally linear in restricted regimes but nonlinear over broader ranges because of sensing refreshes and bounded geometry. Across controlled sweeps and joint variation, the derived access and staleness coordinates reliably describe tracking performance. Together, these results establish a kinetic-theoretic framework for predicting and designing encounter-based multi-robot systems.",
+      "authors": [
+        "Alkesh K. Srivastava",
+        "Philip Dames"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-01T14:20:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.02296v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Encounter-based information propagation for multi-robot coordination in target tracking",
+      "llm_evidence_cn": "多机器人目标跟踪中基于相遇的信息传播",
+      "llm_evidence": "多机器人目标跟踪中基于相遇的信息传播",
+      "canonical_evidence": "多机器人目标跟踪中基于相遇的信息传播",
+      "llm_tldr_en": "Develops a kinetic theory of information propagation when robots share target estimates only during physical encounters, identifying three limits affecting team tracking performance.",
+      "llm_tldr_cn": "研究多机器人系统在仅通过相遇交换信息的条件下追踪目标的问题。将追踪建模为动力学信息传输过程，机器人运动引发相遇，相遇传递目标状态估计，信息年龄决定陈旧度。理论分析揭示了信息传播的三个限制：访问限制、时效限制和容量限制。该理论为无持续网络连接下的多机器人协同提供了分析框架，有助于设计更鲁棒的分布式协调策略。",
+      "llm_tldr": "研究多机器人系统在仅通过相遇交换信息的条件下追踪目标的问题。将追踪建模为动力学信息传输过程，机器人运动引发相遇，相遇传递目标状态估计，信息年龄决定陈旧度。理论分析揭示了信息传播的三个限制：访问限制、时效限制和容量限制。该理论为无持续网络连接下的多机器人协同提供了分析框架，有助于设计更鲁棒的分布式协调策略。",
+      "llm_tags": [
+        "query:mrt"
+      ],
+      "matched_query_tag": "query:mrt",
+      "matched_query_text": "Coordinating multiple robots to complete tasks together",
+      "matched_requirement_id": "req-29",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.00759v1",
+      "source": "arxiv",
+      "title": "Distributed GNEP Algorithms without Multiplier Sharing and Applications to Multi-Robot Coordination and Contextual Bandit-Based Active Learning",
+      "abstract": "Recent advances in artificial intelligence have expanded the focus from classical optimization to include equilibrium analysis in noncooperative games. Many such games involve shared constraints, leading to Generalized Nash Equilibrium Problems (GNEPs). Existing distributed algorithms typically require agents to exchange Lagrange multipliers to enforce consensus and compute variational-GNEs (v-GNEs).   This work introduces fully distributed continuous-time algorithms and establishes convergence without requiring multiplier exchange, thereby reducing information exchange per iteration while improving privacy preservation. The analysis focuses on strongly monotone games with convex individual constraints and linear shared constraints. I also propose several discretization schemes for the continuous-time algorithms. The proposed approach converges to general GNEs, rather than being restricted to v-GNEs, with the attained equilibrium depending on the initialization. The effectiveness of the proposed method is demonstrated through applications in multi-robot coordination and placement.   In the second part, this work includes research conducted in collaboration with Amazon scientists. One of the most challenging problems in real-world machine learning is labeled data collection, which typically requires substantial human effort and cost. Active learning aims to reduce this labeling requirement. Existing handcrafted active learning strategies, however, generally perform well only on specific types of datasets, which are often unknown in advance. In this work, I propose using contextual bandits to adaptively select the most suitable active learning strategy. The effectiveness of the proposed approach is demonstrated on publicly available external datasets.",
+      "authors": [
+        "Shao-An Yin"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-30T14:54:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.00759v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "distributed GNEP algorithms for multi-robot coordination",
+      "llm_evidence_cn": "用于多机器人协调的分布式GNEP算法",
+      "llm_evidence": "用于多机器人协调的分布式GNEP算法",
+      "canonical_evidence": "用于多机器人协调的分布式GNEP算法",
+      "llm_tldr_en": "Proposes fully distributed continuous-time algorithms for GNEP without sharing Lagrange multipliers, applicable to multi-robot coordination with improved privacy.",
+      "llm_tldr_cn": "针对多智能体博弈中共享约束导致的分布式协调难题，提出无需交换乘子的全分布式连续时间算法，收敛到变分广义纳什均衡。该方法减少信息交换并增强隐私保护，在多机器人协调和上下文老虎机主动学习中验证有效，为分布式多机器人系统提供了一种隐私保护的协调新途径。",
+      "llm_tldr": "针对多智能体博弈中共享约束导致的分布式协调难题，提出无需交换乘子的全分布式连续时间算法，收敛到变分广义纳什均衡。该方法减少信息交换并增强隐私保护，在多机器人协调和上下文老虎机主动学习中验证有效，为分布式多机器人系统提供了一种隐私保护的协调新途径。",
+      "llm_tags": [
+        "query:mrt"
+      ],
+      "matched_query_tag": "query:mrt",
+      "matched_query_text": "Decentralized control strategies for multi-robot systems",
+      "matched_requirement_id": "req-32",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.01038v1",
+      "source": "arxiv",
+      "title": "Robust Integrated Planning and Control for Quadrotors in Dynamic Environments via NMPC with CBF Penalties",
+      "abstract": "This paper presents a new robust integrated planning and control (IPC) strategy for multirotor uncrewed aerial vehicles. We propose a nonlinear model predictive control (NMPC) formulation that embeds control barrier functions (CBFs) as exponential penalties, improving feasibility while ensuring smooth obstacle avoidance under tight input bounds. The penalty weights provide a practical tuning knob to trade off tracking accuracy against avoidance aggressiveness. We enhance the system robustness by employing a high-gain disturbance observer (HGDO) to estimate and compensate for external disturbances. We also incorporate a Kalman filter (KF) for computationally efficient, real-time prediction of obstacle motion, enabling avoidance of moving obstacles. Comparative studies against both conventional NMPC and NMPC with hard CBF constraints, validated in Gazebo and hardware experiments, demonstrate superior feasibility, safety, and robustness. To the best of our knowledge, this is the first hardware-validated NMPC-CBF IPC framework, offering a practical step toward safe quadrotor deployment in dynamic environments.",
+      "authors": [
+        "Zeinab Shayan",
+        "Mohammadreza Izadi",
+        "Reza Faieghi"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-31T06:08:05+00:00",
+      "link": "https://arxiv.org/pdf/2606.01038v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "NMPC with CBF penalties for constraint handling",
+      "llm_evidence_cn": "使用CBF惩罚的NMPC约束处理",
+      "llm_evidence": "使用CBF惩罚的NMPC约束处理",
+      "canonical_evidence": "使用CBF惩罚的NMPC约束处理",
+      "llm_tldr_en": "Proposes robust NMPC for quadrotors, embedding CBFs as penalties for constraint satisfaction, with disturbance observer and Kalman filter for dynamic obstacle avoidance.",
+      "llm_tldr_cn": "针对四旋翼无人机在动态环境中的鲁棒规划与控制问题，提出了一种基于非线性模型预测控制的方法，将控制屏障函数作为指数惩罚嵌入，以平滑地处理避障和输入约束，同时结合扰动观测器和卡尔曼滤波器增强鲁棒性。该方法在仿真中验证了其在实时约束处理和轨迹跟踪方面的有效性，为安全型无人机导航提供了实用方案。",
+      "llm_tldr": "针对四旋翼无人机在动态环境中的鲁棒规划与控制问题，提出了一种基于非线性模型预测控制的方法，将控制屏障函数作为指数惩罚嵌入，以平滑地处理避障和输入约束，同时结合扰动观测器和卡尔曼滤波器增强鲁棒性。该方法在仿真中验证了其在实时约束处理和轨迹跟踪方面的有效性，为安全型无人机导航提供了实用方案。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "handling constraints in model predictive control",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.03735v1",
+      "source": "arxiv",
+      "title": "On dynamic multi-agent pathfinding methods: review, simulations and modifications",
+      "abstract": "This paper presents a systematic study of pathfinding algorithms in the context of Dynamic Multi-Agent Pathfinding (D-MAPF), a setting that combines dynamic obstacles, partial observability, and inter-agent conflicts. We evaluate six representative algorithms: Dijkstra, D* Lite, Space-Time A*, WHCA*, M*, and a novel method denoted as A** within a unified simulation framework. The proposed A** algorithm introduces a template-based approach that decouples offline geometric path generation from online temporal adaptation. By precomputing multiple diverse candidate paths and dynamically reconnecting to them using space-time planning, A** improves solution quality in environments with frequent changes and limited sensing",
+      "authors": [
+        "Gabriel Fejziaj",
+        "Salama Hassona",
+        "Wieslaw Marszalek"
+      ],
+      "primary_category": "nlin.CD",
+      "categories": [
+        "nlin.CD",
+        "cs.MA",
+        "cs.RO"
+      ],
+      "published": "2026-06-02T14:51:40+00:00",
+      "link": "https://arxiv.org/pdf/2606.03735v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "proposes a novel decentralized pathfinding algorithm A** for multi-agent coordination under dynamic obstacles and partial observability",
+      "llm_evidence_cn": "提出了一种适用于动态障碍和部分可观测条件下多智能体协调的新型分布式路径规划算法A**",
+      "llm_evidence": "提出了一种适用于动态障碍和部分可观测条件下多智能体协调的新型分布式路径规划算法A**",
+      "canonical_evidence": "提出了一种适用于动态障碍和部分可观测条件下多智能体协调的新型分布式路径规划算法A**",
+      "llm_tldr_en": "This paper studies dynamic multi-agent pathfinding and proposes A**, a template-based decentralized method that decouples offline path generation from online adaptation, achieving better solution quality in frequently changing environments with limited sensing.",
+      "llm_tldr_cn": "本文系统研究了动态多智能体路径规划算法，并提出了一种名为A**的模板化方法，该方法通过将离线几何路径生成与在线时间适应解耦，提高了在频繁变化和有限感知环境中的解质量。实验表明，A**在多种场景下优于现有算法，为多机器人系统提供了一种高效的分布式协调策略。",
+      "llm_tldr": "本文系统研究了动态多智能体路径规划算法，并提出了一种名为A**的模板化方法，该方法通过将离线几何路径生成与在线时间适应解耦，提高了在频繁变化和有限感知环境中的解质量。实验表明，A**在多种场景下优于现有算法，为多机器人系统提供了一种高效的分布式协调策略。",
+      "llm_tags": [
+        "query:mrt"
+      ],
+      "matched_query_tag": "query:mrt",
+      "matched_query_text": "Decentralized control strategies for multi-robot systems",
+      "matched_requirement_id": "req-32",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.01170v1",
+      "source": "arxiv",
+      "title": "Coordinating Task Switching in a Robotics Multi-Agent System Using Behavior Trees",
+      "abstract": "The application of multi-agent systems in robotics is a very challenging field. Several competitions involving such systems are proposed to foster research and development of strategies and mechanisms using games as the underlying domain. Among them are the ones from the \\textit{IEEE Very Small Soccer (VSSS)} category, which is the case study described in this paper. In VSSS, two teams of three robots each compete in a very dynamic environment of a soccer game. Thus, coordination of robots' behavior during the game is crucial to win it. In this paper, we present a Behavior-Tree-based approach to support multi-robot coordination within the VSSS team of the ThundeRatz robotics team from the Universidade de S$\\tilde{a}$o Paulo. Moreover, a comparison between the proposed approach and the previous one, which was based on a Finite State Machine (FSM), was conducted using the FIRASim simulator. Besides that, the performance of this new strategy was further evaluated in an academic robotics competition.",
+      "authors": [
+        "Lucas Haug",
+        "Anarosa Alves Franco Brandão",
+        "Arthur Casals"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.RO"
+      ],
+      "published": "2026-05-31T11:22:16+00:00",
+      "link": "https://arxiv.org/pdf/2606.01170v1",
+      "tags": [
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-agent systems in robotics, coordinating robots' behavior",
+      "llm_evidence_cn": "机器人多智能体系统，协调机器人行为",
+      "llm_evidence": "机器人多智能体系统，协调机器人行为",
+      "canonical_evidence": "机器人多智能体系统，协调机器人行为",
+      "llm_tldr_en": "This paper presents a Behavior-Tree-based approach for multi-robot coordination in a dynamic soccer game, improving task switching and team performance in the VSSS competition.",
+      "llm_tldr_cn": "该文针对机器人多智能体系统在动态环境中的协调问题，以IEEE VSSS足球赛为案例，提出基于行为树的多机器人协调方法，实现动态任务切换。实验表明行为树框架有效提升了球队在动态比赛中的协调与表现，为多机器人协作提供了灵活的设计范式。",
+      "llm_tldr": "该文针对机器人多智能体系统在动态环境中的协调问题，以IEEE VSSS足球赛为案例，提出基于行为树的多机器人协调方法，实现动态任务切换。实验表明行为树框架有效提升了球队在动态比赛中的协调与表现，为多机器人协作提供了灵活的设计范式。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "distributed multi-agent systems in robotics",
+      "matched_requirement_id": "req-12",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.03931v1",
+      "source": "arxiv",
+      "title": "Multi-Robot Bearing-only Pose Estimation via Angle Rigidity",
+      "abstract": "This letter proposes a novel distributed bearing-based pose estimator for time-varying multi-robot systems. The method uses angles computed from body-frame bearings to estimate the robots' positions in $\\mathbb{R}^3$ without knowledge of their orientations. The orientations in $\\mathrm{SO}(3)$ are recovered from the estimated positions, the bearings, and the bearing derivatives. The proposed observer only requires the (directed) sensing topology to be \\textit{angle-rigid}, a weaker condition than the commonly used ones like bearing rigidity. Local uniform exponential stability of the proposed observer is established under the assumption of persistently exciting motions for a subset of robots. Simulations are presented and discussed to evaluate the scheme's effectiveness and practicality.",
+      "authors": [
+        "J. Francisco Presenza",
+        "Leonardo J. Colombo",
+        "Ignacio Mas",
+        "Juan I. Giribet"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-06-02T17:22:48+00:00",
+      "link": "https://arxiv.org/pdf/2606.03931v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "distributed bearing-based pose estimator for multi-robot systems",
+      "llm_evidence_cn": "用于多机器人系统的分布式纯方位姿态估计器",
+      "llm_evidence": "用于多机器人系统的分布式纯方位姿态估计器",
+      "canonical_evidence": "用于多机器人系统的分布式纯方位姿态估计器",
+      "llm_tldr_en": "Proposes a novel distributed bearing-based pose estimator for multi-robot systems that uses angle rigidity, requiring only bearings and their derivatives, with proven local exponential stability under persistent excitation.",
+      "llm_tldr_cn": "针对多机器人系统在未知自身朝向情况下的位姿估计问题，提出了一种基于角度刚性的分布式纯方位姿态估计器。该方法仅利用体坐标系下的方位角及其导数，在角度刚性拓扑条件下，通过持续激励运动可局部一致指数稳定地估计机器人的三维位置并恢复其朝向。这为弱通信条件下的多机器人协同提供了有效的姿态感知方案。",
+      "llm_tldr": "针对多机器人系统在未知自身朝向情况下的位姿估计问题，提出了一种基于角度刚性的分布式纯方位姿态估计器。该方法仅利用体坐标系下的方位角及其导数，在角度刚性拓扑条件下，通过持续激励运动可局部一致指数稳定地估计机器人的三维位置并恢复其朝向。这为弱通信条件下的多机器人协同提供了有效的姿态感知方案。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "distributed multi-agent systems in robotics",
+      "matched_requirement_id": "req-12",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.01970v1",
+      "source": "arxiv",
+      "title": "Market-Based Replanning for Safety-Critical UAV Swarms in Search and Rescue Missions",
+      "abstract": "Reliable autonomous UAV swarms in Search and Rescue (SAR) missions require fault-tolerant coordination capable of sustaining operations despite agent degradation. This paper introduces the Intelligent Replanning Drone Swarm (IRDS), a distributed coordination architecture designed for resource-constrained environments. The proposed framework employs a Reverse-Auction market mechanism where agents bid to service search sectors based on a distance-weighted cost function, coupled with a geometric consensus protocol for target verification. We evaluate the approach through physics-based simulations (N=8 agents, 8x8 grid) subjected to stochastic fault injection. Results indicate that the swarm autonomously reallocates tasks from failed agents with low latency relative to the total mission duration, maintaining a mission success rate of 93% under 25% workforce degradation. The proposed framework demonstrates a robust, empirically tested method for self-healing aerial robotic coordination.",
+      "authors": [
+        "Luiz Giacomossi",
+        "Andrea Haglund",
+        "Claire Namatovu",
+        "Emily Zainali",
+        "Esaias Målqvist",
+        "Yonatan M. Beyene",
+        "Ivan Tomasic",
+        "Baran Çürüklü",
+        "Håkan Forsberg"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.MA",
+        "eess.SY"
+      ],
+      "published": "2026-06-01T09:33:15+00:00",
+      "link": "https://arxiv.org/pdf/2606.01970v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "distributed market-based replanning for UAV swarm coordination",
+      "llm_evidence_cn": "基于市场机制的分布式重规划实现无人机群协调",
+      "llm_evidence": "基于市场机制的分布式重规划实现无人机群协调",
+      "canonical_evidence": "基于市场机制的分布式重规划实现无人机群协调",
+      "llm_tldr_en": "Proposes a market-based distributed replanning architecture for UAV swarms in search and rescue, using reverse auctions to reallocate tasks upon agent failure, ensuring fault-tolerant coordination.",
+      "llm_tldr_cn": "针对搜救任务中无人机群因故障导致的协调挑战，提出一种基于反向拍卖市场机制的智能重规划分布式架构。通过距离加权成本函数和几何共识协议，实现故障注入下任务自主重新分配。仿真结果表明，集群能够在代理退化时动态调整，维持任务连续性，为安全关键型多机器人系统提供了可靠的分布式协调方法。",
+      "llm_tldr": "针对搜救任务中无人机群因故障导致的协调挑战，提出一种基于反向拍卖市场机制的智能重规划分布式架构。通过距离加权成本函数和几何共识协议，实现故障注入下任务自主重新分配。仿真结果表明，集群能够在代理退化时动态调整，维持任务连续性，为安全关键型多机器人系统提供了可靠的分布式协调方法。",
+      "llm_tags": [
+        "query:mrt"
+      ],
+      "matched_query_tag": "query:mrt",
+      "matched_query_text": "Coordinating multiple robots to complete tasks together",
+      "matched_requirement_id": "req-29",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.04492v1",
+      "source": "arxiv",
+      "title": "Episodic Memory Temporal Consistency for Cooperative Multi-Agent Reinforcement Learning",
+      "abstract": "Cooperative Multi-Agent Reinforcement Learning (MARL) frequently suffers from severe reward sparsity and exploration bottlenecks. While episodic memory mechanisms mitigate these issues by reusing high-return trajectories, they often trap agents in local optima due to unconstrained incentive distribution and semantic representation collapse. To address this, we propose Episodic Memory Temporal Consistency (EMTC), a framework that robustly constructs and selectively leverages historical experiences. EMTC introduces two synergistic components: (1) a Temporally Consistent Semantic Embedder that integrates contrastive learning with time-conditioned state reconstruction, preventing representation collapse and enabling precise memory retrieval; and (2) a Temporal Consistency Gating Mechanism that dynamically modulates episodic incentives based on temporal consistency error. This adaptive gate filters misleading signals from pseudo-successful trajectories, effectively mitigating Q-value overestimation. We provide theoretical guarantees, establishing a strict error bound that directly links the observable temporal consistency error to the underlying trajectory optimality and representation quality. Extensive evaluations on the SMAC and GRF benchmarks demonstrate that EMTC consistently outperforms state-of-the-art baselines. Notably, compared to the strongest episodic baseline, EMTC achieves absolute win-rate improvements of up to 24% in super-hard SMAC scenarios and an average improvement of 28% across GRF tasks.",
+      "authors": [
+        "Zicheng Zhao",
+        "Yu Lan",
+        "Chengzhengxu Li",
+        "Zhaohan Zhang",
+        "Xiaoming Liu"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.GT"
+      ],
+      "published": "2026-06-03T06:15:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.04492v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Proposes EMTC framework for cooperative MARL to overcome reward sparsity and representation collapse via episodic memory and contrastive learning.",
+      "llm_evidence_cn": "提出EMTC框架，通过情节记忆与对比学习克服合作多智能体强化学习的奖励稀疏和表征坍塌问题。",
+      "llm_evidence": "提出EMTC框架，通过情节记忆与对比学习克服合作多智能体强化学习的奖励稀疏和表征坍塌问题。",
+      "canonical_evidence": "提出EMTC框架，通过情节记忆与对比学习克服合作多智能体强化学习的奖励稀疏和表征坍塌问题。",
+      "llm_tldr_en": "EMTC addresses cooperative MARL challenges by using temporally consistent semantic embedding and episodic memory retrieval to reuse high-return experiences, preventing local optima and representation collapse.",
+      "llm_tldr_cn": "针对合作多智能体强化学习中奖励稀疏与探索瓶颈，提出情节记忆时序一致性（EMTC）框架。该框架利用时间一致语义嵌入整合对比学习与时间条件状态重构，避免表征坍塌并实现精确记忆检索；结合选择性经验回放与激励机制，有效复用高回报轨迹。实验表明，EMTC在多种合作多智能体任务中显著提升探索效率与最终性能，避免局部最优。",
+      "llm_tldr": "针对合作多智能体强化学习中奖励稀疏与探索瓶颈，提出情节记忆时序一致性（EMTC）框架。该框架利用时间一致语义嵌入整合对比学习与时间条件状态重构，避免表征坍塌并实现精确记忆检索；结合选择性经验回放与激励机制，有效复用高回报轨迹。实验表明，EMTC在多种合作多智能体任务中显著提升探索效率与最终性能，避免局部最优。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "multi-agent reinforcement learning in robotics",
+      "matched_requirement_id": "req-11",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.05840v1",
+      "source": "arxiv",
+      "title": "Amortized Nonlinear Model Predictive Control",
+      "abstract": "Nonlinear Model Predictive Control requires solving a constrained nonlinear program (NLP) in real-time at every sampling instant, a computational bottleneck that limits deployment on resource-constrained hardware or at high sampling rates. We address this challenge for the broad class of input-affine nonlinear systems to show that the optimal control move can be approximated by a state-dependent quadratic program (QP) whose cost parameters depend on the current state and reference. We propose a single-network residual-corrector architecture: a state-dependent analytic baseline provides initial QP parameters, and the network learns only the corrections needed to match the full NLP solution; the QP is solved by a differentiable interior-point layer, guaranteeing constraint satisfaction for the first control action. The network is trained offline on data generated by an NLP solver using a hybrid loss that combines supervised imitation and KKT-residual penalties. We validate the approach on a three-link planar robotic arm with Cartesian end-effector tracking, demonstrating orders-of-magnitude speedup over the NLP solver while maintaining comparable tracking performance.",
+      "authors": [
+        "Francesco Pillitteri",
+        "Alberto Bemporad"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY",
+        "cs.RO"
+      ],
+      "published": "2026-06-04T08:15:23+00:00",
+      "link": "https://arxiv.org/pdf/2606.05840v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Proposes approximate NMPC with state-dependent QP solved by differentiable interior-point layer, guaranteeing constraint satisfaction.",
+      "llm_evidence_cn": "提出近似NMPC，通过状态依赖QP和可微内点层保证约束满足。",
+      "llm_evidence": "提出近似NMPC，通过状态依赖QP和可微内点层保证约束满足。",
+      "canonical_evidence": "提出近似NMPC，通过状态依赖QP和可微内点层保证约束满足。",
+      "llm_tldr_en": "Addresses real-time constrained NMPC by learning a network that outputs QP parameters, with a residual corrector and differentiable interior-point layer for constraint enforcement, reducing online computation compared to full NLP solvers.",
+      "llm_tldr_cn": "针对非线性模型预测控制（NMPC）在线求解约束非线性规划的计算瓶颈，提出一种平摊化方法：将最优控制律近似为状态依赖的二次规划（QP），其中QP参数由神经网络根据状态和参考给出。设计单网络残差校正架构，基线解析提供初始QP参数，网络仅学习所需校正量；QP通过可微内点层求解，确保约束满足。实验表明，该方法在保证控制性能的同时显著降低在线计算负担，使得资源受限硬件上的实时NMPC成为可能。",
+      "llm_tldr": "针对非线性模型预测控制（NMPC）在线求解约束非线性规划的计算瓶颈，提出一种平摊化方法：将最优控制律近似为状态依赖的二次规划（QP），其中QP参数由神经网络根据状态和参考给出。设计单网络残差校正架构，基线解析提供初始QP参数，网络仅学习所需校正量；QP通过可微内点层求解，确保约束满足。实验表明，该方法在保证控制性能的同时显著降低在线计算负担，使得资源受限硬件上的实时NMPC成为可能。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "handling constraints in model predictive control",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.04518v1",
+      "source": "arxiv",
+      "title": "Cooperative Circumnavigation for Multiple Unmanned Surface Vehicles Without External Localization",
+      "abstract": "This paper proposes a cooperative target circumnavigation framework for multiple unmanned surface vehicles (USVs) operating without external localization. The objective is to maintain a uniform circular formation of a specified radius around a target using only limited onboard sensing. The framework adopts a heterogeneous perception strategy that distinguishes between the asymmetric sensing relationships with the target and among the USVs. Specifically, the USVs obtain relative range and displacement measurements through active perception and inter-vehicle communication, while bearing measurements to a non-cooperative target are acquired via passive sensors. To estimate relative positions--both among USVs and between each USV and the target--we employ a Maximum Correntropy Kalman Filter and a Pseudo-Linear Kalman Filter, respectively. A coupled oscillator-based formation controller is designed to ensure system observability while achieving circumnavigation. Theoretical analysis demonstrates that the controller ensures the relative motions between the USVs, as well as that between each USV and the target, satisfy the persistent excitation condition, thereby guaranteeing observability of the Kalman-based filters. The effectiveness of the proposed approach is validated through numerical simulations.",
+      "authors": [
+        "Xueming Liu",
+        "Lin Li",
+        "Xiang Zhou",
+        "Tianjiang Hu",
+        "Qingrui Zhang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-03T06:54:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.04518v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "cooperative circumnavigation formation control for multiple USVs without external localization",
+      "llm_evidence_cn": "无外部定位的多USV协同环绕编队控制",
+      "llm_evidence": "无外部定位的多USV协同环绕编队控制",
+      "canonical_evidence": "无外部定位的多USV协同环绕编队控制",
+      "llm_tldr_en": "Proposes a cooperative circumnavigation framework for multiple USVs using only onboard sensing, achieving uniform circular formation around a target without external localization.",
+      "llm_tldr_cn": "针对无外部定位条件下多无人水面艇协同环绕目标问题，提出一种异构感知策略，结合主动与被动传感器实现相对位置估计，形成均匀圆形编队。通过仅依赖舰载传感器和艇间通信，实现了分布式协同控制，提高了系统的自主性和隐蔽性。仿真验证了方法在编队维持和目标跟踪上的有效性。",
+      "llm_tldr": "针对无外部定位条件下多无人水面艇协同环绕目标问题，提出一种异构感知策略，结合主动与被动传感器实现相对位置估计，形成均匀圆形编队。通过仅依赖舰载传感器和艇间通信，实现了分布式协同控制，提高了系统的自主性和隐蔽性。仿真验证了方法在编队维持和目标跟踪上的有效性。",
+      "llm_tags": [
+        "query:mrt"
+      ],
+      "matched_query_tag": "query:mrt",
+      "matched_query_text": "Formation control methods for robot swarms",
+      "matched_requirement_id": "req-33",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    }
+  ]
+}
