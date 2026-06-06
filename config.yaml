@@ -72,6 +72,129 @@ subscriptions:
           source: manual
           note: ''
       updated_at: '2026-06-06T02:39:43.593Z'
+    - tag: marl-robot
+      description: 机器人领域中多智能体强化学习及其分布式相关文章
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: multi-agent reinforcement learning
+          keyword_cn: 多智能体强化学习
+          query: multi-agent reinforcement learning in robotics
+        - keyword: distributed multi-agent systems
+          keyword_cn: 分布式多智能体系统
+          query: distributed multi-agent systems in robotics
+        - keyword: multi-robot coordination
+          keyword_cn: 多机器人协调
+          query: multi-robot coordination using reinforcement learning
+        - keyword: cooperative multi-agent learning
+          keyword_cn: 协作式多智能体学习
+          query: cooperative multi-agent learning in robotic tasks
+        - keyword: multi-agent policy gradient
+          keyword_cn: 多智能体策略梯度
+          query: multi-agent policy gradient methods for robotics
+        - keyword: multi-agent deep reinforcement learning
+          keyword_cn: 多智能体深度强化学习
+          query: multi-agent deep reinforcement learning for robot navigation
+      intent_queries:
+        - query: multi agent reinforcement learning for robot collaboration
+          query_cn: 用于机器人协作的多智能体强化学习
+          enabled: true
+          source: manual
+          note: ''
+        - query: distributed training of multi agent reinforcement learning in robotics
+          query_cn: 机器人技术中多智能体强化学习的分布式训练
+          enabled: true
+          source: manual
+          note: ''
+        - query: decentralized multi agent systems for robot swarm control
+          query_cn: 用于机器人群体控制的去中心化多智能体系统
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-06-06T02:42:25.257Z'
+    - tag: legged-MARL
+      description: 请帮我查找使用的多智能体思路解决legged robots locomotion问题的文章
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: legged robot
+          keyword_cn: 腿式机器人
+          query: legged robot locomotion using multi-agent approach
+        - keyword: multi-agent reinforcement learning
+          keyword_cn: 多智能体强化学习
+          query: multi-agent reinforcement learning for legged locomotion
+        - keyword: distributed control
+          keyword_cn: 分布式控制
+          query: distributed control of legged robots with multi-agent
+        - keyword: legged locomotion
+          keyword_cn: 腿式运动
+          query: legged locomotion with multi-agent coordination
+        - keyword: multi-agent coordination
+          keyword_cn: 多智能体协调
+          query: multi-agent coordination for legged robot gaits
+        - keyword: cooperative multi-agent
+          keyword_cn: 协作式多智能体
+          query: cooperative multi-agent approach to quadrupedal locomotion
+      intent_queries:
+        - query: multi agent locomotion control for legged robots
+          query_cn: 多智能体运动控制用于腿式机器人
+          enabled: true
+          source: manual
+          note: ''
+        - query: reinforcement learning with multiple agents for robot gait
+          query_cn: 多智能体强化学习用于机器人步态
+          enabled: true
+          source: manual
+          note: ''
+        - query: cooperative control of legged robots using agent based approaches
+          query_cn: 基于智能体的协作控制用于腿式机器人
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-06-06T02:45:20.556Z'
+    - tag: MRT
+      description: 多机器人协同搬运
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: multi-robot coordination
+          keyword_cn: 多机器人协调
+          query: Coordinating multiple robots to complete tasks together
+        - keyword: cooperative transport
+          keyword_cn: 协同运输
+          query: Cooperative object transport using multiple robots
+        - keyword: collaborative manipulation
+          keyword_cn: 协作操纵
+          query: Collaborative manipulation of objects by robot teams
+        - keyword: decentralized control
+          keyword_cn: 分散控制
+          query: Decentralized control strategies for multi-robot systems
+        - keyword: formation control
+          keyword_cn: 编队控制
+          query: Formation control methods for robot swarms
+        - keyword: cooperative load transport
+          keyword_cn: 协同负载运输
+          query: Cooperative load transport by multiple mobile robots
+      intent_queries:
+        - query: Find papers discussing multi robot cooperative load transportation techniques
+          query_cn: 查找讨论多机器人协同负载运输技术的论文
+          enabled: true
+          source: manual
+          note: ''
+        - query: Search for articles on collaborative object handling by multiple robots
+          query_cn: 搜索关于多机器人协作物体搬运的文章
+          enabled: true
+          source: manual
+          note: ''
+        - query: What are the strategies for decentralized multi robot payload transport?
+          query_cn: 分散式多机器人有效载荷运输的策略是什么？
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-06-06T02:47:10.105Z'
 source_backends:
   arxiv:
     papers_table: arxiv_papers
