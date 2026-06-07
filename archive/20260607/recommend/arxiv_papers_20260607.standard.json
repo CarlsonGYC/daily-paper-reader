@@ -1,0 +1,201 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-07T21:21:38.259554+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 4,
+    "deep_divecandidates": 2,
+    "deep_cap": 9,
+    "deep_selected": 2,
+    "quick_candidates": 2,
+    "quick_skim_target": 14,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.01324v1",
+      "source": "arxiv",
+      "title": "Digital Twin-Assisted Adaptive Multi-Agent DRL for Intelligent Spectrum and Resource Management in Open-RAN UAV-Enabled 6G Networks",
+      "abstract": "The evolution toward 6G wireless networks envisions a seamlessly intelligent, Open-RAN-enabled architecture where unmanned aerial vehicles (UAVs) play a pivotal role in extending coverage, enhancing resilience, and ensuring reliable connectivity for ground users deployment. However, efficiently managing spectrum and resources in such highly dynamic UAV-assisted environments remains a major challenge due to nonlinear system interactions, mobility-induced topology variations, and stringent latency and energy constraints. To address these challenges, we propose a digital twin (DT)-assisted adaptive deep reinforcement learning (DRL) framework that enables intelligent spectrum sharing and resource allocation across distributed ground users. The complex optimization problem is decomposed into UAV trajectory optimization using particle swarm optimization (PSO) and dynamic spectrum-power-association management via multi-agent DRL (MADRL). This hybrid DT-driven approach empowers intelligent, context-aware decision-making and adaptive coordination among UAVs. Extensive simulations demonstrate significant gains in spectral efficiency, data rates, and energy utilization, showcasing a transformative path toward self-evolving, autonomous 6G UAV and ground users (GUs) connectivity.",
+      "authors": [
+        "Marwan Dhuheir",
+        "Thang X. Vu",
+        "Symeon Chatzinotas"
+      ],
+      "primary_category": "cs.IT",
+      "categories": [
+        "cs.IT",
+        "cs.AI"
+      ],
+      "published": "2026-05-31T16:19:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.01324v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "digital twin-assisted adaptive multi-agent DRL for UAV-enabled 6G networks",
+      "llm_evidence_cn": "数字孪生辅助的自适应多智能体深度强化学习用于UAV支持的6G网络",
+      "llm_evidence": "数字孪生辅助的自适应多智能体深度强化学习用于UAV支持的6G网络",
+      "canonical_evidence": "数字孪生辅助的自适应多智能体深度强化学习用于UAV支持的6G网络",
+      "llm_tldr_en": "Proposes a DT-assisted adaptive multi-agent DRL framework for intelligent spectrum and resource management in Open-RAN UAV-enabled 6G networks, addressing dynamic constraints.",
+      "llm_tldr_cn": "针对UAV辅助6G网络中频谱与资源管理面临非线性交互、移动性拓扑变化及严格延迟约束的挑战，本文提出数字孪生辅助的自适应多智能体深度强化学习框架，实现智能频谱共享与资源分配。实验表明该方法提升了网络效率与适应性，为6G UAV网络的智能管控提供了有效方案。",
+      "llm_tldr": "针对UAV辅助6G网络中频谱与资源管理面临非线性交互、移动性拓扑变化及严格延迟约束的挑战，本文提出数字孪生辅助的自适应多智能体深度强化学习框架，实现智能频谱共享与资源分配。实验表明该方法提升了网络效率与适应性，为6G UAV网络的智能管控提供了有效方案。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "multi-agent reinforcement learning in robotics",
+      "matched_requirement_id": "req-11",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04149v1",
+      "source": "arxiv",
+      "title": "CoPark: Learning Reactive Parking via Self-Play",
+      "abstract": "Learning a single policy that reaches a goal with high geometric precision while interacting safely with nearby agents poses conflicting objectives. Precision favors commitment to a fixed geometric plan, whereas interaction requires immediate deviation when another agent intrudes, causing policies optimized for one objective to often fail at the other. We study this problem in the context of reactive autonomous parking, where multiple vehicles must reach assigned slots with sub-meter terminal accuracy while remaining responsive to neighboring vehicles throughout the maneuver. We propose CoPark, a multi-agent self-play RL approach built on a residual-policy architecture. A precomputed offline plan provides a fixed action prior, while a residual head learns the reactive corrections. The residual policy learns behaviors under self-play, where data and scripting fall short, while the fixed prior holds the slot-frame geometry that pure policies struggle to reach reliably. The key design is a partner-threat-modulated, channel-asymmetric release of the prior. A continuous threat signal shifts authority of the longitudinal channel to the residual head to enable yielding, while the lateral channel remains anchored to the precomputed reference to preserve sub-meter slot alignment. A closed-loop refinement layer corrects residual terminal error from action-grid discretization. We train our policy on six parking lots and evaluate zero-shot on our new reactive-parking benchmark spanning Dragon Lake Parking (DLP) and DeepScenario Open 3D (DSC3D). CoPark achieves ~70-85% success with only 3-6% collision rate, substantially outperforming classical, imitation-learning, and large-scale RL baselines. Importantly, the results demonstrate emergent interaction behaviors such as reverse-yielding, mid-maneuver yielding, tight-corridor passing, and queuing.",
+      "authors": [
+        "Jiarong Wei",
+        "Yanxing Chen",
+        "Sinuo Song",
+        "Yin Wu",
+        "Anna Rehr",
+        "Abhinav Valada"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-02T19:16:05+00:00",
+      "link": "https://arxiv.org/pdf/2606.04149v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multi-agent self-play RL for reactive autonomous parking",
+      "llm_evidence_cn": "多智能体自博弈强化学习实现反应式自主泊车",
+      "llm_evidence": "多智能体自博弈强化学习实现反应式自主泊车",
+      "canonical_evidence": "多智能体自博弈强化学习实现反应式自主泊车",
+      "llm_tldr_en": "Proposes CoPark, a multi-agent self-play RL approach with residual-policy architecture, enabling vehicles to park with precision while reacting to others, achieving both accuracy and responsiveness.",
+      "llm_tldr_cn": "针对自主泊车中精确停靠与对干扰车辆及时响应之间的冲突目标，提出CoPark方法，采用多智能体自博弈强化学习和残差策略架构：离线规划提供固定动作先验，残差网络学习反应式修正。实验表明，该方法能够在多车交互环境中兼顾亚米级停靠精度和实时响应能力，解决了单一策略难以平衡两种目标的难题。该工作为多智能体环境下的高精度运动规划提供了新的解决方案。",
+      "llm_tldr": "针对自主泊车中精确停靠与对干扰车辆及时响应之间的冲突目标，提出CoPark方法，采用多智能体自博弈强化学习和残差策略架构：离线规划提供固定动作先验，残差网络学习反应式修正。实验表明，该方法能够在多车交互环境中兼顾亚米级停靠精度和实时响应能力，解决了单一策略难以平衡两种目标的难题。该工作为多智能体环境下的高精度运动规划提供了新的解决方案。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "multi-agent reinforcement learning in robotics",
+      "matched_requirement_id": "req-11",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.02677v1",
+      "source": "arxiv",
+      "title": "Motion Planning in Dynamic Environments: A Survey from Classical to Modern Methods",
+      "abstract": "Motion planning in dynamic environments requires robots to continuously adapt their paths in response to environmental changes for safe and uninterrupted navigation. While many surveys have reviewed planning in static settings, systematic reviews focused on dynamic environments remain limited. This paper presents a comprehensive survey of 138 works, primarily published between 2015 and 2025, spanning both classical and learning-based approaches. The motion planning methods are grouped into five categories based on the concepts of sampling, graph search, model predictive control, learning, and additional classical local planning approaches, including velocity obstacles, potential fields and dynamic windows. The learning techniques include supervised learning and reinforcement learning. We also discuss the role of dynamic perception in motion planning, covering techniques for detecting and modeling moving obstacles using cameras, LiDAR, and event-based sensors. The survey analyzes the principles, strengths, and limitations of each method, with particular attention to challenges unique to dynamic environments, such as prediction uncertainty, human-robot interaction, and the freezing robot problem. The survey provides researchers with a structured understanding of motion planning methods in dynamic environments.",
+      "authors": [
+        "Zongyuan Shen",
+        "Yaming Ou",
+        "Shalabh Gupta",
+        "Shancheng Zhao",
+        "Dehua Zhou",
+        "Gao Wang",
+        "Zhongqiang Ren",
+        "Junfeng Fan",
+        "Long Cheng"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-01T13:47:51+00:00",
+      "link": "https://arxiv.org/pdf/2606.02677v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Survey of motion planning methods including model predictive control for dynamic environments",
+      "llm_evidence_cn": "动态环境运动规划综述，涵盖模型预测控制等方法",
+      "llm_evidence": "动态环境运动规划综述，涵盖模型预测控制等方法",
+      "canonical_evidence": "动态环境运动规划综述，涵盖模型预测控制等方法",
+      "llm_tldr_en": "A comprehensive survey of 138 motion planning works in dynamic environments, categorizing methods into sampling, graph search, model predictive control, learning, and local planning, providing a roadmap for safe real-time navigation.",
+      "llm_tldr_cn": "对2015-2025年间动态环境运动规划方法进行全面综述，将138项工作分为采样、图搜索、模型预测控制、学习和局部规划五类，系统梳理了从经典到学习的进展，为安全实时导航提供了方法论地图。",
+      "llm_tldr": "对2015-2025年间动态环境运动规划方法进行全面综述，将138项工作分为采样、图搜索、模型预测控制、学习和局部规划五类，系统梳理了从经典到学习的进展，为安全实时导航提供了方法论地图。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "motion planning with sampling-based MPC",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.03756v1",
+      "source": "arxiv",
+      "title": "Neural Navigation Functions for Zero-Shot Generalizable Motion Planning",
+      "abstract": "We introduce Neural Navigation Functions (Neural-NF), a learned reactive navigation function capable of zero-shot transfer across unseen environment geometries. Neural-NF places data-driven adaptation within a structured elliptic planner, where the navigation objective is learned while planner structure is preserved by construction. Specifically, intrinsic Laplacian-derived features are mapped to local PDE coefficients, and solving the resulting boundary value problem produces a globally consistent value function on each target domain. For every admissible learned model, the resulting policy is collision-free, provides monotonic descent and a global minimum at the goal by construction. This admits a linearly-solvable optimal-control interpretation for any parameter setting. Empirically, Neural-NF achieves strong zero-shot transfer across diverse geometries and outperforms learned planners that directly predict the value function by up to a $5\\times$ improvement.",
+      "authors": [
+        "Benjamin D. Shaffer",
+        "Pei-An Hsieh",
+        "Brooks Kinch",
+        "Nathaniel Trask",
+        "M. Ani Hsieh"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.LG"
+      ],
+      "published": "2026-06-02T15:06:25+00:00",
+      "link": "https://arxiv.org/pdf/2606.03756v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Linearly-solvable optimal-control interpretation linking to path integral control",
+      "llm_evidence_cn": "线性可解最优控制解释与路径积分控制相关",
+      "llm_evidence": "线性可解最优控制解释与路径积分控制相关",
+      "canonical_evidence": "线性可解最优控制解释与路径积分控制相关",
+      "llm_tldr_en": "Proposes Neural-NF, a zero-shot generalizable motion planner based on learned navigation functions that solve a linearly-solvable optimal control problem, ensuring collision-free and globally convergent paths.",
+      "llm_tldr_cn": "运动规划器通常难以泛化到新环境几何，传统方法需要在线重规划或依赖记忆。本文受线性可解最优控制（如路径积分控制）启发，提出神经导航函数，将环境描述子映射为局部PDE系数，通过求解边界值问题产生连续的碰撞自由势场。该势场具有内在的最优控制解释，零样本迁移时无需微调即可保证全局收敛与无碰撞，在多种未见过的迷宫和点云环境中验证了其泛化能力。",
+      "llm_tldr": "运动规划器通常难以泛化到新环境几何，传统方法需要在线重规划或依赖记忆。本文受线性可解最优控制（如路径积分控制）启发，提出神经导航函数，将环境描述子映射为局部PDE系数，通过求解边界值问题产生连续的碰撞自由势场。该势场具有内在的最优控制解释，零样本迁移时无需微调即可保证全局收敛与无碰撞，在多种未见过的迷宫和点云环境中验证了其泛化能力。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "path integral control for stochastic systems",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
