@@ -1,0 +1,947 @@
+Title: Data-Driven Min-Max MPC with Integral Quadratic Constraints
+
+URL Source: https://arxiv.org/pdf/2606.01194v1
+
+Published Time: Tue, 02 Jun 2026 01:26:58 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# Data-Driven Min-Max MPC with Integral Quadratic Constraints ⋆
+
+Yifan Xie ∗ Julian Berberich ∗ Frank Allg¨ ower ∗∗ University of Stuttgart, Institute for Systems Theory and Automatic Control, 70550 Stuttgart, Germany (e-mail: {yifan.xie, julian.berberich, frank.allgower }@ist.uni-stuttgart.de). 
+
+Abstract: Data-driven control of nonlinear systems with rigorous guarantees is a challenging control problem. Integral quadratic constraints (IQCs) provide a powerful framework for modeling nonlinearities. This paper presents a data-driven min-max model predictive control (MPC) synthesis method for unknown systems subject to (nonlinear) uncertainties using the IQC framework. The unknown system matrices are characterized by a set-membership representation using the input-state data and the knowledge of the IQCs. We derive two semidefinite programs (SDPs) that minimize an upper bound on the worst-case cost over all possible system dynamics and uncertainties. By iteratively solving these SDPs, the proposed state-feedback control law is obtained. We further prove that the resulting closed-loop system is exponentially stable and satisfies the input and state constraints. A numerical example demonstrates the validity of the proposed method. 
+
+Keywords: Data-driven control, integral quadratic constraints, model predictive control. 
+
+1. INTRODUCTION Classical controller design techniques often require a pre-cise system model. However, first-principles models can be difficult to obtain and usually require expert knowledge. Data-driven control is becoming more and more popular recently, as it relies on available data rather than explicit system models for controller synthesis. Within the data-driven control literature, several frameworks have been proposed for controller design, e.g., data informativity framework (van Waarde et al., 2023) and data-driven model predictive control (MPC) based on Willems’ Funda-mental Lemma (Markovsky and D¨ orfler, 2021; Markovsky et al., 2023). The data informativity framework assumes that the noise satisfies energy bounds or instantaneous bounds and proposes a quadratic matrix inequality to characterize a set of linear-time-invariant (LTI) systems that are consistent with the data. The controller design then aims to synthesize a controller that stabilizes all systems that are consistent with the data. Although this framework is initially designed for LTI systems, it has been extended to linear parameter varying systems (Verhoek et al., 2024; Xie et al., 2025a), polynomial systems (Martin et al., 2023), and bilinear systems (Xie et al., 2025b). However, data-driven controller synthesis for systems with nonlinear uncertainties remains largely unexplored within this framework. The integral quadratic constraints (IQC) framework pro-vides a powerful tool for modeling structured uncertainties  
+
+> ⋆F. Allg¨ ower is thankful that his work was funded by Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under Germany’s Excellence Strategy - EXC 2075 - 390740016 and under grant 468094890. The authors thank the International Max Planck Research School for Intelligent Systems (IMPRS-IS) for supporting Yifan Xie.
+
+and nonlinearities (Veenman et al., 2016). The IQC frame-work is shown to represent a wide range of uncertainties, including time-invariant and time-varying parametric un-certainties, norm-bounded nonlinearities, slope-restricted nonlinearities, time-delay uncertainties, and others. It en-ables an efficient analysis and controller synthesis of robust stability and performance for uncertain dynamical systems based on linear matrix inequality (LMI) optimization. Robust controller synthesis methods based on IQCs for discrete-time systems have been studied by Veenman and Scherer (2014); Hu et al. (2017); Fry et al. (2017). These works all assume that the system model is known and that the uncertainties satisfy prescribed IQCs. Data-driven system analysis problems such as controllability, dissipa-tivity, and stabilizability are discussed by Markovsky and D¨ orfler (2021). Data-driven controller synthesis is studied by Gupta et al. (2026), which develops a data-driven controller synthesis approach for generalized multi-input multi-output systems under IQC-modeled perturbations using only frequency-domain measurement data. Xie et al. (2025a); Berberich et al. (2023) propose data-driven con-troller design methods but restrict attention to multi-plicative nonlinearities and impose pointwise constraints on the uncertainties. A data-driven controller is designed for nonlinear systems using input–state data by Luppi et al. (2022); however, it requires the nonlinearity to be measurable. MPC is an advanced control technique that can handle nonlinear systems and input/state constraints. The LMI-based min-max MPC scheme designs control inputs to minimize the worst-case cost over uncertainties to robustly stabilize the system (Kothare et al., 1996). Recently, data-driven MPC approaches have been studied, which directly use the measured input–output data to predict the 
+
+> arXiv:2606.01194v1 [eess.SY] 31 May 2026
+
+future behaviors based on Willems’ Fundamental Lemma (Coulson et al., 2019; Berberich et al., 2021; Markovsky et al., 2023). Within the data informativity framework, data-driven min–max MPC schemes have been proposed to account for performance objectives and constraints using LMI-based methods: for LTI systems by Nguyen et al. (2023); Xie et al. (2024, 2026), for LPV systems by Xie et al. (2025a), and for bilinear systems by Xie et al. (2025b). A min–max robust formulation of data-driven MPC is proposed by Wang et al. (2025) to optimize worst-case performance over the uncertainty set by analyzing non-unique solutions to the behavioral representation. In this paper, we consider an unknown discrete-time uncer-tain system described by the interconnection of a nominal LTI system and an uncertainty satisfying a known IQC. We propose a data-driven min-max MPC scheme using only input-state data. An algorithm is developed that iteratively solves two SDPs and obtains an upper bound on the data-driven min-max MPC cost and the corresponding state-feedback gain. A receding-horizon algorithm is used to improve the performance by repeatedly applying the iterative algorithm online. The proposed scheme guaran-tees exponential stability of the closed-loop system and satisfaction of both input and state constraints. A nu-merical example further demonstrates the effectiveness of the proposed method. In contrast to existing data-driven control approaches based on IQCs, such as Gupta et al. (2026), our method uses time-domain data and accounts for input and state constraints. The remainder of this paper is organized as follows. Section 2 introduces the system dynamics and states the problem setup. In Section 3, we present the data-driven characterization using the input-state data and the IQCs. We propose the data-driven min-max MPC scheme with IQCs and prove the closed-loop guarantees. Section 4 demonstrates the implementation of the proposed method through a numerical example. Finally, Section 5 concludes the paper and outlines future research directions. 
+
+Notations: For matrices A, B with compatible dimensions, we abbreviate A⊤BA to [ ⋆]⊤BA . If a matrix P is positive (semi-)definite, we write P ≻ 0( P  0). For a vector x and a matrix P ≻ 0, we write ‖x‖P = √x⊤P x .2. PROBLEM SETUP This paper considers a discrete-time uncertain system de-scribed by the interconnection of a nominal linear time-invariant (LTI) system and a (possibly nonlinear) uncer-tainty ∆. The state-space model of the system is described as follows: 
+
+xt+1 = Asxt + Bsut + Bω ωt,zt = Cx t + Du t,ωt = ∆( zt),
+
+(1) where xt ∈ Rnx is the state, ut ∈ Rnu is the input, 
+
+ωt ∈ R is the uncertainty, and ∆ : R → R is a potentially nonlinear operator. We assume that the matrices C ∈
+
+R1×nx , D ∈ R1×nu and Bω ∈ Rnx are known, while ∆ is assumed to be unknown. The knowledge of C, D, B ω
+
+means that we have some information about which parts of dynamics are affected by ∆, although the explicit expression of the operator ∆ is not available. Moreover, the nominal LTI system is unknown, i.e., As ∈ Rnx×nx ,
+
+Bs ∈ Rnx×nu are not known. 
+
+Remark 1. In the existing literature, Xie et al. (2025a); Berberich et al. (2023) consider multiplicative nonlinearity 
+
+ωt = ∆ tzt and impose a pointwise quadratic constraint on ∆t. Luppi et al. (2022) assumes that the nonlinearity is measurable. In this paper, we generalize to more general nonlinearities and do not require the nonlinearity to be known precisely. We assume that the operator ∆ satisfies the following time-domain integral quadratic constraint (IQC). 
+
+Assumption 1. For all signals {zt, ω t}T −1 
+
+> t=0
+
+with ωt = ∆( zt)and all T ∈ N, it holds that  
+
+> T−1
+
+∑
+
+> t=0
+
+[ωt zt] Π [ ωt zt]⊤ ≥ 0, (2) where Π ∈ Π for a known set Π. We denote the set of operators ∆ satisfying (2) by ∆.
+
+Example 1. Consider the thermal regulation dynamics of a building modeled as xt+1 = Asxt + Bsut + ωt, where 
+
+xt is the temperature deviation from a desired setpoint, 
+
+ut is the heat flux, and ωt = ∆( xt ) is a (potentially nonlinear) uncertainty. The uncertainty ∆ is not known but is constrained by a sector, i.e., (∆( x) − αx )( βx −
+
+∆( x)) ≥ 0. Then (2) holds with 
+
+Π =
+
+{[ 1 −α
+
+−1 β
+
+]⊤[ 0 G12 
+
+G⊤ 
+
+> 12
+
+0
+
+][ 1 −α
+
+−1 β
+
+]
+
+: G12 ≥ 0
+
+}
+
+. (3) We assume that a sequence of data measurements ( U, X, Z )of length Tf from the system (1) is available. The available data are denoted as follows 
+
+U=
+
+[
+
+ud 
+
+> 0
+
+. . . u dTf −1
+
+]
+
+, X =
+
+[
+
+xd 
+
+> 0
+
+. . . x dTf
+
+]
+
+, Z =
+
+[
+
+zd 
+
+> 0
+
+. . . z dTf −1
+
+]
+
+.
+
+(4) Our goal is to design a time-varying state-feedback con-troller ut = Ftxt with Ft ∈ Rnx×nu that stabilizes the origin for the closed-loop system using the data (4). In order to evaluate the closed-loop performance, we define the stage cost function as ℓ(x, u ) = ‖x‖2 
+
+> Q
+
++ ‖u‖2
+
+> R
+
+, where 
+
+Q, R  0. The considered input and state constraints are formulated as ‖x‖2 
+
+> Sx
+
+≤ 1 and ‖u‖2 
+
+> Su
+
+≤ 1, where 
+
+Su ≻ 0, S x  0. 3. DATA-DRIVEN MIN-MAX MPC WITH IQCS In Section 3.1, we present a data-driven system characteri-zation of the unknown system matrices ( As, B s). Then, we propose the data-driven min-max MPC scheme with IQCs in Section 3.2. Closed-loop guarantees of the proposed scheme are shown in Section 3.3. 
+
+3.1 Data-driven system characterization 
+
+We define the set of ( A, B ) that are consistent with the data (4) and the knowledge on the operator ∆ as Σ = 
+
+{
+
+(A, B ) : xdi+1 = Ax di + Bu di + Bω ∆( zdi ),
+
+holds for some ∆ ∈ ∆, ∀i ∈ I[0 ,T f −1] 
+
+}
+
+. (5) In the following lemma, we propose a data-driven char-acterization of the set Σ using the data (4) and Assump-tion 1. Lemma 1. Suppose Assumption 1 holds and Bω 6 = 0. Then, the set Σ is equal to 
+
+{
+
+(A, B ) : [ I A B ] S( ˜Π) [ I A B ]⊤  0, ∀ ˜Π ∈ Π
+
+}
+
+(6) with 
+
+S( ˜Π) =  
+
+> Tf−1
+
+∑
+
+> i=0
+
+xdi+1 Bω zdi
+
+−xdi 0
+
+−udi 0
+
+ ˜Π
+
+xdi+1 Bω zdi
+
+−xdi 0
+
+−udi 0
+
+
+
+> ⊤
+
+. (7) 
+
+Proof. Since the IQC (2) holds for all T ∈ N, we have 
+
+∑Tf −1
+
+> i=0
+
+[∆( zdi ) zdi
+
+] ˜Π [∆( zdi ) zdi
+
+]⊤ ≥ 0 for ˜Π ∈ Π. Left-and right multiplying the above inequality with Bω and 
+
+B⊤ 
+
+> ω
+
+, respectively, we obtain  
+
+> Tf−1
+
+∑
+
+> i=0
+
+[Bω ∆( zdi ) Bω zdi
+
+] ˜Π [Bω ∆( zdi ) Bω zdi
+
+]⊤  0. (8) Based on the system dynamics (1), ( A, B ) ∈ Σ if and only if (8) holds with Bω ∆( zdi ) = xdi+1 − Ax di − Bu di . Replacing 
+
+Bω ∆( zdi ) by xdi+1 − Ax di − Bu di in (8), the set (6) includes all possible ( A, B ) that are consistent with the data (4). To prove the reverse inclusion, let ( A, B ) be in the set (6). Then, we have (8) holds by defining Bω ∆( zdi ) = xdi+1 −
+
+Ax di − Bu di . Since Bω 6 = 0, ∆ ∈ ∆. Since xdi+1 = Ax di +
+
+Bu di + Bω∆( zdi ) holds for some ∆ ∈ ∆ for all i ∈ I[0 ,T f −1] ,(A, B ) ∈ Σ. ✷
+
+3.2 Data-driven min-max MPC 
+
+Given the current state xt ∈ Rnx , the data-driven min-max MPC problem is formulated as follows: 
+
+J∗∞(xt) := min  
+
+> ¯u(t)
+
+max 
+
+> (A,B )∈Σ,∆∈∆
+> ∞
+
+∑
+
+> k=0
+
+ℓ(¯ uk(t), ¯xk (t)) (9a) s.t. ¯xk+1 (t) = A¯xk (t) + B ¯uk(t) + Bω ∆(¯ zk(t)) , (9b) ¯zk(t) = C ¯xk (t) + D¯uk(t), (9c) ¯x0(t) = xt, (9d) 
+
+‖¯uk(t)‖Su ≤ 1, ∀k ∈ N, (9e) 
+
+‖¯xk(t)‖Sx ≤ 1, ∀(A, B ) ∈ Σ, ∆ ∈ ∆, k ∈ N, (9f) where ¯ uk(t), ¯xk (t) denote the predicted input and state at time t + k given the current measured state xt, ¯ u is a sequence of predicted inputs with ¯ uk(t) = F ¯xk(t), ∀k ∈ N.The objective of this optimization problem is to find a state-feedback control law that minimizes the worst-case infinite-horizon cost over all consistent system matrices in Σ and all ∆ ∈ ∆. The predicted input and state satisfy the constraints for any ( A, B ) ∈ Σ, ∆ ∈ ∆ as in (9e)-(9f). The data-driven min-max MPC problem is intractable because of the min-max formulation and the infinite-horizon cost. We will later formulate two computationally tractable problems and iteratively solve the problems to obtain a state-feedback control law that stabilizes the system with (A, B ) ∈ Σ and ∆ ∈ ∆.Given the state xt ∈ Rnx and the data (4), the optimiza-tion problem is first formulated as min      
+
+> γ> 0,P ∈Rnx ×nx ,F ∈Rnu ×nx ,Π,˜Π∈Π
+
+γ (10a) s.t. x⊤ 
+
+> t
+
+P x t ≤ γ, (10b) [⋆]⊤
+
+
+
+−P +Q+F ⊤
+
+RF P
+
+Π
+
+M ( ˜Π) 
+
+
+
+I 0 00 Bω I
+
+0 I 0
+
+C +DF 0 00 0 I[ IF
+
+]
+
+0 0
+
+
+
+≺ 0,
+
+(10c) 
+
+P  γF ⊤SuF, P  γS x, (10d) where M ( ˜Π) = 
+
+[I 00 −I
+
+]
+
+S( ˜Π) −1
+
+[−I 00 I
+
+]
+
+. In Theorem 1, we show that the optimal cost of (9) is bounded by γ.
+
+Theorem 1. Suppose that Assumption 1 holds, Bω 6 = 0 and there exist γ > 0, P ∈ Rnx×nx , F ∈ Rnu ×nx , Π, ˜Π ∈ Π
+
+such that (10b) and (10c) hold. Then, γ is an upper bound on the optimal cost of the data-driven min-max MPC problem (9). 
+
+Proof. Since we focus on designing a state-feedback con-troller ¯ uk(t) = F ¯xk(t), ∀k ∈ N, the predicted closed-loop system dynamics with any ( A, B ) ∈ Σ can be written as ¯xk+1 (t) = ¯ ωAB,k (t) + Bω ¯ωk(t),
+
+¯zAB,k (t) = [I F ⊤]⊤ ¯xk (t), ¯ωAB,k (t) = [ A B ] ¯ zAB,k (t),
+
+¯zk(t) = ( C + DF )¯ xk(t), ¯ωk(t) = ∆(¯ zk (t)) ,
+
+(11) where the system parametric uncertainty ( A, B ) ∈ Σenters the dynamics through the channel from ¯ zAB,k (t) ∈
+
+Rnx+nu to ¯ ωAB,k (t) ∈ Rnx .Multiplying the inequality (10c) from left and right by 
+
+[¯xk (t)⊤ ¯ωk(t)⊤ ¯ωAB,k (t)⊤]⊤ and its transpose, respec-tively, and using (11), the following inequality holds [⋆]⊤
+
+
+
+−P +Q+F ⊤
+
+RF P
+
+Π
+
+M ( ˜Π) 
+
+
+
+¯xk(t)¯xk+1 (t)¯ωk(t)¯zk(t)¯ωAB,k (t)¯zAB,k (t)
+
+
+
+≤ 0, (12) which further leads to 
+
+−‖ ¯xk(t)‖2 
+
+> P
+
++ ℓ(¯ uk(t), ¯xk (t)) + ‖¯xk+1 (t)‖2
+
+> P
+
++
+
+[¯ωk(t)¯zk(t)
+
+]⊤
+
+Π
+
+[¯ωk(t)¯zk(t)
+
+]
+
++
+
+[¯ωAB,k (t)¯zAB,k (t)
+
+]⊤
+
+M ( ˜Π) 
+
+[¯ωAB,k (t)¯zAB,k (t)
+
+]
+
+≤ 0.
+
+(13) Summing (13) up from k = 0 to k = T and letting T → ∞ ,
+
+‖¯x∞(t)‖2 
+
+> P
+
+− ‖ ¯x0(t)‖2 
+
+> P
+
++
+
+> ∞
+
+∑
+
+> k=0
+
+ℓ(¯ uk(t), ¯xk(t))+ 
+
+> ∞
+
+∑
+
+> k=0
+
+[¯ωk(t)¯zk(t)
+
+]⊤
+
+Π
+
+[¯ωk(t)¯zk(t)
+
+]
+
++
+
+> ∞
+
+∑
+
+> k=0
+
+[¯ωAB,k (t)¯zAB,k (t)
+
+]⊤
+
+M ( ˜Π) 
+
+[¯ωAB,k (t)¯zAB,k (t)
+
+]
+
+≤ 0.
+
+(14) Since (2) holds for any T ∈ N, ω = ∆( z) and we have ¯zk(t), ¯ωk(t) ∈ R, the following inequality holds 
+
+> ∞
+
+∑
+
+> k=0
+
+[¯ωk(t)¯zk(t)
+
+]⊤
+
+Π
+
+[¯ωk(t)¯zk(t)
+
+]
+
+≥ 0. (15) Since [ I A B ] S( ˜Π) [ I A B ]⊤  0 holds for any ( A, B ) ∈
+
+Σ, using the Dualization lemma in (Scherer and Weiland, 2000, Lemma 4.9), we have 
+
+[[A B ]
+
+I
+
+]⊤
+
+M ( ˜Π) 
+
+[[A B ]
+
+I
+
+]
+
+ 0. (16) Multiplying (16) from left and right by ¯ zAB,k (t)⊤ and its transpose, respectively, using ¯ ωAB,k (t) = [ A B ] ¯ zAB,k (t), we have [¯ωAB,k (t)¯zAB,k (t)
+
+]⊤
+
+M ( ˜Π) 
+
+[¯ωAB,k (t)¯zAB,k (t)
+
+]
+
+ 0. (17) Summing (17) up from k = 0 to T and letting T → ∞ , we have ∞∑
+
+> k=0
+
+[¯ωAB,k (t)¯zAB,k (t)
+
+]⊤
+
+M ( ˜Π) 
+
+[¯ωAB,k (t)¯zAB,k (t)
+
+]
+
+≥ 0. (18) Using (14) together with (15) and (18), we have 
+
+‖¯x∞(t)‖2 
+
+> P
+
++
+
+> ∞
+
+∑
+
+> k=0
+
+ℓ(¯ uk(t), ¯xk (t)) ≤ ‖ ¯x0(t)‖2 
+
+> P
+
+(19) for all (A, B ) ∈ Σ, ∆ ∈ ∆. Since ‖¯x∞(t)‖2 
+
+> P
+
+≥ 0, ¯x0(t) = xt and using (10b) and (19), we obtain max (A,B )∈Σ,∆∈∆
+
+∑∞ 
+
+> k=0
+
+ℓ(¯ uk(t), ¯xk (t)) ≤ ‖ xt‖2 
+
+> P
+
+≤ γ. Thus, 
+
+γ is an upper bound on the optimal cost of the data-driven min-max MPC problem (9). ✷
+
+The problem (10) is computationally intractable as its constraints are not linear in the variables F and ˜Π. Given the state xt ∈ Rnx and the data (4), we formulate the following equivalent optimization problem max    
+
+> λ> 0,H ∈Rnx ×nx ,L ∈Rnu ×nx ,Π,˜Π∈Π
+
+λ (20a) s.t. H − λx tx⊤ 
+
+> t
+
+ 0, (20b) 
+
+
+
+[⋆]⊤
+
+
+
+H
+
+Π−1
+
+M ( ˜Π) −1
+
+
+
+I 0 0 
+
+−B⊤ 
+
+> ω
+
+0 0 0 I 0
+
+−I 0 0 0 0 I
+
+
+
+0
+
+CH +DL [HL
+
+] 0
+
+[
+
+0 ( CH +DL )⊤
+
+[HL
+
+]⊤]
+
+H Φ⊤
+
+0 Φ I
+
+
+
+≻ 0,
+
+(20c) 
+
+[H L⊤
+
+L λS −1
+
+> u
+
+]
+
+ 0,
+
+[H HH λS −1
+
+> x
+
+]
+
+ 0, (20d) where Φ =
+
+[ MRLMQH
+
+]
+
+with M ⊤ 
+
+> R
+
+MR = R, M ⊤ 
+
+> Q
+
+MQ = Q
+
+and M ( ˜Π) is defined the same as (10). Problem (20) is not linear in Π, but linear in other variables. We will later propose an algorithm that iteratively solves these two problems by fixing some variables to find the optimal solution of problem (10). In the following theorem, we show that the problem (10) is equivalent to the problem (20). 
+
+Theorem 2. Problem (10) is equivalent to the problem (20). 
+
+Proof. Let H = P −1 and λ = 1 
+
+> γ
+
+. Using the Schur com-plement twice, (10b) is equivalent to (20b). The objective of (10) is equivalent to that of (20) given that λ = 1 
+
+> γ
+
+.Using the Dualization lemma in Scherer and Weiland (2000), (10c) is equivalent to [⋆]⊤
+
+
+
+(Q+F ⊤RF −P )−1
+
+P −1
+
+Π−1
+
+M ( ˜Π) −1
+
+
+
+0 −(C+DF )⊤ −
+
+[ IF
+
+]⊤
+
+I 0 0
+
+−B⊤ 
+
+> ω
+
+0 00 I 0
+
+−I 0 00 0 I
+
+
+
+≻ 0.
+
+(21) The inequality (21) is equivalent to 
+
+
+
+0
+
+C + DF [ IF
+
+] (Q + F ⊤RF − P )−1
+
+
+
+0
+
+C + DF [ IF
+
+]
+
+> ⊤
+
++[⋆]⊤
+
+P −1
+
+Π−1
+
+M ( ˜Π) −1
+
+
+
+I 0 0 
+
+−B⊤ 
+
+> ω
+
+0 0 0 I 0
+
+−I 0 0 0 0 I
+
+ ≻ 0.
+
+(22) Let L = F H . Using Φ =
+
+[ MRLMQH
+
+]
+
+with M ⊤ 
+
+> R
+
+MR =
+
+R, M ⊤ 
+
+> Q
+
+MQ = Q, (22) is equivalent to 
+
+
+
+0
+
+CH + DL [HL
+
+] (−H + Φ ⊤Φ) −1
+
+
+
+0
+
+CH + DL [HL
+
+]
+
+> ⊤
+
++[⋆]⊤
+
+
+
+H
+
+Π−1
+
+M ( ˜Π) −1
+
+
+
+I 0 0 
+
+−B⊤ 
+
+> ω
+
+0 0 0 I 0
+
+−I 0 0 0 0 I
+
+ ≻ 0.
+
+(23) Using the Schur complement twice, (23) is equivalent to (20c). Thus, (10c) is equivalent to (20c). Multiplying both sides of the first constraint in (10d) by 
+
+H, it is equivalent to H  γL ⊤SuL. Using the Schur complement, it is equivalent to the first constraint in (20d). Multiplying both sides of the second constraint in (10d) by H, it is equivalent to H  γHS xH. Using the Schur complement, it is equivalent to the second constraint in (20d). In summary, problem (10) is equivalent to the problem (20). ✷
+
+We iteratively solve the problem (10) and the problem (20) by fixing some variables, as detailed in Algorithm 1. At time t, given the state xt and a user chosen multiplier ˆΠ ∈ Π, we set the variable Π in (20) to be ˆΠ. Then, the optimization problem (20) is linear in the remaining variables and can be solved effeciently. We solve the problem (20), obtain optimal solution H⋆i , L ⋆i , ˜Π⋆i , γ ⋆i at the ith iteration and calculate F ⋆i = L⋆i (H⋆i )−1. Then, we solve the problem (10) by fixing F = F ⋆i , ˜Π = ˜Π⋆i ,obtain optimal solution P ⋆i , Π⋆i , γ ⋆i . We iterate the above procedure until we reach the maximal iteration times. Given the state xt, the solution obtained from Algorithm 1 is denoted by γ⋆xt , P ⋆xt , F ⋆xt , Π⋆xt , ˜Π⋆xt . The computational complexity of the SDP problems (10) and (20) scales with the length of the dataset (4) and the dimensions of the state and input. 
+
+Algorithm 1 Iteratively find the optimal solution 
+
+Input: xt, ˆΠ
+
+Output: γ⋆xt = γ⋆i , P ⋆xt = P ⋆i , F ⋆xt = F ⋆i , Π⋆xt =Π⋆i , ˜Π⋆xt = ˜Π⋆i 
+
+> 1:
+
+Set Π ⋆ 
+
+> 0
+
+= ˆΠ, i = 0;  
+
+> 2:
+
+for i ≤ M axIterations do  
+
+> 3:
+
+Set i = i + 1. Fix Π = Π ⋆i−1, solve the problem (20) and obtain H⋆i , L ⋆i , ˜Π⋆i , γ ⋆i , calculate F ⋆i = L⋆i (H⋆i )−1; 
+
+> 4:
+
+Fix F = F ⋆i , ˜Π = ˜Π⋆i , solve the problem (10) and obtain P ⋆i , Π⋆i , γ ⋆i ; 
+
+> 5:
+
+end for 
+
+The data-driven min-max MPC problem is solved in a receding horizon fashion, see Algorithm 2. At time t,the optimal state-feedback gain F ⋆xt of problem (10) is obtained by applying Algorithm 1. Only the first computed input ut = F ⋆xt xt is implemented. At the next time t+1, we re-iterate the above procedure. Recomputing the optimal state-feedback gain at each time step improves closed-loop performance, as illustrated in the numerical example in Section 4. 
+
+Algorithm 2 Data-driven min-max MPC  
+
+> 1:
+
+At time t = 0, measure the state x0; 
+
+> 2:
+
+Compute F ⋆xt via Algorithm 1;  
+
+> 3:
+
+Apply the input ut = F ⋆xt xt; 
+
+> 4:
+
+Set t = t + 1, measure the state xt and go back to 2; 
+
+3.3 Closed-loop guarantees 
+
+In the following, we show that the reformulated SDPs are recursively feasible, the resulting closed-loop system is exponentially stable and the input and state constraints are satisfied. 
+
+Theorem 3. Suppose Assumption 1 holds, Bω 6 = 0 and the optimization problem (10) and (20) are feasible at time 
+
+t = 0. Then, i) they are feasible at any time t ∈ N; ii) the origin is exponentially stable for the closed-loop system. iii) the closed-loop trajectory satisfies the input and state constraints. 
+
+Proof. The proof of recursive feasibility and exponential stability is similar to (Xie et al., 2024, Theorem 3) so we only state the main differences here. Since (10c) holds for the optimal solution P ⋆xt , F ⋆xt , Π⋆xt , ˜Π⋆xt , multiplying it from left and right by [x⊤ 
+
+> t
+
+ω⊤ 
+
+> t
+
+ω⊤
+
+> AB,t
+
+]⊤ and its transpose, respectively, we obtain 
+
+−‖ xt‖2 
+
+> P⋆xt
+
++ ℓ(ut, x t) + ‖xt+1 ‖2
+
+> Px⋆t
+
++
+
+[ωt
+
+zt
+
+]⊤
+
+Π⋆xt
+
+[ωt
+
+zt
+
+]
+
++
+
+[ωAB,t 
+
+zAB,t 
+
+]⊤
+
+M ( ˜Π⋆xt )
+
+[ωAB,t 
+
+zAB,t 
+
+]
+
+≤ 0.
+
+(24) Using the Assumption 1 and the same arguments as in (16)-(17), we have 
+
+‖xt+1 ‖2
+
+> Px⋆t
+
+− ‖ xt‖2 
+
+> P⋆xt
+
+≤ − ℓ(ut, x t). (25) Then, we can use (25) to show recursive feasibility and exponential stability. The proof of constraint satisfaction follows similar arguments to those in (Xie et al., 2024, Theorem 2) and is therefore omitted for brevity. The key idea is to show that if constraints (10d) or (20d) are satisfied, then the corresponding input and state constraints are guaranteed to hold. ✷
+
+The theoretical results require that the problem (10) and (20) are feasible at time t = 0. This requirement implies that the available data (4) must be sufficiently informative to characterize an uncertainty set Σ that admits a common stabilizing controller. In this framework, informativity is tied to whether the data and the structural knowledge provided by the IQC multipliers adequately restricts the set of consistent systems. Increasing the length of the data sequence Tf generally shrinks the set Σ. Besides, the initial choice of the multiplier ˆΠ in Algorithm 1 is important for the feasibility of the problem (20). 4. SIMULATION In this section, we apply the proposed data-driven min-max MPC scheme with IQC to the following nonlinear system 
+
+xt+1 =
+
+[1.1 0 .10.1 0 .8
+
+]
+
+xt +
+
+[ 10.5
+
+]
+
+ut +
+
+[11
+
+]
+
+ωt,zt = [1 0] xt, ω t = ∆( zt),
+
+(26) where ∆( z) = 0 .01 sin( z) satisfies ∆(0) = 0 as well as the sector constraint (∆( z) − αz )( βz − ∆( z)) ≥ 0 for all z ∈ R
+
+with α = −0.01 , β = 0 .01. Then, the IQC (2) holds for ∆ with (3). The system matrices As, B s and the function ∆ are unknown, but an input-state trajectory of length 
+
+Tf = 20 is available. The sequence input-state data is generated by choosing the input uniformly from [ −1, 1]. Besides, we assume that Π is known. We aim to design a data-driven min-max MPC controller that stabilizes the system using the input-state trajectory. The cost weighting matrices are chosen as Q = 0 .01 and R = 0 .01. The input and state constraint matrices are chosen as Su = 16 and 
+
+Sx = 0 .1I. The initial state is x0 = [0 .5, 0.5]. Figure 1 illustrates the closed-loop input and state trajec-tories resulting from the proposed data-driven min-max MPC scheme and a static state-feedback controller. The static state-feedback gain is computed at the initial time 
+
+t = 0 of the data-driven min-max MPC scheme. As shown in the figures, the input and state constraints are satisfied in closed-loop operation, i.e., the input remains above 0.25. The proposed data-driven min–max MPC approach drives both the input and state trajectories to the origin more rapidly than the static state-feedback controller. The closed-loop cost of the data-driven min-max MPC scheme is 10 .8% smaller than that of the static state-feedback control law, which shows that the performance is improved by recomputing the control law. 5. CONCLUSION In this paper, we proposed a data-driven min-max MPC scheme for unknown discrete-time uncertain system with IQCs. The main contribution is to reformulate the data-driven min-max MPC to SDPs and propose an algorithm 0 5 10 15 20 25 30       
+
+> -0.1 00.1 0.2 0.3 0.4 0.5
+> 0510 15 20 25 30
+> -0.25 -0.2 -0.15 -0.1 -0.05 00.05
+
+Fig. 1. Closed loop state and input trajectories under the proposed data-driven min-max MPC scheme and the static state-feedback control. that iteratively solve two SDPs, which gives a tractable solution and yields an optimal state-feedback gain using data. A receding-horizon algorithm is proposed to repeat-edly solve the SDPs at each time step and update the state-feedback gain online. The resulting closed-loop sys-tem is proven to be exponentially stable and satisfy both input and state constraints. Numerical example shows that the data-driven min-max MPC scheme is effective and improves closed-loop performance by recomputing the state-feedback gain. In future work, we plan to extend the scheme to more general classes of IQC to handle a broader range of nonlinear dynamics. REFERENCES Berberich, J., K¨ ohler, J., M¨ uller, M.A., and Allg¨ ower, F. (2021). Data-driven model predictive control with stability and robustness guarantees. IEEE Transactions on Automatic Control , 66(4), 1702–1717. Berberich, J., Scherer, C.W., and Allg¨ ower, F. (2023). Combining prior knowledge and data for robust con-troller design. IEEE Transactions on Automatic Con-trol , 68(8), 4618–4633. Coulson, J., Lygeros, J., and D¨ orfler, F. (2019). Data-enabled predictive control: In the shallows of the DeePC. In Proc. European Control Conference (ECC) , 307–312. Fry, J.M., Farhood, M., and Seiler, P. (2017). IQC-based robustness analysis of discrete-time linear time-varying systems. International Journal of Robust and Nonlinear Control , 27(16), 3135–3157. Gupta, V., Klauser, E., and Karimi, A. (2026). Non-parametric IQC multipliers in data-driven robust con-troller synthesis. Automatica , 183, 112608. Hu, B., Lacerda, M.J., and Seiler, P. (2017). Robustness analysis of uncertain discrete-time systems with dissi-pation inequalities and integral quadratic constraints. 
+
+International Journal of Robust and Nonlinear Control ,27(11), 1940–1962. Kothare, M.V., Balakrishnan, V., and Morari, M. (1996). Robust constrained model predictive control using linear matrix inequalities. Automatica , 32(10), 1361–1379. Luppi, A., De Persis, C., and Tesi, P. (2022). On data-driven stabilization of systems with nonlinearities satis-fying quadratic constraints. Systems & Control Letters ,163, 105206. Markovsky, I. and D¨ orfler, F. (2021). Behavioral systems theory in data-driven analysis, signal processing, and control. Annual Reviews in Control , 52, 42–64. Markovsky, I., Huang, L., and D¨ orfler, F. (2023). Data-driven control based on the behavioral approach: From theory to applications in power systems. IEEE Control Systems Magazine , 43(5), 28–68. Martin, T., Sch¨ on, T.B., and Allg¨ ower, F. (2023). Guaran-tees for data-driven control of nonlinear systems using semidefinite programming: A survey. Annual Reviews in Control , 56, 100911. Nguyen, H.H., Friedel, M., and Findeisen, R. (2023). LMI-based data-driven robust model predictive control. 
+
+IFAC-PapersOnLine , 56(2), 4783–4788. Scherer, C.W. and Weiland, S. (2000). Linear matrix inequalities in control . New York : Spring-Verlag, 3 edition. van Waarde, H.J., Eising, J., Camlibel, M.K., and Trentel-man, H.L. (2023). The informativity approach: To data-driven analysis and control. IEEE Control Systems Magazine , 43(6), 32–66. Veenman, J. and Scherer, C.W. (2014). IQC-synthesis with general dynamic multipliers. International Journal of Robust and Nonlinear Control , 24(17), 3027–3056. Veenman, J., Scherer, C.W., and K¨ oro˘ glu, H. (2016). Robust stability and performance analysis based on integral quadratic constraints. European Journal of Control , 31, 1–32. Verhoek, C., Eising, J., D¨ orfler, F., and T´ oth, R. (2024). Decoupling parameter variation from noise: Biquadratic lyapunov forms in data-driven LPV control. In 63rd IEEE Conference on Decision and Control (CDC) ,6761–6766. Wang, Y., Liu, Q., and Shang, C. (2025). On min-max robust data-driven predictive control considering non-unique solutions to behavioral representation. arXiv preprint arXiv:2501.17350 .Xie, Y., Berberich, J., and Allg¨ ower, F. (2024). Data-driven min-max MPC for linear systems. In 2024 American Control Conference (ACC) , 3184–3189. Xie, Y., Berberich, J., and Allg¨ ower, F. (2026). Data-driven min-max MPC for linear systems: Robustness and adaptation. Automatica , 183, 112612. Xie, Y., Berberich, J., Br¨ andle, F., and Allg¨ ower, F. (2025a). Data-driven min-max MPC for LPV systems with unknown scheduling signal. European Journal of Control , 101373. Xie, Y., Berberich, J., Str¨ asser, R., and Allg¨ ower, F. (2025b). Bilinear data-driven min-max MPC: Designing rational controllers via sum-of-squares optimization. In 
+
+64th IEEE Conference on Decision and Control (CDC) ,1042–1045.

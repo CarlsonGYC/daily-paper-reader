@@ -1,0 +1,304 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-08T21:57:02.953359+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 4,
+    "deep_divecandidates": 4,
+    "deep_cap": 9,
+    "deep_selected": 4,
+    "quick_candidates": 3,
+    "quick_skim_target": 14,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2606.01194v1",
+      "source": "arxiv",
+      "title": "Data-Driven Min-Max MPC with Integral Quadratic Constraints",
+      "abstract": "Data-driven control of nonlinear systems with rigorous guarantees is a challenging control problem. Integral quadratic constraints (IQCs) provide a powerful framework for modeling nonlinearities. This paper presents a data-driven min-max model predictive control (MPC) synthesis method for unknown systems subject to (nonlinear) uncertainties using the IQC framework. The unknown system matrices are characterized by a set-membership representation using the input-state data and the knowledge of the IQCs. We derive two semidefinite programs (SDPs) that minimize an upper bound on the worst-case cost over all possible system dynamics and uncertainties. By iteratively solving these SDPs, the proposed state-feedback control law is obtained. We further prove that the resulting closed-loop system is exponentially stable and satisfies the input and state constraints. A numerical example demonstrates the validity of the proposed method.",
+      "authors": [
+        "Yifan Xie",
+        "Julian Berberich",
+        "Frank Allgöwer"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-05-31T12:15:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.01194v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "query:MPPI",
+        "query:MRT",
+        "query:marl-robot"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "presents a data-driven min-max MPC method for handling constraints under uncertainties",
+      "llm_evidence_cn": "提出一种考虑不确定性的数据驱动min-max MPC约束处理方法",
+      "llm_evidence": "提出一种考虑不确定性的数据驱动min-max MPC约束处理方法",
+      "canonical_evidence": "提出一种考虑不确定性的数据驱动min-max MPC约束处理方法",
+      "llm_tldr_en": "Proposes a data-driven min-max MPC method using integral quadratic constraints to handle unknown nonlinear systems with rigorous guarantees, formulating two iterative SDPs for robust control.",
+      "llm_tldr_cn": "针对未知非线性系统在不确定性下的约束处理难题，提出一种数据驱动的最小-最大模型预测控制方法。利用积分二次约束框架刻画非线性，通过输入状态数据建立集合隶属关系，推导出两个半定规划以最小化最坏情况成本上限。迭代求解得到状态反馈控制律，并证明递归可行性和闭环稳定性。该方法为数据驱动的鲁棒MPC提供了严格保证。",
+      "llm_tldr": "针对未知非线性系统在不确定性下的约束处理难题，提出一种数据驱动的最小-最大模型预测控制方法。利用积分二次约束框架刻画非线性，通过输入状态数据建立集合隶属关系，推导出两个半定规划以最小化最坏情况成本上限。迭代求解得到状态反馈控制律，并证明递归可行性和闭环稳定性。该方法为数据驱动的鲁棒MPC提供了严格保证。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "handling constraints in model predictive control",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06932v1",
+      "source": "arxiv",
+      "title": "Forecast and Model Predictive Control of Distributed Energy Resource Aggregators for Net-Demand Balancing",
+      "abstract": "With the rapid demand for energy, even the incorporation of bulk renewable energy sources is not entirely sufficient to meet demand besides adding supply uncertainty. Distributed Energy Resource Aggregators (DERAs) have the potential to address this uncertainty via aggregation and control of decentralized distributed energy sources, thereby acting like virtual power plants. We present a new approach that combines forecasting and model-predictive control to assign DERAs to follow net-demand patterns, while accounting for the dynamics of the aggregate energy sources and their capacity limits. Each DERA is represented as a flexible ``virtual battery\" with constraints on state-of-charge and power limits. The dispatch problem is set up as a long-term model predictive control task that aims to minimize differences from desired charge levels, output ramping, and net-load tracking errors. To keep operations efficient in real time, we implement a rolling-horizon MPC, which updates decisions regularly using the latest marginal-demand forecasts. For forecasting, we present two models: linear regression and long-short term memory (LSTM) neural network. Using high-resolution CAISO net-demand data and five typical DERA types, our simulations demonstrate how well our approach tracks marginal-demand; in particular, we highlight the tradeoffs between forecasting horizon times and MPC update rate as well as the dependence on the choice of the load forecasting model. Our results also indicate a slight edge for LSTM models over linear regression for desired time shifts and horizon choices.",
+      "authors": [
+        "Obai Bahwal",
+        "Oliver Kosut",
+        "LalithaSankar"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-06-05T05:51:17+00:00",
+      "link": "https://arxiv.org/pdf/2606.06932v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "query:MPPI",
+        "query:MRT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Combines MPC with constraints on virtual battery for DER aggregation",
+      "llm_evidence_cn": "结合MPC与虚拟电池约束进行分布式能源聚合",
+      "llm_evidence": "结合MPC与虚拟电池约束进行分布式能源聚合",
+      "canonical_evidence": "结合MPC与虚拟电池约束进行分布式能源聚合",
+      "llm_tldr_en": "Proposes an MPC approach with forecasting to control DER aggregators, handling capacity constraints modeled as virtual batteries.",
+      "llm_tldr_cn": "该文针对分布式能源聚合器的控制问题，提出一种结合预测与模型预测控制（MPC）的方法，将聚合器建模为带状态和功率限制的虚拟电池，从而有效处理约束并跟踪净需求模式。实验结果表明该方法能平衡供需波动，为虚拟电厂提供了有效的调度策略。",
+      "llm_tldr": "该文针对分布式能源聚合器的控制问题，提出一种结合预测与模型预测控制（MPC）的方法，将聚合器建模为带状态和功率限制的虚拟电池，从而有效处理约束并跟踪净需求模式。实验结果表明该方法能平衡供需波动，为虚拟电厂提供了有效的调度策略。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "handling constraints in model predictive control",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.07208v1",
+      "source": "arxiv",
+      "title": "Unlocking feedforward capabilities in Model Predictive Control algorithms to deal with measurable disturbances",
+      "abstract": "Disturbance rejection is a central objective in process control, particularly when measurable disturbances can be exploited through feedforward action. Although Model Predictive Control (MPC) naturally incorporates disturbance models and prediction capabilities, standard formulations cannot achieve complete disturbance rejection since the cost function penalises control effort. This limitation prevents MPC from reproducing the behaviour of classical feedforward compensators. This work proposes a novel framework to embed true feedforward capabilities within MPC without removing the control effort penalty. The approach introduces a dual-control structure in which two control actions are computed simultaneously: a tracking-oriented action addressing set-point tracking and robustness, and a feedforward-oriented action dedicated to disturbance rejection. Both contributions are combined into a single control signal on which the process constraints are explicitly enforced. The feedforward-oriented action is formulated without penalising control effort, enabling full compensation of measurable disturbances. The methodology is developed for Dynamic Matrix Control (DMC), Generalised Predictive Control (GPC), and state-space MPC. Its effectiveness is demonstrated through simulation studies, including comparisons with standard MPC and classical feedforward schemes. A case study based on a reverse osmosis process shows that the proposed approach improves disturbance rejection while preserving constraint handling and overall control performance.",
+      "authors": [
+        "José Luis Guzmán",
+        "Igor Pataro",
+        "Juan D. Gil",
+        "Manuel Berenguel"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-06-05T12:20:09+00:00",
+      "link": "https://arxiv.org/pdf/2606.07208v1",
+      "tags": [
+        "keyword:MPPI",
+        "query:MPPI"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Proposes a novel MPC framework to embed feedforward capabilities while handling constraints",
+      "llm_evidence_cn": "提出了一种新颖的MPC框架，在考虑约束的同时嵌入前馈能力",
+      "llm_evidence": "提出了一种新颖的MPC框架，在考虑约束的同时嵌入前馈能力",
+      "canonical_evidence": "提出了一种新颖的MPC框架，在考虑约束的同时嵌入前馈能力",
+      "llm_tldr_en": "Standard MPC cannot fully reject measurable disturbances due to control effort penalty. This paper proposes a dual-control MPC structure that computes feedback and feedforward actions simultaneously, enabling true feedforward compensation without removing the penalty, thus enhancing disturbance rejection while preserving constraint handling.",
+      "llm_tldr_cn": "该文针对标准模型预测控制（MPC）因控制作用惩罚而无法完全抑制可测扰动的问题，提出了一种新型双控制结构MPC框架，可同时计算反馈与前馈控制量，无需移除惩罚项即实现真正的前馈补偿，从而在保持约束处理能力的同时显著提升扰动抑制性能。这一设计为过程控制中处理可测扰动提供了更优的MPC解决方案。",
+      "llm_tldr": "该文针对标准模型预测控制（MPC）因控制作用惩罚而无法完全抑制可测扰动的问题，提出了一种新型双控制结构MPC框架，可同时计算反馈与前馈控制量，无需移除惩罚项即实现真正的前馈补偿，从而在保持约束处理能力的同时显著提升扰动抑制性能。这一设计为过程控制中处理可测扰动提供了更优的MPC解决方案。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "handling constraints in model predictive control",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.07193v1",
+      "source": "arxiv",
+      "title": "Shield-Loco: Shielding Locomotion Policies with Predictive Safety Filtering",
+      "abstract": "Reinforcement learning (RL) policies enable dynamic legged locomotion but lack mechanisms to avoid violations of safety constraints that are absent during training. Large-scale offline safe learning is impractical for covering all edge cases. Existing safety frameworks either rely on reduced-order models that cannot reason about whole-body behaviors or require conservative recovery controllers that degrade task performance. We propose a predictive safety filter that post-hoc filters the nominal contact locations fed to the RL policy. When a collision is predicted, a sampling-based optimizer asynchronously searches for safer contact sequences using a full-physics model, while a learned value function bootstraps long-horizon returns. Our three algorithmic components (geometric projection of sampled contacts, momentum-augmented updates, and replica-exchange) make the optimization tractable in a discontinuous contact landscape. We validate the filter on a quadruped robot in dense, cluttered environments, both in simulation and in the real world, showing substantial reductions in safety violations with minimal deviation from the nominal input.",
+      "authors": [
+        "Aditya Shirwatkar",
+        "Sebastian Sanokowski",
+        "Shishir Kolathaya",
+        "Aaron Johnson",
+        "Majid Khadiv"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-05T11:59:43+00:00",
+      "link": "https://arxiv.org/pdf/2606.07193v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Sampling-based optimizer asynchronously searches safer contact sequences for legged locomotion",
+      "llm_evidence_cn": "基于采样的优化器异步搜索更安全的接触序列用于足式运动",
+      "llm_evidence": "基于采样的优化器异步搜索更安全的接触序列用于足式运动",
+      "canonical_evidence": "基于采样的优化器异步搜索更安全的接触序列用于足式运动",
+      "llm_tldr_en": "Proposes a predictive safety filter for legged locomotion RL policies, using a sampling-based optimizer to find collision-free contact plans, thus ensuring safety without retraining.",
+      "llm_tldr_cn": "该文针对足式机器人强化学习策略缺乏安全保证的问题，提出 Shield-Loco 安全过滤框架，在后处理阶段利用基于采样的优化器异步搜索避免碰撞的接触序列，并融合学习价值函数引导长时域安全。实验表明，该方法能在不重训策略的情况下显著提升运动安全性，同时保持任务性能。",
+      "llm_tldr": "该文针对足式机器人强化学习策略缺乏安全保证的问题，提出 Shield-Loco 安全过滤框架，在后处理阶段利用基于采样的优化器异步搜索避免碰撞的接触序列，并融合学习价值函数引导长时域安全。实验表明，该方法能在不重训策略的情况下显著提升运动安全性，同时保持任务性能。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "sampling based model predictive control with safety constraints",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.06896v1",
+      "source": "arxiv",
+      "title": "Successive Convexification for Trajectory Optimization with Continuous-time Satisfaction of Signal Temporal Logic Specifications",
+      "abstract": "This paper presents a successive convexification framework for trajectory optimization under continuous-time Signal Temporal Logic (CT-STL) specifications. The framework employs generalized mean-based robustness (GMSR), a smooth and exact parameterization of discrete-time STL, as a logical building block for constructing differentiable CT-STL constraints in optimal control. It is integrated with time-dilation for free-final-time problems, finite-dimensional control parameterization, multiple-shooting discretization of the dynamics, and a convergence-guaranteed sequential convex programming method, prox-convex, to solve the nonconvex program. The main CT-STL realization embeds temporal aggregation into augmented continuous-time dynamics. This augmentation-based construction is largely transcription-independent, can be incorporated into existing optimal-control pipelines with minimal structural changes, and enables smooth CT-STL parameterizations with accuracy controlled by a user-selected regularization parameter. We also discuss a complementary dense-time realization that evaluates CT-STL formulas directly on the integration subnodes used for dynamics discretization, yielding a smooth and exact parameterization on the numerical trajectory representation, up to the accuracy of the integration scheme. The proposed GMSR-based formulations mitigate the locality and gradient-masking behavior of standard quantitative semantics and therefore provide a favorable landscape for gradient-based trajectory optimization. The framework is demonstrated through trajectory-optimization examples for a double-integrator system with continuous-time \\always{}, \\eventually{}, and \\until{} specifications, and a 6-DoF quadrotor flight problem with combined \\always{}, \\implication{}, and \\eventually{}-type specifications. The implementation is available at https://github.com/UW-ACL/TrajOpt_CT-STL.",
+      "authors": [
+        "Samet Uzun",
+        "Behçet Açıkmeşe"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC"
+      ],
+      "published": "2026-06-05T04:28:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.06896v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "query:MPPI",
+        "query:MRT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Trajectory optimization with continuous-time STL constraints using successive convexification",
+      "llm_evidence_cn": "使用逐次凸化的方法处理连续时间信号时序逻辑约束的轨迹优化",
+      "llm_evidence": "使用逐次凸化的方法处理连续时间信号时序逻辑约束的轨迹优化",
+      "canonical_evidence": "使用逐次凸化的方法处理连续时间信号时序逻辑约束的轨迹优化",
+      "llm_tldr_en": "A successive convexification framework for trajectory optimization under continuous-time STL specifications, integrating smooth robustness semantics and prox-convex algorithm for nonconvex programs.",
+      "llm_tldr_cn": "针对最优控制中连续时间信号时序逻辑(CT-STL)约束的挑战，提出了基于广义均值鲁棒性的逐次凸化框架。该方法将CT-STL约束嵌入可微形式，结合时间膨胀、有限维控制参数化和prox-convex算法求解非凸规划。仿真结果表明能够满足复杂时序逻辑规范，为安全关键控制中的约束处理提供了有效工具。",
+      "llm_tldr": "针对最优控制中连续时间信号时序逻辑(CT-STL)约束的挑战，提出了基于广义均值鲁棒性的逐次凸化框架。该方法将CT-STL约束嵌入可微形式，结合时间膨胀、有限维控制参数化和prox-convex算法求解非凸规划。仿真结果表明能够满足复杂时序逻辑规范，为安全关键控制中的约束处理提供了有效工具。",
+      "llm_tags": [
+        "query:mppi"
+      ],
+      "matched_query_tag": "query:mppi",
+      "matched_query_text": "handling constraints in model predictive control",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.04444v1",
+      "source": "arxiv",
+      "title": "Scaling Datasets for Multi-Sensor, Multi-Agent, and Multi-Domain Learning in Autonomous Systems",
+      "abstract": "Existing datasets cannot support large-scale learning in multi-agent, multi-sensor, or multi-domain autonomy, where diversity and coordination are essential. We present a modular dataset generation pipeline that creates terabyte-scale, ground-truth-labeled data for ground, aerial, and infrastructure-based systems using the AVstack framework and CARLA simulator. Supporting single- and multi-agent configurations with flexible sensor suites, the pipeline enables controllable experimentation across challenging conditions. Representative perception and fusion studies show how generated data can support application-specific training and collaborative autonomy.",
+      "authors": [
+        "R. Spencer Hallyburton",
+        "David Hunt",
+        "Miroslav Pajic"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.LG"
+      ],
+      "published": "2026-06-03T04:46:44+00:00",
+      "link": "https://arxiv.org/pdf/2606.04444v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MPPI",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Provides a modular dataset pipeline for multi-agent autonomous systems training",
+      "llm_evidence_cn": "为多智能体自主系统训练提供模块化数据集生成流水线",
+      "llm_evidence": "为多智能体自主系统训练提供模块化数据集生成流水线",
+      "canonical_evidence": "为多智能体自主系统训练提供模块化数据集生成流水线",
+      "llm_tldr_en": "Presents a pipeline generating terabyte-scale multi-agent autonomous driving datasets with configurable sensors and scenarios, enabling large-scale learning.",
+      "llm_tldr_cn": "针对现有数据集无法支持多智能体自动驾驶大规模学习的问题，提出一种模块化数据集生成流水线，利用AVstack和CARLA生成TB级多传感器多智能体数据。实验表明该数据可支持应用特定训练和协同自主能力开发。",
+      "llm_tldr": "针对现有数据集无法支持多智能体自动驾驶大规模学习的问题，提出一种模块化数据集生成流水线，利用AVstack和CARLA生成TB级多传感器多智能体数据。实验表明该数据可支持应用特定训练和协同自主能力开发。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "multi-agent reinforcement learning in robotics",
+      "matched_requirement_id": "req-11",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.07375v1",
+      "source": "arxiv",
+      "title": "An End-to-End Encrypted Control Pipeline for Multi-Agent Coordination via CKKS Homomorphic Encryption",
+      "abstract": "Cloud-based coordination of multi-agent systems requires sharing state with a central server, creating a conflict between coordination and privacy. Fully homomorphic encryption (FHE) resolves this in principle, but its severe arithmetic constraints demand that every stage of the control loop be redesigned from first principles. We present an end-to-end encrypted control pipeline in which sensing, state estimation, state propagation, and consensus control all operate on CKKS-encrypted data using only addition, multiplication, and cyclic rotation. In order to overcome the computational challenges of FHE, we employ steady-state Kalman gains instead of solving for the matrices online and graph Laplacians are applied via the diagonal method at a cost proportional to the number of nonzero cyclic diagonals, accommodating ring, torus, and complete-graph topologies within a unified framework. To quantify the cumulative effect of encryption noise, we use the separation principle to decouple controller and observer error dynamics and derive a periodic bootstrapping bound in which CKKS bootstrapping acts as an impulsive disturbance; the resulting steady-state error ball depends on the bootstrapping precision and the closed-loop spectral radius, providing a direct design equation for the privacy-accuracy tradeoff. The pipeline is validated on a multi-agent formation control scenario, confirming stable closed-loop operation under encryption with bounded tracking error.",
+      "authors": [
+        "Sai Sandeep Damera",
+        "Maria Charitidou",
+        "Asim Zoulkarni",
+        "John S. Baras"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY",
+        "cs.CR"
+      ],
+      "published": "2026-06-05T15:18:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.07375v1",
+      "tags": [
+        "keyword:MPPI",
+        "keyword:MRT",
+        "keyword:legged-MARL",
+        "keyword:marl-robot",
+        "query:MRT",
+        "query:legged-MARL",
+        "query:marl-robot"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "End-to-end encrypted coordination for multi-agent systems preserving privacy",
+      "llm_evidence_cn": "为多智能体系统提供保护隐私的端到端加密协调方案",
+      "llm_evidence": "为多智能体系统提供保护隐私的端到端加密协调方案",
+      "canonical_evidence": "为多智能体系统提供保护隐私的端到端加密协调方案",
+      "llm_tldr_en": "Proposes an encrypted control pipeline where sensing, estimation, propagation, and consensus control run on encrypted data, using CKKS homomorphic encryption, enabling privacy-preserving multi-agent coordination.",
+      "llm_tldr_cn": "针对多智能体协调隐私问题，提出一种完全同态加密的端到端控制流水线，在加密域内执行传感、状态估计、状态传播和一致性控制。通过使用稳态卡尔曼增益和图拉普拉斯，克服了FHE的计算挑战，实现高效的加密协调。",
+      "llm_tldr": "针对多智能体协调隐私问题，提出一种完全同态加密的端到端控制流水线，在加密域内执行传感、状态估计、状态传播和一致性控制。通过使用稳态卡尔曼增益和图拉普拉斯，克服了FHE的计算挑战，实现高效的加密协调。",
+      "llm_tags": [
+        "query:marl-robot"
+      ],
+      "matched_query_tag": "query:marl-robot",
+      "matched_query_text": "distributed multi-agent systems in robotics",
+      "matched_requirement_id": "req-12",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

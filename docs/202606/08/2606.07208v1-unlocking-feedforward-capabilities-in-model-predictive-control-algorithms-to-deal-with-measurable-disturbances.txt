@@ -1,0 +1,660 @@
+Title: Unlocking feedforward capabilities in Model Predictive Control algorithms to deal with measurable disturbances
+
+URL Source: https://arxiv.org/pdf/2606.07208v1
+
+Published Time: Mon, 08 Jun 2026 00:49:43 GMT
+
+Number of Pages: 39
+
+Markdown Content:
+# Unlocking feedforward capabilities in Model Predictive Control algorithms to deal with measurable disturbances 
+
+José Luis Guzmán* a, Igor Pataro a, Juan D. Gil a, Manuel Berenguel a
+
+> aUniversity of Almería, Department of Informatics, CIESOL, ceiA3, La Cañada de San Urbano s/n, Almería, Spain. {joseluis.guzman@ual.es}
+
+Abstract 
+
+Disturbance rejection is a central objective in process control, particularly when measurable disturbances can be exploited through feedforward ac-tion. Although Model Predictive Control (MPC) naturally incorporates dis-turbance models and prediction capabilities, standard formulations cannot achieve complete disturbance rejection since the cost function penalises con-trol effort. This limitation prevents MPC from reproducing the behaviour of classical feedforward compensators. This work proposes a novel framework to embed true feedforward capabilities within MPC without removing the con-trol effort penalty. The approach introduces a dual-control structure in which two control actions are computed simultaneously: a tracking-oriented action addressing set-point tracking and robustness, and a feedforward-oriented ac-tion dedicated to disturbance rejection. Both contributions are combined into a single control signal on which the process constraints are explicitly enforced. The feedforward-oriented action is formulated without penalis-ing control effort, enabling full compensation of measurable disturbances. The methodology is developed for Dynamic Matrix Control (DMC), Gener-alised Predictive Control (GPC), and state-space MPC. Its effectiveness is demonstrated through simulation studies, including comparisons with stan-dard MPC and classical feedforward schemes. A case study based on a reverse osmosis process shows that the proposed approach improves disturbance re-jection while preserving constraint handling and overall control performance. 
+
+Keywords: Feedforward control, MPC, Disturbances, GPC, DMC 
+
+> arXiv:2606.07208v1 [eess.SY] 5 Jun 2026
+
+1. Introduction 
+
+Disturbance rejection, or the regulation problem, is one of the most funda-mental challenges in control engineering, particularly in the process industry. In a regulation control problem, the objective is to maintain a process vari-able close to a desired setpoint despite disturbances that tend to drive the system away from this operating condition [1]. When disturbance information is not available, that is, when disturbances are non-measurable, the rejection problem must be addressed through feed-back control strategies. In such cases, the controller responds to deviations in the process variable after the disturbance has already affected the system, thereby attenuating its impact. In contrast, when disturbances are mea-surable, their information can be exploited to anticipate their effect on the process. This enables compensation before the disturbance affects the con-trolled variable, potentially eliminating or significantly reducing its impact. This is the fundamental principle of feedforward control [2]. Feedforward is a proactive control strategy that compensates for measur-able disturbances before any response is observed in the process output. It is not a replacement for feedback control, but rather complements it. In the ideal unconstrained case, when the disturbance model is perfectly known, and no model-inversion issues arise, feedforward control can completely cancel the disturbance’s effect. However, in practical scenarios where inversion is not feasible, or the model is imperfect, tuning rules for the feedforward compen-sator must be employed [2]. The combination of feedforward and feedback control allows measurable disturbances to be counteracted proactively, while feedback mechanisms handle unmeasurable disturbances, setpoint tracking, and model uncertainties [2]. This combined feedforward-feedback structure is widely used in industrial practice and effectively decouples the control objectives of disturbance rejection and set-point tracking. Feedforward capabilities have traditionally been incorporated into Model Predictive Control (MPC) algorithms, as disturbance models can be explic-itly included in the output predictions. By accounting for these models, MPC naturally extends its predictive and constraint-handling capabilities to disturbance compensation problems. In particular, when future disturbance values are available or can be reliably estimated, MPC can anticipate their effects in advance, which is especially valuable in process control applica-tions [3, 4]. Nevertheless, despite these advantages, standard MPC formulations are 2generally unable to completely reject measurable disturbances. Even under ideal conditions, where the disturbance model is perfectly known, the dis-turbance signal is fully available, no model inversion issues arise, and the input is not saturated, the resulting control action typically only attenuates the disturbance effect. This limitation stems from the structure of the MPC objective function, which penalises control effort, thereby reducing the ag-gressive input actions required for complete rejection and inherently enforcing a trade-off between performance and actuation effort. Moreover, MPC com-putes control trajectories that simultaneously address multiple objectives, including setpoint tracking, disturbance rejection, and control effort minimi-sation. Consequently, the conflicting nature of these objectives limits the ability of standard MPC formulations to replicate the behaviour of a pure feedforward compensator. The disturbance rejection properties of MPC have been studied, for in-stance, in the context of Generalised Predictive Control (GPC), where it has been shown that achieving pure feedforward behaviour requires the control effort weighting term in the cost function to be set to zero [5, 6]. Similar results have been reported for the Infinite Horizon MPC (IHMPC) [7] and for the Linear Quadratic optimal controller with FF (LQ-FF) [8]. As seen, re-moving the control effort penalty can recover feedforward-like behaviour, but at the expense of excessively high bandwidth, increased sensitivity to model uncertainty, and aggressive setpoint-tracking responses [6]. To mitigate these issues, in [6], a reference filter was added to the original GPC algorithm and a modified GPC structure based on the Filtered Smith Predictor was proposed to improve robustness. The aforementioned limitations, together with the need for additional control structures within the MPC framework, motivate the development of predictive control formulations that explicitly reproduce feedforward be-haviour while preserving robustness and reasonable control effort within a unified framework. To this end, this work proposes a novel approach to systematically incorporate true feedforward capabilities into MPC without altering the nominal feedback design. The proposed approach is inspired by classical feedforward-feedback con-trol structures, in which feedforward and feedback actions are computed sep-arately and then combined into the process control action, with the feed-forward controller acting in open loop. Accordingly, the MPC algorithm is extended to handle two different control components: one associated with the standard MPC objectives (e.g., tracking and robustness), and a second 3open-loop component dedicated exclusively to disturbance rejection. The latter is designed without penalising control effort, thereby enabling com-plete disturbance rejection. Both control signals are integrated into a unified optimisation framework that preserves MPC’s constraint-handling capabili-ties while embedding pure feedforward behaviour. In this work, the proposed formulation is developed and analysed under nominal conditions to clearly establish and demonstrate the methodology. Therefore, the focus is on re-covering feedforward disturbance-rejection capabilities within MPC rather than on providing a formal analysis of closed-loop stability or robustness properties, which remain important topics for future research. Related ideas have also been explored in the literature to enhance the set-point-tracking capabilities of predictive controllers via feedforward-like mech-anisms. In [9, 10], additional feedforward structures were incorporated into MPC formulations to improve set-point tracking performance by anticipating reference changes and reducing transient errors. These approaches share the common philosophy of decomposing the control action into complementary components with different objectives. However, their primary focus is on en-hancing reference tracking rather than on measurable disturbance rejection. In contrast, the present work addresses the fundamentally different problem of measurable disturbance compensation through feedforward action. As in classical control theory, feedforward compensation for set-point tracking and measurable disturbance rejection constitute distinct control problems and re-quire different formulations and design considerations. While previous pre-dictive feedforward approaches focused on improving servo performance, the proposed methodology is designed to recover the pure disturbance-rejection capabilities of classical feedforward compensators within the MPC frame-work, while preserving constraint handling and robustness. To the best of the authors’ knowledge, this constitutes a novel formulation for systematically embedding true feedforward disturbance compensation into MPC without modifying the nominal feedback controller design. The proposed methodology is derived for three widely used MPC for-mulations: Dynamic Matrix Control (DMC), Generalised Predictive Control (GPC), and state-space MPC, covering algorithms based on convolution, transfer function, and state-space models. The formulation is intentionally developed for the nominal case to highlight the underlying principles of the proposed feedforward embedding methodology. Moreover, the algorithm is derived for linear systems which allows to apply the superposition principle. Its effectiveness is demonstrated through simulation studies comparing the 4proposed approach with conventional MPC algorithms and classical feedfor-ward schemes. Additionally, a comprehensive case study involving a reverse osmosis process is presented. The remainder of this paper is organised as follows. Section 2 summarises the main concepts of classical feedforward control and the basic formulation of MPC algorithms, including the treatment of measurable disturbances in the prediction model. Section 3 presents the proposed extended MPC formu-lation with embedded feedforward capabilities and discusses its relationship with classical feedforward compensation. Section 4 provides the simulation studies, including a comparative analysis and the reverse osmosis case study. Finally, Section 5 draws the main conclusions and outlines future research directions. 
+
+2. Preliminaries 
+
+This section briefly describes the basic information on a classical feedfor-ward control scheme, the common features of MPC algorithms, such as the cost function and the calculation of the control law considering the distur-bance model, and the derivation of the specific prediction equations for the DMC, GPC, and state-space MPC controllers. 
+
+2.1. Feedforward control 
+
+Feedforward control can be considered the classical solution for address-ing the measurable disturbance-rejection problem and mitigating the limita-tions of feedback control described earlier. The classical feedforward control scheme is presented in Figure 1, where C is the feedback controller, Pu rep-resents the process dynamics from the manipulated variable to the process output, and r, u, and y denote the set-point, the total control signal, and the process output, respectively. Moreover, a measurable load disturbance v
+
+affects the process output through the disturbance dynamics Pv. The feed-forward compensator is denoted by Cf f and acts in open loop, using only measurable disturbance information to anticipate and counteract the effect of v before it propagates to the process output. In this structure, the total control signal applied to the process is obtained as the combination of two contributions: 
+
+u(t) = uc(t) + uv(t), (1) 5where uc(t) is the feedback control action generated by controller C, and uv(t)
+
+is the feedforward control action generated from the measurable disturbance through Cf f . Thus, feedback and feedforward actions are designed with different objectives and subsequently combined at the process input. 
+
+> Figure 1: Classical feedforward control scheme to deal with measurable disturbances.
+
+According to this scheme, the transfer function between disturbance v
+
+and process output y becomes 
+
+Gy/v = Pv − PuCf f 
+
+1 + CP u
+
+, (2) where the feedforward compensator should be calculated in the following way in order to remove the disturbance effect: 
+
+Cf f = Pv
+
+Pu
+
+. (3) When (3) is realisable and is substituted in (2), the disturbance signal is completely removed before affecting the process output. Otherwise, alterna-tive control schemes or tuning rules for the feedforward compensator should be used to account for the non-realisable problems [2]. This classical structure provides the conceptual basis for the methodol-ogy proposed in this work. The main objective is to extend standard MPC algorithms so that they reproduce the decoupled feedback-feedforward archi-tecture in Figure 1: a feedback-oriented predictive action devoted to set-point tracking, robustness, and constraint handling, and an open-loop feedforward-oriented predictive action devoted to measurable disturbance rejection. 62.2. Model predictive control 
+
+MPC algorithms compute the control action by solving, at each sampling instant, a finite-horizon optimisation problem that explicitly accounts for system dynamics and measurable disturbances [3]. The common objective in MPC is to determine a sequence of future control increments, ∆u(t + j − 1) ,that minimises a multistage cost function of a SISO (Single Input Single Output) system in the form 
+
+J =
+
+> N
+
+X
+
+> j=N1
+
+δ(j)[ˆ y(t + j|t) − w(t + j)] 2 +
+
+> Nu
+
+X
+
+> j=1
+
+λ(j)[∆ u(t + j − 1)] 2, (4) where ˆy(t + j|t) denotes the predicted system output at time t + j based on information available at time t (here denoted in discrete-time domain), and 
+
+∆u(t + j − 1) represents the future control increments, with ∆ = (1 − z−1).The parameters N1 and N define the minimum and maximum prediction horizons, respectively, while Nu is the control horizon. The weighting se-quences δ(j) and λ(j) penalise tracking errors and control effort over the prediction horizon and constitute key tuning parameters of the controller. The reference trajectory w(t + j) may correspond to the setpoint or to a filtered version of it, providing a smooth transition from the current output 
+
+y(t) to the desired reference [3]. Note that a SISO model is used for sim-plifying the algorithm presentation; for MIMO (Multi-Input Multi-Output) systems, the formulation can be straightforwardly extended [3]. In (4), the j-step-ahead prediction of the system output, ˆy(t + j|t), is generated using a process model that depends on the specific MPC formu-lation (e.g., transfer function, state-space, finite impulse response, etc.), as described in the following subsections. For a prediction horizon of length N
+
+and a control horizon Nu, the sequence of predicted outputs can be expressed in a compact form as a function of past inputs and outputs, future control increments, and measurable disturbances. This leads to the following general prediction equation: 7
+
+ˆy(t + d + 1 |t)ˆy(t + d + 2 |t)
+
+...
+
+ˆy(t + d + N |t)
+
+| {z }
+
+> by
+
+=
+
+
+
+g1 0 · · · 0
+
+g2 g1 · · · 0
+
+... ... . . . ...
+
+gN gN −1 · · · gN −Nu
+
+| {z }
+
+> G
+
+
+
+∆u(t)∆u(t + 1) 
+
+...
+
+∆u(t + Nu − 1) 
+
+| {z }
+
+> u
+
++
+
+
+
+h1 0 · · · 0
+
+h2 h1 · · · 0
+
+... ... . . . ...
+
+hN hN −1 · · · h1
+
+| {z }
+
+> H
+
+
+
+∆v(t + 1) ∆v(t + 2) 
+
+...
+
+∆v(t + N )
+
+| {z }
+
+> v
+
++
+
+
+
+f1
+
+f2
+
+...
+
+fN
+
+| {z } 
+
+> f
+
+,
+
+(5) where g1, . . . , g N −Nu in G denote the step response coefficients of the process related to the input, H is the matrix containing the step response coefficients associated with the disturbance, and f1, . . . , f N represent the free response of the system, which depends on past inputs, outputs, and disturbances. On the other hand, u includes the future control signals (decision vari-ables), and the vector v gathers the future disturbance increments. In some applications, particularly when disturbances are related to process loads, fu-ture disturbance values may be known a priori or estimated using trends or forecasting techniques. In such cases, the contribution of the disturbance to the predicted output can be explicitly computed through the second term in (5). Conversely, if the disturbance is assumed to remain constant over the prediction horizon, i.e., v(t + j) = v(t) ∀j = [1 , N ], then ∆v(t + j) = 0 , and the future disturbance contribution vanishes. The prediction model in (5) can be written in the compact form 
+
+by = Gu + Hv + f , (6) where f represents the free response of the system, which depends on past inputs, outputs, and disturbances, and current measurements of outputs and disturbances. Gu is the forced response depending of the future control ac-tions u, and the term Hv accounts for the contribution of future measurable disturbances to the predicted output. The specific structure of f , as well as the matrices involved in (6), de-pends on the adopted prediction model and will be detailed for each MPC formulation in the following subsections. 8The optimal control sequence, u, is obtained by substituting the pre-diction model (6) into the cost function (4) and expressing it in a compact quadratic form. After straightforward algebraic manipulation, the cost func-tion can be written as 
+
+J =u⊤(Qλ + G⊤G)u + 2( Hv + f − w)⊤Gu ,
+
++ ( Hv + f − w)⊤(Hv + f − w), (7) where w = [ w(t+d+1) , w (t+d+2) , . . . , w (t+d+N )] ⊤ denotes the reference trajectory over the prediction horizon, and Qλ is a diagonal weighting ma-trix that penalizes the control increments, with elements λ(j). The tracking weights δ(j) do not explicitly appear in (7) because they are typically chosen as constant along the prediction horizon, i.e., δ(j) = 1 . Under this common assumption, the control weighting sequence is also taken to be constant over the horizon N, λ(j) = λ, yielding Qλ = λI. In this case, the controller tuning is effectively reduced to selecting the scalar parameter λ, which bal-ances tracking performance and control effort, and is often normalised by the process gain. In an unconstrained problem, the optimal control sequence is obtained by minimising (7) with respect to u. Since the cost function is quadratic, the solution can be derived analytically by setting the gradient with respect to u equal to zero, leading to the well-known least-squares solution: 
+
+u = K−1G⊤(w − Hv − f ), (8) where K = Qλ + G⊤G.According to the receding horizon strategy, only the first element of the optimal control sequence is applied to the process, i.e., ∆u(t). Denoting by 
+
+k the first row of K−1, the implemented control action is given by 
+
+∆u(t) = kG ⊤(w − Hv − f ). (9) Equation (9) corresponds to the well-known unconstrained MPC control law, explicitly accounting for future reference trajectories and measurable disturbances. It is worth noting that the contribution of the disturbance term is filtered through the matrix K−1G⊤, which depends on the control weighting. As a result, the disturbance compensation is inherently coupled with the control effort penalisation, limiting the ability of standard MPC formulations to achieve complete disturbance rejection [5]. 9The previous optimal control action is common for most linear MPC frameworks. The main difference among MPC algorithms lies in how the prediction equation (6) is formulated and the free response term f is obtained. This will be briefly summarised in the following subsections for GPC, DMC and state space MPC algorithms. More details can be found in [3]. 
+
+2.2.1. Prediction equation for DMC 
+
+In DMC, the prediction model is constructed directly from the process step responses and the measurable disturbance. Let {gi}∞ 
+
+> i=1
+
+and {hi}∞ 
+
+> i=1
+
+de-note the step response coefficients relating the manipulated input increments 
+
+∆u and the measurable disturbance increments ∆v to the output, respec-tively. Then, the predicted output j steps ahead can be written as 
+
+ˆy(t + j|t) = 
+
+> ∞
+
+X
+
+> i=1
+
+gi∆u(t + j − i) + 
+
+> ∞
+
+X
+
+> i=1
+
+hi∆v(t + j − i) + ˆ n(t + j|t), (10) where ˆn(t + j|t) accounts for unmeasured disturbances and modelling errors. Assuming, as in standard DMC, that ˆn(t + j|t) = ˆ n(t|t) = y(t) − ˆy(t|t)
+
+remains constant over the prediction horizon (with y(t) the actual measured process output), and separating future and past increments, the prediction can be rearranged as 
+
+ˆy(t + j|t) = 
+
+> j
+
+X
+
+> i=1
+
+gi∆u(t + j − i) + 
+
+> j
+
+X
+
+> i=1
+
+hi∆v(t + j − i + 1) + f (t + j), (11) where f (t + j) is the free response, i.e., the part of the prediction that does not depend on future control or disturbance increments. So, the free response is given by 
+
+fDM C (t+j) = y(t)+ 
+
+> ∞
+
+X
+
+> i=1
+
+(gj+i −gi)∆ u(t−i)+ 
+
+> ∞
+
+X
+
+> i=1
+
+(hj+i −hi)∆ v(t−i+1) . (12) For asymptotically stable systems, -the step response coefficients converge to constant values, so the previous expression can be truncated to the finite step response length. Stacking the predictions over the horizon yields 
+
+byDMC = Gu + Hv + fDMC . (13) The free response vector is then written as 10 fDMC = Gpup + Hpvp + Ly(t), (14) where up and vp collect the past control and disturbance increments, re-spectively, while Gp, Hp, and L are matrices built from the process and disturbance step response coefficients. Therefore, in DMC, the free response is explicitly expressed in terms of the measured current output and the past increments in control and disturbance. The detailed formulation can be followed in [3]. 
+
+2.2.2. Prediction equation for the GPC 
+
+In GPC, the prediction equation is derived from the CARIMA model 
+
+A(z−1)y(t) = z−dB(z−1)∆ u(t − 1) + D(z−1)∆ v(t) + ξ(t)∆ , (15) where A(z−1) = 1 + a1z−1 + · · · + ana z−na is the autoregressive polynomial, 
+
+B(z−1) = b0 + b1z−1 + · · · + bnb z−nb is the input polynomial, and D(z−1) = 
+
+d0 + d1z−1 + · · · + dnd z−nd represents the disturbance dynamics. The operator 
+
+z−1 denotes the backward shift operator (unit delay), and ξ(t) is a zero-mean disturbance term. By solving the corresponding Diophantine equations, the predicted out-put is decomposed into a forced response, driven by future control actions, and a free response, which depends only on information available up to time 
+
+t. Accordingly, the stacked prediction over the horizon can be written as 
+
+byGPC = Gu + Hv + fGPC , (16) where the free response vector is given by 
+
+fGPC = Gpup + Hpvp + Sy p, (17) where Gp, Hp, and S are matrices constructed from the model polynomials and the Diophantine solutions, accounting for the effects of past control in-crements, past disturbance increments, and past outputs, respectively. The vectors up, vp, and yp collect the relevant past values of the control incre-ments, disturbance increments, and system output, typically organised as 
+
+up =[∆ u(t − 1) , ∆u(t − 2) , . . . ]⊤,
+
+vp =[∆ v(t), ∆v(t − 1) , . . . ]⊤,
+
+yp =[ y(t), y (t − 1) , . . . ]⊤.
+
+(18) 11 Hence, in the GPC formulation, the free response corresponds to the component of the predicted output fully determined by past data. Further details of the obtained matrices can be found in [3]. 
+
+2.2.3. Prediction equation for state-space MPC 
+
+In this work, the state-space MPC is derived from an augmented model formulated in incremental form in order to be equivalent to the external rep-resentation forms of the DMC and GPC. Starting from the original discrete-time system, the state vector is extended to implicitly account for input increments and transport delays associated with both manipulated inputs and measurable disturbances. The augmented state vector is defined as 
+
+xa(t) = 
+
+
+
+x(t)
+
+zu(t)
+
+zd(t)
+
+uprev (t)
+
+dprev (t)
+
+ , (19) where x(t) are the original process states, zu(t) and zd(t) are the delay-chain states associated with manipulated inputs and disturbances, respectively, and 
+
+uprev (t) and dprev (t) store the previous values of the inputs and disturbances required to recover the incremental signals, that is uprev (t) = u(t − 1) , and 
+
+dprev (t) = d(t − 1) .The augmented system can then be written as 
+
+xa(t + 1) = Aaxa(t) + Ba∆u(t) + Bd,a∆v(t), (20) 
+
+y(t) = Caxa(t), (21) where the matrices Aa, Ba, Bd,a, and Ca are constructed from the original system matrices and the delay-chain dynamics. In particular, Aa contains the original state dynamics, the shift structure of the delay chains, and the update equations for the stored input and disturbance values. The matrices 
+
+Ba and Bd,a map the control and disturbance increments into both the orig-inal states and the delay-chain states, while Ca selects the output from the augmented state only related to the system dynamics, not to the auxiliary states. Stacking the predictions over the horizon leads to 
+
+bySS = Gu + Hv + fSS , (22) 12 where 
+
+fSS = Φx a(t), (23) being Φ the free-response matrix, obtained from the augmented matrices as 
+
+Φ =
+
+
+
+CaAa
+
+CaAa2
+
+...
+
+CaAaN
+
+ . (24) Hence, in the state-space formulation, the free response is compactly ex-pressed as a function of the current augmented state. Importantly, although written in terms of xa(t), this term implicitly contains the effects of past in-puts, past disturbances, and their associated delays, since all these quantities are embedded in the augmented state vector. A detailed description of the matrices and augmented states can be found in [7]. 
+
+2.2.4. Unified prediction model summary 
+
+As shown in the previous subsections, although DMC, GPC, and state-space MPC formulations are derived from different modelling paradigms, namely step response, transfer function, and state-space representations, re-spectively, all prediction models can ultimately be expressed using the same compact structure introduced in (6). The term Gu represents the forced response associated with future con-trol actions and is common to all MPC formulations. Similarly, the term 
+
+Hv accounts for the contribution of future measurable disturbances when-ever future disturbance information is available. The main difference among MPC algorithms lies in the formulation of the free response term f , which encapsulates the effect of past information and current system measurements according to the adopted prediction model. Table 1 summarises the prediction equations derived for the considered MPC formulations and highlights the specific structure of the free response component in each case. It is important to note that despite apparent differences in the free-response formulation, all approaches implicitly account for the effects of past control actions, disturbances, delays, and current process information. Therefore, the methodology proposed in the next section can be formulated in a unified manner, independent of the adopted MPC framework, by exploiting the common compact prediction structure. 13 Table 1: Summary of prediction equations for different MPC formulations. 
+
+MPC Prediction model Free response term 
+
+DMC by = Gu + Hv + fDMC fDMC = Gpup + Hpvp + Ly(t)
+
+GPC by = Gu + Hv + fGPC fGPC = Gpup + Hpvp + Sy p
+
+SS MPC by = Gu + Hv + fSS fSS = Φx a(t)
+
+3. Extended MPC formulation with feedforward capabilities 
+
+As highlighted in the previous section, despite the different modelling paradigms used in DMC, GPC, and state-space MPC formulations, all pre-diction models can ultimately be expressed through the same compact struc-ture. This unified prediction structure enables a general methodology for extending MPC capabilities, independent of the specific predictive model employed. Since measurable disturbances are already explicitly incorporated into the prediction equation, future disturbance information can naturally be accounted for within the optimisation problem. However, despite these predictive capabilities, complete rejection of measurable disturbances cannot generally be achieved. This limitation does not arise from the prediction model itself, but rather from the inherent structure of the MPC objective function, where control effort penalisation introduces a trade-off between control performance and actuator activity (see Equation (7)). Consequently, the aggressive control actions typically required to fully compensate for mea-surable disturbances are attenuated by the optimisation process, preventing standard MPC formulations from reproducing the behaviour of classical feed-forward compensators. Motivated by these observations, this section presents a unified extension of MPC algorithms aimed at systematically embedding feedforward capa-bilities while preserving the nominal feedback-oriented MPC design. The proposed methodology exploits the common prediction structure previously identified and can therefore be formulated independently of the adopted modelling framework. First, a general formulation is introduced based on the common compact prediction model. Subsequently, the methodology is particularised for the different MPC algorithms presented in the previous section, namely DMC, GPC, and state-space MPC, highlighting the specific modifications required in each case. 14 3.1. Proposed methodology 
+
+Inspired by the classical feedforward control principles presented in Sec-tion 2, the proposed framework systematically embeds pure feedforward ca-pabilities into MPC while preserving the standard control effort penalisation associated with feedback-oriented objectives. The methodology reproduces the structure of a classical feedforward-feedback controller, where set-point tracking and measurable disturbance rejection are treated as decoupled con-trol problems and addressed through separate optimal control actions. More specifically, the control problem is decomposed into two complemen-tary components. A first control action is dedicated to conventional MPC objectives, including setpoint tracking and robustness. A second control action is explicitly devoted to disturbance rejection and is formulated with-out penalising control effort, thereby recovering the anticipative behaviour required for complete feedforward compensation. Both control actions are computed simultaneously and subsequently combined to generate the final manipulated variable applied to the process. Unlike classical feedforward schemes, however, the predictive nature of MPC enables both control com-ponents to be integrated into a unified optimisation framework with intrinsic constraint handling capabilities. This feature enables explicit accounting for actuator limitations and interactions between feedback and feedforward ac-tions, particularly in situations where feedforward inversion issues arise, as previously demonstrated in classical feedforward compensation schemes [2]. Let the predicted output sequence be expressed as two independent con-tributions: 
+
+byc = Gu c + fc, (25) 
+
+byv = Gu v + fv. (26) Here, byc ∈ RN represents the nominal predicted response without dis-turbance effects, whereas byv ∈ RN accounts for the predicted effect of mea-surable disturbances. The control sequences uc, uv ∈ RNu correspond to the nominal MPC action for set-point tracking and feedback control pur-poses, and the feedforward-oriented MPC action for disturbance rejection, respectively. The vectors fc and fv ∈ RN represent the corresponding free re-sponses, without and with measurable disturbance information, respectively. Notice that fc incorporates feedback information about the current state of the plant through measured outputs and past control actions, thereby sup-porting closed-loop predictive control objectives. In contrast, fv only includes 15 the contribution of the process model together with past and future measur-able disturbance information, without incorporating feedback information from the plant. Consequently, uv is computed as an open-loop feedforward-oriented control action exclusively devoted to disturbance compensation. To obtain a compact formulation, the control variables are grouped into a single augmented vector: 
+
+U =
+
+uc
+
+uv
+
+
+
+, (27) and the block-diagonal dynamic matrix is defined as: 
+
+Gu =
+
+G 00 G
+
+
+
+. (28) Similarly, define the reference and free response mismatch vector: 
+
+F =
+
+fc − wc
+
+fv − wv
+
+
+
+, (29) where wc and wv are the reference trajectories associated with each compo-nent. The proposed cost function is defined as: 
+
+J = ( byc − wc)T (byc − wc) + ( byv − wv)T (byv − wv) + uTc Qλc uc + uTv Qλv uv, (30) where Qλc and Qλv are weighting matrices associated with the control effort of each component. In particular, Qλv can be set to zero in order to recover pure feedforward behavior, as will be described later. Substituting the prediction models (25) and (26) in (30), the cost function becomes: 
+
+J =( Gu c + fc − wc)T (Gu c + fc − wc)+ ( Gu v + fv − wv)T (Gu v + fv − wv)+ uTc Qλc uc + uTv Qλv uv, (31) This expression can be rewritten in compact quadratic form using (27), (28), and (29) as: 
+
+J(U) = UT (GTu Gu + Λ)U + 2 UT GTu F + FT F, (32) 16 where 
+
+Λ =
+
+Qλc 00 Qλv
+
+
+
+. (33) The optimal solution when no constraints are considered is obtained by minimizing J(U) with respect to U:
+
+∂J ∂U = 2( GTu Gu + Λ)U + 2 GTu F = 0 , (34) which leads to the analytical solution: 
+
+U⋆ = −(GTu Gu + Λ)−1GTu F. (35) Then, using again the expressions (27), (28), and (29), we can get 
+
+U⋆ =
+
+u⋆c
+
+u⋆v
+
+
+
+=
+
+(GT G + Qλc )−1 00 (GT G + Qλv )−1,
+
+  GT (wc − fc)
+
+GT (wv − fv)
+
+
+
+. (36) Thus, 
+
+u⋆c = Kc(wc − fc), (37) 
+
+u⋆v = Kv(wv − fv), (38) with 
+
+Kc = ( GT G + Qλc )−1GT , (39) 
+
+Kv = ( GT G + Qλv )−1GT . (40) Considering the receding horizon strategy, only the first elements of the optimal control sequences are applied to the process, namely ∆uc(t) and 
+
+∆uv(t). Following the classical feedforward-feedback architecture introduced in Section 2, and particularly the control structure described by (1), the final manipulated variable is obtained as the combination of two independently computed control contributions: a feedback-oriented predictive action and a feedforward-oriented predictive action. Therefore, the total control increment is given by 
+
+∆u(t) = ∆ uc(t) + ∆ uv(t). (41) In this way, the proposed formulation explicitly reproduces the decou-pled feedback-feedforward structure of classical feedforward compensation 17 (see Equation (1)), while embedding both actions into a unified MPC op-timisation framework. This formulation preserves the standard MPC capa-bilities for set-point tracking through uc, while enabling explicit feedforward compensation through uv without penalising control effort. This result is particularly relevant, as it enables the set-point tracking and measurable dis-turbance rejection problems to be explicitly decoupled and independently designed within the same MPC framework, which is not possible using con-ventional MPC formulations. Consequently, the proposed methodology over-comes one of the main structural limitations of standard MPC algorithms, where both objectives are intrinsically coupled through a single cost function and a common control action. Although the proposed formulation enables an explicit decoupling be-tween the set-point tracking and disturbance rejection problems, complete disturbance compensation is not automatically guaranteed yet. As previ-ously discussed, pure feedforward behaviour requires aggressive control ac-tions that are typically attenuated by the control effort penalisation em-bedded in the MPC objective function. Therefore, the feedforward-oriented component must be specifically designed to recover the behaviour of a clas-sical feedforward compensator. Following the ideas presented in [5, 6], pure feedforward disturbance rejec-tion can be recovered by formulating the feedforward-oriented control prob-lem as a regulation-to-zero problem and eliminating the control effort penal-isation associated with this component. To this end, the reference trajectory associated with the disturbance compensation problem is set to zero, that is, 
+
+wv = 0, while the corresponding control effort weighting matrix is removed, 
+
+Qλv = 0.Under these assumptions, the feedforward-oriented control action given by (38) and (40) becomes 
+
+u⋆v = −Kvfv = −(GT G)−1GT fv, (42) where 
+
+Kv = ( GT G)−1GT (43) corresponds to the least-squares inverse of the dynamic matrix. In the partic-ular case where G is square and nonsingular, the previous expression reduces to 
+
+u⋆v = −G−1fv, (44) 18 which explicitly reveals the classical feedforward compensation structure based on process inversion, as will be presented in more detail in the next subsec-tions. This ideal inversion case is assumed throughout the present work for further analysis and to better show the proposed methodology. As can be observed, the feedforward-oriented component is exclusively driven by the process model together with past and predicted measurable disturbance information embedded in fv, while no feedback information from the plant is incorporated into its formulation. Consequently, the resulting control action is computed in open loop and no longer depends on tracking objectives or control effort minimisation. This behaviour directly reproduces the anticipative nature of a classical feedforward compensator, while remain-ing systematically integrated within the MPC framework. Considering the formulation of the free response terms for the different MPC algorithms described in the previous section in (44), it can be verified that the proposed feedforward-oriented component naturally recovers a struc-ture analogous to that of a classical feedforward compensator. In particular, substituting the corresponding free-response expression into the feedforward control law yields a formulation that explicitly separates the process dynam-ics from the disturbance dynamics. In contrast, the feedback MPC component preserves the conventional formulation: 
+
+u⋆c = Kc(wc − fc), (45) thereby retaining the closed-loop properties associated with set-point track-ing, robustness, and constraint handling. The final manipulated variable is therefore obtained by combining a feedback-oriented MPC action and a pure feedforward compensation term. Notice that another important advantage of the proposed methodology is that, unlike classical feedforward compensation schemes, the intrinsic con-straint handling capabilities of MPC can be naturally exploited to manage the interaction between the feedback and feedforward control actions in a systematic and coupled manner. As presented previously in (41), both con-trol components are combined to generate the final manipulated variable. Consequently, actuator constraints can be directly imposed on the resulting control action, allowing both control components to cooperate while respect-ing process limitations. For instance, input saturation constraints can be formulated as 
+
+umin ≤ u(t − 1) + ∆ uc(t) + ∆ uv(t) ≤ umax . (46) 19 Similarly, slew rate constraints can be incorporated as 
+
+∆umin ≤ ∆uc(t) + ∆ uv(t) ≤ ∆umax . (47) These constraints are imposed on the combined control action rather than on each individual component, allowing the optimisation process to system-atically coordinate the contribution of the feedback and feedforward terms along the prediction horizon. This feature is particularly relevant in situa-tions where feedforward inversion problems arise or aggressive feedforward actions may drive the manipulated variable towards saturation. In such cases, the proposed MPC formulation naturally resolves the interaction between both control objectives while preserving feasibility and respecting actuator limitations. Moreover, beyond input magnitude and slew rate limitations, any classical MPC constraint can be naturally incorporated into the proposed methodol-ogy by formulating it over the combined feedback-feedforward control action. This includes, for instance, output constraints, soft constraints, terminal con-straints, state constraints in state-space formulations, and operating region limitations commonly encountered in process control applications [3]. 
+
+3.2. Application to DMC 
+
+For the DMC formulation, the proposed methodology presented in the previous section is obtained by decomposing the free response into a feedback-oriented component and a feedforward-oriented component according to 
+
+fc = Gpup,c + Ly(t), (48) 
+
+fv = Gpup,v + Lˆy(t) + Hv + Hpvp, (49) where the feedforward free response, fv, is constructed exclusively from the process model and measurable disturbance information, without incorporat-ing plant feedback measurements. Hence, ˆy(t) denotes the current model-based output prediction replacing the measured process output in the feed-forward path. Substituting (49) into the feedforward control law (44) leads to 
+
+u⋆v = −G−1Gpup,v − G−1Lˆy(t) − G−1Hv − G−1Hpvp
+
+| {z }
+
+> feedforward
+
+, (50) where the last two terms explicitly recover the structure of a classical feed-forward compensator. The disturbance-to-output dynamics, represented by 20 H and Hp, are effectively compensated through inversion of the process dy-namics represented by G. Meanwhile, the first two terms account for the internal evolution of the feedforward action, including the contribution of past feedforward control moves and the model-based prediction. When future disturbance information is unavailable, the preview term vanishes, i.e., v = 0, and only the contribution associated with vp remains. In this situation, the proposed feedforward-oriented action becomes equiv-alent to a classical feedforward compensator relying solely on the currently available measurable disturbance signal. 
+
+3.3. Application to GPC 
+
+The extension to the GPC algorithm follows the same rationale. In this case, the feedback-oriented and feedforward-oriented free responses become 
+
+fc = Gpup,c + Sy p, (51) 
+
+fv = Gpup,v + Sˆ yp + Hv + Hpvp, (52) where the measured output sequence yp is replaced in the feedforward path by the model-based prediction sequence ˆyp, thereby preserving the open-loop nature of the feedforward component. Substituting (52) into (42) yields 
+
+u⋆v = −G−1Gpup,v − G−1Sˆ yp − G−1Hv + G−1Hpvp
+
+| {z }
+
+> feedforward
+
+, (53) where the same feedforward compensation structure identified for DMC is recovered. The last two terms represent the inversion of the disturbance-to-output dynamics through the process dynamics, whereas the first two terms account for the internal dynamic contribution of the feedforward-oriented controller based on the past information and model-based prediction. Likewise, when future disturbance information is unavailable, the preview contribution vanishes, and the resulting formulation reduces to a feedforward compensator driven only by the currently measurable disturbance signal. 
+
+3.4. Application to the state-space MPC 
+
+Assuming that the system states are completely observable, when the proposed methodology is applied to the state-space MPC formulation, the 21 free responses fc and fv are obtained from the augmented state model as 
+
+fc = Φx a,c (t), (54) 
+
+fv = Φˆ xa,v (t) + Hv , (55) where xa,c (t) corresponds to the augmented state vector employed by the feedback-oriented MPC component, constructed from the current plant mea-surements, while ˆxa,v (t) represents the augmented state used by the feed-forward component. The latter is propagated using the process model and measurable disturbance information only, without incorporating feedback in-formation from the plant output. In this way, the feedforward component preserves its open-loop nature while still accounting for the dynamic evolu-tion of the process. Substituting (55) into the feedforward control law (42) yields 
+
+u⋆v = −G−1Φˆ xa,v (t) − G−1Hv | {z }
+
+> feedforward
+
+, (56) where a classical feedforward compensation structure can again be identified. The future contribution of the measurable disturbance, represented by Hv , is effectively compensated through inversion of the control-to-output dynamics represented by G, with opposite sign. This reproduces the same fundamen-tal structure observed in conventional feedforward compensators based on process inversion. In the state-space formulation, the effect of past feedforward control ac-tions, measurable disturbances, and the internal process model estimation is implicitly embedded in the augmented feedforward state vector, ˆxa,v (t),according to its definition in (19). Consequently, the information required to sustain the feedforward action over time is internally accessible through the state representation, without requiring explicit terms associated with past control increments or disturbance values, as occurs in DMC and GPC for-mulations. Therefore, the feedforward control component remains entirely determined by the process model and measurable disturbance information, while preserving its open-loop nature and avoiding the incorporation of plant feedback measurements. Moreover, when future disturbance information is unavailable, the dis-turbance preview vector becomes v = 0. In this situation, the feedforward-oriented MPC action is determined by the internal augmented feedforward state, ˆxa,v (t), which already contains the effects of past disturbance values 22 and feedforward control actions. Hence, the resulting behaviour becomes equivalent to that of a classical feedforward compensator operating without disturbance preview, where only the currently available measurable distur-bance information is exploited. 
+
+4. Simulation study 
+
+This section presents two simulation studies to show the capabilities of the proposed methodology and to compare it with conventional MPC algorithms and classical feedforward schemes. First, a linear example is selected to illus-trate the main advantages in perfect cancellation, constraint handling, and inversion problems. After that, a nonlinear process using a reverse osmosis unit is selected to evaluate the algorithms beyond nominal linear conditions. Since all MPC formulations presented in this paper yield equivalent nomi-nal responses under the same prediction model and tuning conditions, the simulation results in this section are based on the GPC algorithm as a rep-resentative benchmark. The corresponding implementations for the three MPC formulations are publicly available on GitHub [11], enabling full repro-ducibility of the results and facilitating further comparative studies. The performance of the different control strategies was evaluated using the Integral Absolute Error (IAE) according to: 
+
+IAE =
+
+> N
+
+X
+
+> k=1
+
+|r(k) − y(k)|. (57) In order to provide a more detailed analysis of the different operating conditions considered in the dynamic simulations, four different IAE indices were computed. Specifically, IAE Ref evaluates the response associated with the set-point tracking task, IAE Dis quantifies the measurable disturbance rejection performance, IAE Mix evaluates the simultaneous disturbance rejec-tion and set-point tracking scenario, respectively, and IAE Tot represents the overall accumulated error over the complete simulation horizon. 
+
+4.1. Linear example 
+
+In order to evaluate the proposed methodology under different feedfor-ward compensation conditions, a comparative simulation study for a linear process is used considering three representative scenarios: (i) an ideal mea-surable disturbance rejection scenario, (ii) an input-constrained feedforward 23 compensation scenario, and (iii) a non-invertible feedforward compensation scenario. The objective of these case studies is to analyse the ability of the proposed formulation to recover classical feedforward behaviour under ideal conditions, as well as to assess its performance when practical limitations such as actuator constraints and feedforward inversion problems are present. For all scenarios, the same dynamic simulation sequence was considered in order to facilitate a consistent comparison among the different control strate-gies. The simulations were performed over 180 sampling instants. A set-point change was introduced at time instant 30, followed by a measurable distur-bance at instant 60. Subsequently, a second measurable disturbance was applied at instant 130 together with an additional set-point change, thereby creating a more demanding operating condition where disturbance rejection and set-point tracking objectives must be simultaneously addressed. Four different control strategies were evaluated and compared: (i) a con-ventional GPC controller combined with an external classical feedforward compensator (denoted as External FF), using a non-aggressive controller tun-ing with control weighting factor λ = 1 ; (ii) a classical intrinsic feedforward GPC formulation with the same controller tuning, i.e., λ = 1 , (denoted as Internal FF); (iii) the same intrinsic feedforward GPC formulation using an aggressive controller tuning with λ = 0 (referred to as Internal FF ( λ = 0 )); and (iv) the proposed extended feedforward GPC formulation (denoted as EF-GPC), where the feedback-oriented component employed the same non-aggressive tuning configuration with λc = 1 , while the feedforward-oriented component was configured with λv = 0 in order to recover pure feedforward compensation behaviour. For all predictive controllers, a sampling time of 
+
+Ts = 1 s was adopted. The prediction and control horizons were selected as 
+
+N = Nu = 60 .
+
+4.1.1. Ideal measurable disturbance rejection scenario 
+
+The first considered case corresponds to the ideal measurable disturbance rejection scenario, where perfect feedforward compensation is theoretically achievable. To this end, the process and disturbance dynamics were selected such that no model inversion problems, non-minimum phase dynamics, or in-feasible delay relationships are present. The process and disturbance transfer 24 functions are given by: 
+
+Pu(s) = 110 s + 1 e−10 s, (58) 
+
+Pv(s) = 0.85s + 1 e−15 s, (59) where the disturbance transfer function exhibits a larger delay than the manipulated-input transfer function, thereby allowing the feedforward com-pensator to be implemented in a realizable manner according to classical feedforward control theory. The results obtained from the corresponding simulation study are pre-sented in Figure 2. As observed, the External FF, Internal FF, and EF-GPC strategies exhibit identical responses during the first set-point change. This behaviour is expected, as all these controllers use the same non-aggressive tuning configuration. In contrast, the Internal FF ( λ = 0 ) strategy achieves perfect set-point tracking due to the absence of control-effort penalisation, al-though at the expense of a significantly more aggressive control action, mak-ing this configuration unsuitable for most practical implementations given actuator and operational constraints. Regarding disturbance rejection, around simulation instant 60, it can be observed that all strategies achieve perfect disturbance compensation in this ideal scenario except the conventional Internal FF formulation (see Zoom 1, Zoom 2, and Zoom 3). In this case, the use of a common tuning parameter for both the set-point tracking and disturbance rejection objectives intro-duces a compromise between both control tasks, thereby deteriorating the disturbance rejection performance. Finally, when a measurable disturbance and a set-point change are si-multaneously introduced at instant 130, the proposed EF-GPC formulation preserves the same perfect disturbance rejection and set-point tracking per-formance achieved by the External FF strategy. This result highlights the ability of the proposed methodology to explicitly decouple both control ob-jectives while maintaining the nominal MPC tuning for the feedback-oriented component. The quantitative performance indices associated with the previous sim-ulation study are summarized in Table 2. As expected from the responses shown in Figure 2, the proposed EF-GPC formulation achieves exactly the same performance indices as the classical External FF strategy in all evalu-ated operating conditions. In contrast, the conventional Internal FF strategy 25 Figure 2: Comparative simulation results for the ideal measurable disturbance rejection scenario 
+
+26 presents a significant degradation in the disturbance rejection performance, leading to considerably larger values of IAE Dis , IAE Mix , and consequently IAE Tot . This behaviour is directly associated with the intrinsic compromise introduced by the use of a single tuning parameter to simultaneously ad-dress tracking and disturbance rejection objectives. Finally, the Internal FF (λ = 0 ) configuration achieves zero error in all scenarios due to the absence of control penalisation. However, this behaviour is obtained at the expense of highly aggressive control actions and reduced robustness margins, making such tuning impractical for real applications. 
+
+> Table 2: Comparison of performance indices for the ideal measurable disturbance rejection scenario.
+
+Strategy IAE Ref IAE Dis IAE Mix IAE Total 
+
+EF-GPC 0.230 0.000 0.230 0.460 External FF 0.230 0.000 0.230 0.460 Internal FF 0.246 0.635 0.980 1.861 Internal FF ( λ = 0 ) 0.000 0.000 0.000 0.000 Overall, these results demonstrate that the proposed EF-GPC formu-lation is capable of reproducing the same ideal disturbance rejection per-formance achieved by a classical external feedforward compensator used in industry, while simultaneously preserving a smooth set-point tracking be-haviour. This result is particularly significant since the proposed methodol-ogy is directly inspired by the classical feedforward-feedback control struc-ture, but explicitly decouples the tracking and disturbance rejection objec-tives within the predictive control framework. 
+
+4.1.2. Input-constrained feedforward compensation scenario 
+
+The second considered case analyses the behaviour of the different con-trol strategies when actuator limitations are explicitly taken into account. To this end, the same process and disturbance dynamics considered in the previous subsection were retained, while an input saturation constraint was incorporated into the control problem according to: 
+
+−1.3 ≤ u(t) ≤ 1.3. (60) 27 The results obtained from the corresponding simulation study are pre-sented in Figure 3. In this second scenario, a larger set-point change was introduced in comparison with the previous case in order to establish an op-erating point close to input saturation. Despite this modification, the overall closed-loop responses remain qualitatively similar to those obtained in the ideal unconstrained scenario. The main differences appear during the measurable disturbance rejection stage, particularly when comparing the proposed EF-GPC formulation with the classical External FF strategy. As can be observed, the proposed EF-GPC approach achieves a fast disturbance rejection (Zoom 1) while properly handling the input saturation constraints (Zoom 2), taking advantage of the inherent capability of predictive controllers to explicitly manage constrained control actions. In contrast, in the External FF strategy, the feedforward compensator drives the control action into saturation, after which the feed-back controller must subsequently compensate for the remaining error (Zoom 3). As a consequence, both control contributions operate in a completely de-coupled manner, generating conflicting control actions. This behaviour can be clearly appreciated in the figure showing the individual contributions of 
+
+uc and uv. The same figure illustrates that, in the proposed EF-GPC formu-lation, the disturbance rejection task is entirely handled by the feedforward-oriented contribution uv, while the feedback-oriented component preserves the nominal tracking behaviour (see Zoom 3). Finally, during the simul-taneous disturbance and set-point change scenario, similar results to those obtained in the previous case were observed. The quantitative performance indices associated with the constrained sce-nario are summarized in Table 3. The obtained results confirm the conclu-sions previously observed in Figure 3. In particular, the proposed EF-GPC formulation achieves a significantly lower disturbance rejection error than the classical External FF strategy, reducing IAE Dis from 0.264 to 0.020 while preserving an identical tracking performance. Consequently, the overall per-formance index IAE Tot is also notably improved. These results clearly illus-trate the advantage of integrating the feedforward compensation mechanism directly within the predictive control framework, allowing the controller to explicitly coordinate the disturbance rejection and tracking objectives under constrained operating conditions. In contrast, the classical External FF strategy suffers from the decou-pled nature of the feedforward and feedback actions, leading to input satura-tion and a subsequent deterioration of the disturbance rejection performance. 28 Figure 3: Comparative simulation results for the input-constrained feedforward compen-sation scenario 
+
+Similarly, the conventional Internal FF formulation exhibits the worst overall performance due to the compromise imposed by the use of a single tuning parameter for both objectives. These results demonstrate that the proposed EF-GPC formulation is capable of completely decoupling the feedback-oriented and feedforward-oriented control actions, while simultaneously exploiting the inherent advan-tages of predictive controllers for explicit constraint handling in comparison with classical external feedforward compensation schemes. Moreover, the proposed strategy achieves the same ideal disturbance rejection performance as the classical Internal FF ( λ = 0 ), while preserving an independent and non-aggressive tuning for the set-point tracking objective. This feature con-stitutes one of the main advantages of the proposed methodology, since it 29 Table 3: Comparison of performance indices for the input-constrained feedforward com-pensation scenario. 
+
+Strategy IAE Ref IAE Dis IAE Mix IAE Tot 
+
+EF-GPC 0.206 0.020 0.206 0.431 External FF 0.206 0.264 0.206 0.675 Internal FF 0.213 0.572 1.635 1.635 Internal FF ( λ = 0 ) 0.000 0.020 0.000 0.020 allows both control objectives to be addressed independently without sacri-ficing nominal closed-loop behaviour or disturbance rejection capabilities. 
+
+4.1.3. Non-invertible feedforward compensation scenario 
+
+The third considered case corresponds to a non-invertible feedforward compensation scenario, where perfect disturbance rejection is no longer the-oretically achievable. In this case, the process and disturbance dynamics are given by: 
+
+Pu(s) = 110 s + 1 e−15 s, (61) 
+
+Pv(s) = 0.85s + 1 e−10 s, (62) where the manipulated-input transfer function exhibits a larger delay than the disturbance transfer function. Consequently, the disturbance affects the process output before the manipulated variable can compensate for its ef-fect, leading to a non-causal feedforward compensator according to classical feedforward control theory. The results obtained from the corresponding sim-ulation study are presented in Figure 4, where no constraints were considered in this case. In this scenario, the set-point tracking responses are very similar to those obtained in the first considered case. The main differences again appear during the disturbance rejection stage. In this case, the classical external feedforward compensator cannot be fully implemented to achieve perfect dis-turbance cancellation due to the non-causal nature of the required inversion. Consequently, the External FF strategy was implemented neglecting the de-lay mismatch between the process and disturbance dynamics. As a result, 30 Figure 4: Comparative simulation results for the non-invertible feedforward compensation scenario 
+
+the feedforward action is no longer capable of completely rejecting the mea-surable disturbance (Zoom 1) and, therefore, the feedback controller must subsequently compensate for the remaining error (Zoom 3). This behaviour causes the feedforward and feedback actions in the External FF strategy to operate independently, as can be clearly observed in the figure showing the individual contributions of uc and uv (Zoom 3). In contrast, in the proposed EF-GPC formulation, the inversion-related limitations are intrinsically handled within the internal predictive model of the controller. As can be observed, the feedforward-oriented contribution 
+
+uv is capable of entirely compensating the measurable disturbance (Zoom 3), achieving a disturbance rejection performance identical to the ideal case represented by the Internal FF ( λ = 0 ) strategy (see Zoom 1), while simul-31 taneously preserving the tracking-oriented component fully decoupled from the disturbance rejection task. Finally, when a simultaneous set-point change and measurable disturbance are introduced, similar limitations can again be observed in the classical External FF strategy, whereas the proposed formu-lation preserves a significantly better coordinated closed-loop response. The quantitative performance indices reported in Table 4 further confirm the conclusions extracted from the dynamic responses. In particular, the proposed EF-GPC formulation achieves the same set-point tracking perfor-mance as the classical External FF strategy, while substantially improving the disturbance rejection capability under non-invertible conditions. Specifi-cally, the proposed methodology reduces IAE Dis from 2.749 to 0 and decreases the overall performance index IAE Tot from 10.69 to 0.412, corresponding to a reduction of approximately 96%. These results clearly demonstrate the capability of the proposed predictive formulation to properly coordinate the feedforward and feedback actions while intrinsically handling the limitations associated with non-invertible feedforward compensation. In contrast, both the classical External FF and the conventional Internal FF strategies exhibit a significant deterioration in the disturbance rejection performance due to the delay mismatch between the manipulated-input and disturbance dynamics and the coupled tuning, respectively. Finally, although the Internal FF ( λ = 0 ) strategy theoretically achieves perfect rejection, such behaviour is again obtained at the expense of highly aggressive and unrealistic control actions. 
+
+> Table 4: Comparison of performance indices for the non-invertible feedforward compensa-tion scenario
+
+Strategy IAE Ref IAE Dis IAE Mix IAE Tot 
+
+EF-GPC 0.206 0.000 0.206 0.412 External FF 0.206 2.749 7.734 10.690 Internal FF 0.256 0.597 0.777 1.629 Internal FF ( λ = 0 ) 0.000 0.000 0.000 0.000 
+
+4.2. Reverse Osmosis case study 
+
+To further assess the applicability of the proposed embedded feedforward formulation beyond the nominal linear examples, the EF-GPC strategy is 32 evaluated in a nonlinear process simulation. The selected process is a re-verse osmosis (RO) unit, a membrane-based separation process in which a pressurised saline feed stream is forced through a semi-permeable membrane. Water permeates through the membrane, whereas most of the dissolved salt is retained in the brine stream. The manipulated variable is the feed pressure, 
+
+Pf , and the measured disturbance is the feed salinity, Cin . The controlled output is the permeate flow rate, Qp, expressed in m3/h. In this process, variations in feed salinity modify the osmotic pressure and directly affect the net driving force through the membrane, making measurable disturbance compensation especially relevant. A schematic representation of the reverse-osmosis system and the associated control structure is shown in Figure 5. 
+
+> Figure 5: Schematic diagram of the RO system.
+
+The nonlinear reverse-osmosis model used to simulate the plant is based on the classical solution–diffusion transport mechanism commonly employed in reverse-osmosis modelling. Similar dynamic formulations can be found in 33 the literature [12]. The resulting low-order model is described by: 
+
+Qp(t)
+
+dt = −Qp(t) + AmJw(t)
+
+τp
+
+, (63) 
+
+Cm(t)
+
+dt = Qf Cin (t) − Qb(t)Cm(t) − Qp(t)Cp(t)
+
+V , (64) in which 
+
+Jw(t) = Lp
+
+ Pf (t) − Pp − kπ
+
+ Cm(t) − C⋆p (t) , (65) 
+
+Cp(t) = Bs
+
+Jw(t) + Bs
+
+Cm(t), (66) 
+
+Qb(t) = Qf − Qp(t), (67) where Cm(t) is the average membrane salinity, Cp(t) is the permeate salinity, 
+
+Jw(t) is the water flux, and Qb(t) is the brine flow rate. The osmotic-pressure term is computed using C⋆p (t) = 0 .02 Cm(t). The description and values of the model parameters employed in the simulations are summarized in Table 5. 
+
+> Table 5: Parameters of the nonlinear reverse-osmosis model used in simulation.
+
+Parameter Value Description 
+
+V 0.02 m 3 Tank volume 
+
+Am 8 m 2 Membrane area 
+
+Lp 4.0 × 10 −7 m/(s bar) Water permeability coefficient 
+
+Bs 2.0 × 10 −6 m/s Salt permeability coefficient 
+
+kπ 0.06 bar /(g /L) Osmotic-pressure coefficient 
+
+Pp 1 bar Permeate pressure 
+
+Qf 1.2 × 10 −4 m3/s Feed flow rate 
+
+τp 400 s Permeate flow time constant The GPC controllers are formulated from the linear model obtained by linearising the nonlinear plant around the nominal operating point given by Table 5. The transfer function from the manipulated variable to the controlled output is 
+
+Pu(s) = Qp(s)
+
+Pf (s) = 10 .1 × 10 −3(784 .74 s + 1) 2.7617 × 10 5s2 + 1 .0478 × 10 3s + 1 . (68) 34 Similarly, the transfer function from the measured disturbance to the con-trolled output is 
+
+Pv(s) = Qp(s)
+
+Cin (s) = 2.8 × 10 −3
+
+2.7617 × 10 5s2 + 1 .0478 × 10 3s + 1 . (69) Simulation considered a sample time of Ts = 60 s, and the horizons N =30 , and Nu = 12 , based on the equivalent system time-constant τeq = 527 s. Similar to Section 4, the goal is to compare four predictive strategies: a stan-dard GPC without feedforward action, the Internal FF GPC formulations with different values of λ (λ = 0 and λ = 1 ), and the proposed EF-GPC with 
+
+λc = 1 and λv = 0 .The results of the simulation are shown in Figure 6. In the first interval (Zoom 1), a large salinity disturbance (see grey signal at the bottom plot of Figure 6) is applied at the linearisation operating point. In this case, both EF-GPC and the internal feedforward strategy with λ = 0 almost completely reject the disturbance, as expected from their more aggressive disturbance-compensation behaviour. However, the main drawback of the 
+
+λ = 0 strategy becomes evident when a reference change is introduced (Zoom 2). Since the input component is no longer attenuated, the resulting control action becomes excessively aggressive, surpassing the imposed ∆u limit and producing a highly oscillatory output response. In contrast, EF-GPC and the other regularised strategies provide smoother closed-loop behaviour during the reference-tracking interval. The last intervention considers a disturbance and a reference change oc-curring simultaneously (Zoom 3). Under this more demanding condition, EF-GPC preserves a response very similar to that obtained during the pure reference-change test, indicating that the measurable disturbance is effec-tively rejected while the tracking task is maintained. The Internal FF with 
+
+λ = 0 strategy is also almost perfect in terms of disturbance rejection in this interval, but its previous oscillatory behaviour highlights its lack of robust-ness as a general tuning choice. As expected, the standard GPC and the Internal FF GPC with λ = 1 are slower in this interval because they do not fully compensate for the measurable disturbance. Table 6 summarises the IAE results obtained for the evaluated strategies. EF-GPC achieved the best overall performance, reducing the total IAE by 43.6% compared to conventional GPC and by 33.6% relative to the Internal FF strategy with λ = 1 . For the disturbance-rejection interval, EF-GPC and the Internal FF with λ = 0 obtained almost complete rejection (0.0002). 35 Figure 6: Comparison of the RO nonlinear case study under disturbance and reference changes. 
+
+However, during the reference-tracking interval, the Internal FF with λ = 0 
+
+strategy produced the worst performance (IAE = 0.0709) due to the oscil-latory behaviour caused by input increment limits. On the other hand, the EF-GPC preserved the same tracking performance as conventional GPC and the Internal FF with λ = 1 formulation (IAE ≈ 0.0232). In the combined disturbance and reference-change interval, EF-GPC re-duced the IAE by 48.9% and 42.9% relative to conventional GPC and the 
+
+λ = 1 strategy, respectively. These results show that EF-GPC preserves the strong disturbance-rejection capability of the aggressive λ = 0 feedforward formulation while maintaining the smooth reference-tracking behaviour of the regularised predictive controllers. 36 Table 6: Comparison of performance indices for different controllers under disturbance (Dist) and set-point tracking (Track) scenarios. 
+
+Strategy IAE Ref IAE Dis IAE Mix IAE Tot 
+
+GPC (no FF) 0.0169 0.0232 0.0141 0.0621 Internal FF ( λ = 1 ) 0.0087 0.0232 0.0126 0.0527 Internal FF ( λ = 0 ) 0.0002 0.0709 0.0007 0.0724 EF-GPC ( λc = 1 , λv = 0 ) 0.0002 0.0232 0.0072 0.0350 
+
+5. Conclusions 
+
+This work has presented a novel methodology for systematically embed-ding feedforward capabilities into MPC algorithms. Although measurable disturbances can be explicitly incorporated into standard MPC prediction models, complete disturbance rejection cannot generally be achieved because the control effort penalty inherently limits the aggressive control actions re-quired for perfect compensation. As a consequence, conventional MPC for-mulations are unable to fully reproduce the behaviour of classical feedforward compensators. The proposed EF-GPC decompose the control action into two comple-mentary components. The first component preserves the conventional MPC objectives associated with set-point tracking, robustness, and constraint han-dling, while the second component is specifically devoted to measurable disturbance rejection and is formulated without penalising control effort. This structure enables the recovery of the anticipative behaviour of classical feedforward compensation while retaining the optimisation and constraint-handling capabilities of MPC. An important advantage of the proposed methodology is that feedforward and feedback objectives can be designed independently and subsequently co-ordinated through a single optimisation framework. Unlike classical feed-forward schemes, actuator saturation, rate constraints, and other standard MPC constraints can be systematically imposed on the combined control ac-tion, allowing the interaction between the two components to be naturally managed by the optimiser. The simulation results showed that the feedforward-oriented predictive action can recover the disturbance-compensation performance of classical 37 feedforward controllers while preserving the desirable closed-loop proper-ties of MPC. Furthermore, the reverse osmosis case study demonstrated the methodology’s practical applicability in a realistic process control scenario, highlighting its ability to enhance disturbance rejection without compromis-ing tracking performance or constraint satisfaction. The developments presented in this work have intentionally focused on the nominal case to clearly establish the proposed methodology and to analyse its feedforward properties. Future research will address robustness and stability aspects in the presence of model uncertainty, disturbance prediction errors, and plant-model mismatch. 
+
+Acknowledgments 
+
+This work has been financed by the following projects: PID2023-150739OB-I00 and PDC2025-165379-I00 financed by the Spanish Ministry of Science. 
+
+References 
+
+[1] T. Hägglund, Process Control in Practice, Walter de Gruyter GmbH & Co KG, 2023. [2] J. L. Guzmán, T. Hägglund, Feedforward Control: Analysis, Design, Tuning rules, and Implementation, Walter de Gruyter GmbH & Co KG, 2024. [3] E. F. Camacho, C. Bordons, J. M. Maestre, Model Predictive Control, Advanced Textbooks in Control and Signal Processing, 3 ed., Springer Cham, 2026. [4] N. Li, H. Chen, M. Li, S. Yu, Y. Huang, Model predictive control: past, present, and future, Control Theory and Technology (2026) 1–21. doi: 10.1007/s11768-026-00320-x .[5] A. Pawlowski, J. L. Guzmán, J. Normey-Rico, M. Berenguel, Im-proving feedforward disturbance compensation capabilities in general-ized predictive control, Journal of Process Control 22 (2012) 527–539. doi: 10.1016/j.jprocont.2012.01.010 .38 [6] A. Pawlowski, C. Rodríguez, J. L. Guzmán, M. Berenguel, S. Dormido, Predictive feedforward compensator for dead-time processes, IFAC-PapersOnLine 50 (2017) 1239–1244. doi: 10.1016/j.ifacol.2017.08. 348 , 20th IFAC World Congress. [7] I. M. L. Pataro, J. D. Gil, M. V. Americano da Costa, J. L. Guzmán, M. Berenguel, A stabilizing predictive controller with implicit feedfor-ward compensation for stable and time-delayed systems, Journal of Pro-cess Control 115 (2022) 12–26. doi: 10.1016/j.jprocont.2022.04.017 .[8] I. M. L. Pataro, J. D. Gil, J. L. Guzmán, J. M. Lemos, Performance study of disturbance rejection in linear quadratic controllers: A prac-tical adaptive tuning method (in Spanish), Revista Iberoamericana de Automática e Informática industrial (2023). doi: 10.4995/riai.2023. 19703 .[9] D. S. Carrasco, G. C. Goodwin, Feedforward model predictive con-trol, Annual Reviews in Control 35 (2011) 199–206. doi: 10.1016/j. arcontrol.2011.10.007 .[10] G. C. Goodwin, D. S. Carrasco, D. Q. Mayne, M. E. Salgado, M. M. Serón, Preview and feedforward in model predictive control: Conceptual and design issues, IFAC Proceedings Volumes 44 (2011) 5555–5560. doi: 10.3182/20110828-6-IT-1002.02298 .[11] J. L. Guzmán, I. Pataro, J. D. Gil, M. Berenguel, EF-MPC: MAT-LAB implementations of extended feedforward MPC algorithms, 2026. URL: https://github.com/guzmanjl/EF-MPC , companion code for: “Unlocking feedforward capabilities in Model Predictive Control algo-rithms to deal with measurable disturbances”. [12] T. Zhao, R. Niu, M. Su, T. Anderson, Steady state and dynamic mod-eling of RO desalination modules and system using EES, in: 2011 IEEE International Conference on Robotics and Automation, IEEE, 2011, pp. 1–4. 39

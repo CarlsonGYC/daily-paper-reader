@@ -6,34 +6,43 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-07
-- 运行时间：2026-06-07 21:25:26 UTC
+- 最新运行日期：2026-06-08
+- 运行时间：2026-06-08 22:01:58 UTC
 - 运行状态：成功
-- 本次总论文数：4
-- 精读区：2
-- 速读区：2
+- 本次总论文数：7
+- 精读区：4
+- 速读区：3
 
 ### 今日简报（AI）
-今日精读了两项高分研究：无人机6G网络中的数字孪生辅助智能资源调度与自博弈学会的灵巧泊车。  
-最值得跟进的发现是，用数字孪生+多智能体强化学习可大幅提升6G频谱效率，而自博弈训练的泊车模型能像人类一样灵活应对突发状况。  
-建议关注这些技术如何在智慧城市中联调落地，尤其留意无人机基站与自动驾驶的协同实验。
-- 详情：[/202606/07/README](/202606/07/README)
+今日精读两篇高分论文，聚焦数据驱动预测控制与分布式能源聚合。  
+最值得关注：融合积分二次约束的数据驱动最小最大MPC，以及分布式资源聚合器预测控制实现净需求平衡。  
+建议读者深入这两篇9分论文，把握鲁棒控制与能源调度前沿。
+- 详情：[/202606/08/README](/202606/08/README)
 
 ### 精读区论文标签
-1. [Digital Twin-Assisted Adaptive Multi-Agent DRL for Intelligent Spectrum and Resource Management in Open-RAN UAV-Enabled 6G Networks](/202606/07/2606.01324v1-digital-twin-assisted-adaptive-multi-agent-drl-for-intelligent-spectrum-and-resource-management-in-open-ran-uav-enabled-6g-networks)  
-   标签：评分：8.0/10、query:marl-robot
-   evidence：数字孪生辅助的自适应多智能体深度强化学习用于UAV支持的6G网络
-2. [CoPark: Learning Reactive Parking via Self-Play](/202606/07/2606.04149v1-copark-learning-reactive-parking-via-self-play)  
-   标签：评分：8.0/10、query:marl-robot
-   evidence：多智能体自博弈强化学习实现反应式自主泊车
+1. [Data-Driven Min-Max MPC with Integral Quadratic Constraints](/202606/08/2606.01194v1-data-driven-min-max-mpc-with-integral-quadratic-constraints)  
+   标签：评分：9.0/10、query:mppi
+   evidence：提出一种考虑不确定性的数据驱动min-max MPC约束处理方法
+2. [Forecast and Model Predictive Control of Distributed Energy Resource Aggregators for Net-Demand Balancing](/202606/08/2606.06932v1-forecast-and-model-predictive-control-of-distributed-energy-resource-aggregators-for-net-demand-balancing)  
+   标签：评分：9.0/10、query:mppi
+   evidence：结合MPC与虚拟电池约束进行分布式能源聚合
+3. [Unlocking feedforward capabilities in Model Predictive Control algorithms to deal with measurable disturbances](/202606/08/2606.07208v1-unlocking-feedforward-capabilities-in-model-predictive-control-algorithms-to-deal-with-measurable-disturbances)  
+   标签：评分：9.0/10、query:mppi
+   evidence：提出了一种新颖的MPC框架，在考虑约束的同时嵌入前馈能力
+4. [Shield-Loco: Shielding Locomotion Policies with Predictive Safety Filtering](/202606/08/2606.07193v1-shield-loco-shielding-locomotion-policies-with-predictive-safety-filtering)  
+   标签：评分：8.0/10、query:mppi
+   evidence：基于采样的优化器异步搜索更安全的接触序列用于足式运动
 
 ### 速读区论文标签
-1. [Motion Planning in Dynamic Environments: A Survey from Classical to Modern Methods](/202606/07/2606.02677v1-motion-planning-in-dynamic-environments-a-survey-from-classical-to-modern-methods)  
-   标签：评分：6.0/10、query:mppi
-   evidence：动态环境运动规划综述，涵盖模型预测控制等方法
-2. [Neural Navigation Functions for Zero-Shot Generalizable Motion Planning](/202606/07/2606.03756v1-neural-navigation-functions-for-zero-shot-generalizable-motion-planning)  
-   标签：评分：6.0/10、query:mppi
-   evidence：线性可解最优控制解释与路径积分控制相关
+1. [Successive Convexification for Trajectory Optimization with Continuous-time Satisfaction of Signal Temporal Logic Specifications](/202606/08/2606.06896v1-successive-convexification-for-trajectory-optimization-with-continuous-time-satisfaction-of-signal-temporal-logic-specifications)  
+   标签：评分：7.0/10、query:mppi
+   evidence：使用逐次凸化的方法处理连续时间信号时序逻辑约束的轨迹优化
+2. [An End-to-End Encrypted Control Pipeline for Multi-Agent Coordination via CKKS Homomorphic Encryption](/202606/08/2606.07375v1-an-end-to-end-encrypted-control-pipeline-for-multi-agent-coordination-via-ckks-homomorphic-encryption)  
+   标签：评分：7.0/10、query:marl-robot
+   evidence：为多智能体系统提供保护隐私的端到端加密协调方案
+3. [Scaling Datasets for Multi-Sensor, Multi-Agent, and Multi-Domain Learning in Autonomous Systems](/202606/08/2606.04444v1-scaling-datasets-for-multi-sensor-multi-agent-and-multi-domain-learning-in-autonomous-systems)  
+   标签：评分：6.0/10、query:marl-robot
+   evidence：为多智能体自主系统训练提供模块化数据集生成流水线
 
 
 <div class="dpr-home-promo-card">
