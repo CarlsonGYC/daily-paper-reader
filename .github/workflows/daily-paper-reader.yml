@@ -64,6 +64,11 @@ jobs:
       SUMMARY_API_KEY: ${{ secrets.SUMMARY_API_KEY }}
       SUMMARY_BASE_URL: ${{ secrets.SUMMARY_BASE_URL }}
       SUMMARY_MODEL: ${{ secrets.SUMMARY_MODEL }}
+      SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SMTP_FROM: ${{ secrets.SMTP_FROM }}
       PYTHONUNBUFFERED: "1"
 
     steps:
@@ -295,3 +300,22 @@ jobs:
           git fetch origin "$branch"
           git rebase -X theirs "origin/$branch"
           git push origin HEAD:"$branch"
+
+      - name: Send run notification email
+        if: ${{ always() && env.SMTP_SERVER != '' && env.SMTP_PORT != '' && env.SMTP_USERNAME != '' && env.SMTP_PASSWORD != '' && env.SMTP_FROM != '' }}
+        continue-on-error: true
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ env.SMTP_SERVER }}
+          server_port: ${{ env.SMTP_PORT }}
+          username: ${{ env.SMTP_USERNAME }}
+          password: ${{ env.SMTP_PASSWORD }}
+          subject: "[daily-paper-reader] Workflow ${{ job.status }} - ${{ github.repository }}"
+          to: yichao_gao@u.nus.edu
+          from: ${{ env.SMTP_FROM }}
+          body: |
+            Workflow: ${{ github.workflow }}
+            Status: ${{ job.status }}
+            Branch: ${{ github.ref_name }}
+            Trigger: ${{ github.event_name }}
+            Run URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
